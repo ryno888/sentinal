@@ -6,11 +6,11 @@
 
 //general
 
-defined('CI_BASE_URL')          OR define('CI_BASE_URL', "http://localhost/codeigniter/"); 
+defined('CI_BASE_URL')          OR define('CI_BASE_URL', "http://localhost/sentinal/"); 
 defined('CI_NAME')              OR define('CI_NAME', "Codeigniter"); 
 
 //site db
-defined('DB_DATABASE')          OR define('DB_DATABASE', "loc_codeigniter"); 
+defined('DB_DATABASE')          OR define('DB_DATABASE', "loc_printq"); 
 defined('DB_HOST_NAME')         OR define('DB_HOST_NAME', "localhost"); 
 defined('DB_USERNAME')          OR define('DB_USERNAME', "root"); 
 defined('DB_PASSWORD')          OR define('DB_PASSWORD', "root"); 

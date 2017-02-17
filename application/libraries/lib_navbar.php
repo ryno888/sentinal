@@ -81,9 +81,9 @@ class lib_navbar {
         ], $options);
         
         $html = "
-             <li class='dropdown'>
+             <li class='dropdown cursor-pointer'>
                 <a class='dropdown-toggle' data-toggle='dropdown'>$label <b class='caret'></b></a>
-                <ul class='dropdown-menu' style='padding: 15px;min-width: 250px;'>
+                <ul class='dropdown-menu' style='padding: 15px; min-width: 250px;'>
                     <li>
                         <div class='row'>
                             <div class='col-md-12'>

@@ -12,3 +12,7 @@ error-wrapper.div.container{ margin-top:20px; }
 
 /*layout*/
 .footer-ext{position: fixed; bottom: 0; right: 0;  left: 0; background-color: #ff3333; height: 50px; background-image: linear-gradient(#1d9ce5, #2fa4e7 60%, #54b4eb); background-repeat: no-repeat;}
+
+.table>tbody>tr>td {
+    border-top: 1px solid #cecece !important;
+}

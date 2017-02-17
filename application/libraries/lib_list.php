@@ -69,7 +69,7 @@ class lib_list {
         array_unshift ($this->col_header_arr, "", "<th></th>");
         $this->action_arr[] = "
             <td class=''>
-                <button title='$label' class='btn btn-primary btn-xs' onclick=\"location.href = '{$url}?{$this->sql_key}=%{$this->sql_key}%'\">
+                <button title='$label' class='btn btn-primary btn-sm' onclick=\"location.href = '{$url}?{$this->sql_key}=%{$this->sql_key}%'\">
                     <i class='fa {$icon}' aria-hidden='true'></i>
                 </button>
             </td>";
@@ -192,11 +192,10 @@ class lib_list {
     //--------------------------------------------------------------------------
     public function add_new_btn($label = "Add", $onclick = "javascript:;"){
         $this->menu_arr[] = '
-            <div class="input-group-btn">
+            <div class="input-group-btn padding-right-5">
                 <button onclick="'.$onclick.'" class="btn btn-default" type="button"><i class="fa fa-plus" aria-hidden="true"></i> '.$label.'</button>
             </div>
         ';
-//        $this->menu_arr[] = "<a href='$href' type='button' class='btn btn-primary'>$label</a>";
     }
     //--------------------------------------------------------------------------
     private function get_menu(){
@@ -204,26 +203,17 @@ class lib_list {
         if($this->enable_search){
             $url = http_helper::get_current_url();
             $search = "";
-//            $search = Com_http::request("__search");
             $hidden = $search ? "" : "hidden";
             $this->menu_arr[] = "
                 <div class='input-group-addon'><span>Search</span></div>
-                <input class='form-control ' type='text'>
+                <input class='form-control' value='$search' type='text'>
                 <div class='input-group-btn'>
                     <button class='btn btn-default' type='button'>Go!</button>
                 </div>
                 <div class='input-group-btn'>
-                    <button class='btn btn-default' type='button'>Clear!</button>
+                    <button class='btn btn-default $hidden' type='button'>Clear!</button>
                 </div>
             ";
-//            $this->menu_arr[] = "
-//                <div class='form-group'>
-//                    <label for='search'> Search </label>
-//                    <input value='$search' type='text' class='form-control' id='__search' name='__search' />
-//                </div>
-//                <button type='submit' class='btn btn-default'>Submit</button>
-//                <a onclick='location.href =\"$url\";' class='btn btn-default $hidden'>Clear</a>
-//            ";
         }
         
         if(count($this->menu_arr) > 0){
@@ -237,49 +227,24 @@ class lib_list {
                                     <div class='container'>
                                         <div class='input-group input-group-sm'>
                                             $menu_html
+                                            <ul class='padding-left-5 pagination pagination-sm' style='margin: 0px'>
+                                                <li><a href='#'>&laquo;</a></li>
+                                                <li><a href='#'>1</a></li>
+                                                <li><a href='#'>2</a></li>
+                                                <li><a href='#'>3</a></li>
+                                                <li><a href='#'>4</a></li>
+                                                <li><a href='#'>5</a></li>
+                                                <li><a href='#'>&raquo;</a></li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <div class='col-md-4'>
-                                <ul class='pagination pagination-sm' style='margin: 0px'>
-                                    <li><a href='#'>&laquo;</a></li>
-                                    <li><a href='#'>1</a></li>
-                                    <li><a href='#'>2</a></li>
-                                    <li><a href='#'>3</a></li>
-                                    <li><a href='#'>4</a></li>
-                                    <li><a href='#'>5</a></li>
-                                    <li><a href='#'>&raquo;</a></li>
-                                </ul>
-                            </div>
+                            <div class='col-md-6'></div>
                         </div>
                     </div>
                 </div>
             ";
-//            return "
-//                <div class='container list-menu'>
-//                    <div class='row'>
-//                        <div class='col-md-12'>
-//                            <div class='col-md-6'>
-//                                <form role='form' class='form-inline' action='' method='post'>
-//                                    $menu_html
-//                                </form>
-//                            </div>
-//                            <div class='col-md-6'>
-//                                <ul class='pagination' style='margin: 0px'>
-//                                    <li><a href='#'>&laquo;</a></li>
-//                                    <li><a href='#'>1</a></li>
-//                                    <li><a href='#'>2</a></li>
-//                                    <li><a href='#'>3</a></li>
-//                                    <li><a href='#'>4</a></li>
-//                                    <li><a href='#'>5</a></li>
-//                                    <li><a href='#'>&raquo;</a></li>
-//                                </ul>
-//                            </div>
-//                        </div>
-//                    </div>
-//                </div>
-//            ";
         }
     }
     //-----------------------------------------------------------------------

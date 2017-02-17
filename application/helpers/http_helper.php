@@ -29,7 +29,7 @@ class http_helper {
     }
     //--------------------------------------------------------------------------
     public static function go_home() {
-        self::redirect();
+        self::redirect("index.php");
     }
     //--------------------------------------------------------------------------
     public static function get_current_url() {
