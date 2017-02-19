@@ -4,8 +4,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Person extends CI_Controller {
     
     //--------------------------------------------------------------------------
+    public function __construct() {
+        parent::__construct();
+        $active_id = lib_user::get_active_id();
+        if(!$active_id){
+            http_helper::go_home();
+        }
+    }
+    //--------------------------------------------------------------------------
     public function vlist() {
-        
         $data['search'] = $this->request("__search");
         $this->load->library("lib_list");
         

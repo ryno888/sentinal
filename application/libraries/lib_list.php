@@ -11,7 +11,7 @@
  *
  * @author Ryno Laptop
  */
-class lib_list {
+class lib_list extends lib_core{
     
     public $id = false;
     public $sql_key = false;
@@ -31,7 +31,7 @@ class lib_list {
     private $titel = false;
     
     
-    private $ci = false;
+    public $ci = false;
     private $action_edit = "";
     private $action_edit_modal = "";
     private $action_delete_modal = "";
@@ -44,7 +44,7 @@ class lib_list {
      * @param type $color = green/red/orange/blue
      */
     public function __construct(){
-        $this->ci =& get_instance();
+        parent::__construct();
         $this->ci->load->database();
         $this->ci->load->library("lib_database");
     }
@@ -255,7 +255,7 @@ class lib_list {
             $html .= $this->get_menu();
             $html .= $this->html;
         $html .= "</div>";
-        echo $html;;
+        echo $html;
     }
     //--------------------------------------------------------------------------
 }

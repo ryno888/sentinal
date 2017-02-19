@@ -20,6 +20,23 @@ $(document).ready(function () {
             }
         });
     });
+    //--------------------------------------------------------------------------
+    bodyOb.on("click", ".loginSubmit", function(){
+        var data = $("#"+$(this).attr("formTarget")).serialize();
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url: ci_base_url+"index.php/index/xlogin",
+            cache: false,
+            success: function(response){
+                if(response.code == 1){
+                    document.location = ci_base_url+"index.php/person/vlist";
+                }else{
+                    messageModal(response.title, response.message);
+                }
+            }
+        });
+    });
     
     //--------------------------------------------------------------------------
 });

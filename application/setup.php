@@ -8,9 +8,10 @@
 
 defined('CI_BASE_URL')          OR define('CI_BASE_URL', "http://localhost/sentinal/"); 
 defined('CI_NAME')              OR define('CI_NAME', "Codeigniter"); 
+defined('CI_ENCRYPT_KEY')       OR define('CI_ENCRYPT_KEY', "locSentinalKey"); 
 
 //site db
-defined('DB_DATABASE')          OR define('DB_DATABASE', "loc_printq"); 
+defined('DB_DATABASE')          OR define('DB_DATABASE', "loc_sentinal"); 
 defined('DB_HOST_NAME')         OR define('DB_HOST_NAME', "localhost"); 
 defined('DB_USERNAME')          OR define('DB_USERNAME', "root"); 
 defined('DB_PASSWORD')          OR define('DB_PASSWORD', "root"); 
@@ -28,3 +29,7 @@ defined('EMAIL_ADDRESS')        OR define('EMAIL_ADDRESS', "ryno888@gmail.com");
 defined('CI_DATETIME')          OR define('CI_DATETIME', "Y-m-d H:i:s");
 defined('CI_DATE')              OR define('CI_DATE', "Y-m-d");
 defined('CI_DATE')              OR define('CI_DATE', "H:i:s");
+
+//facebook api
+if (!defined('CR_FACEBOOK_ID'))         { define('CR_FACEBOOK_ID', "145737412583580"); }
+if (!defined('CR_FACEBOOK_SECRET'))     { define('CR_FACEBOOK_SECRET', "1498be992f38d36e181dba78283743d4"); }

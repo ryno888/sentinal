@@ -15,11 +15,10 @@
  *
  * @author Ryno
  */
-class lib_html_tags {
-    private $ci = false;
+class lib_html_tags extends lib_core{
     //--------------------------------------------------------------------------
     public function __construct() {
-        $this->ci = &get_instance();
+        parent::__construct();
         $this->ci->load->helper('html');
         $this->ci->load->helper('form');
     }
@@ -226,6 +225,36 @@ class lib_html_tags {
                 '.$element.'
             </div>
         ';
+    }
+    //--------------------------------------------------------------------------
+    public static function get_html_options($options = []){
+        $css = "";
+        $attr = "";
+        $style = "";
+        foreach ($options as $key => $value) {
+            $r = substr($key, 0, 1);
+            $el = substr($key, 1);
+            switch ($r) {
+                case ".": 
+                    $css .= $css != "" ? " " : "";
+                    $css .= "$el"; 
+                    break;
+                case "@": 
+                    $attr .= $attr != "" ? " " : "";
+                    $attr .= "$el='$value'"; 
+                    break;
+                case "#": 
+                    $style .= $style != "" ? " " : "";
+                    $style .= "$el:$value;"; 
+                    break;
+                default: break;
+            }
+        }
+        return[
+            "css" => $css,
+            "attr" => $attr,
+            "style" => $style,
+        ];
     }
     //--------------------------------------------------------------------------
 }

@@ -15,9 +15,8 @@
  *
  * @author Ryno
  */
-class lib_html {
+class lib_html extends lib_core{
     public $container_fluid = false;
-    private $ci = false;
     private $html = [
         "html" => false,
         "form_open" => false,
@@ -27,7 +26,7 @@ class lib_html {
     private $menu_html = [];
     //--------------------------------------------------------------------------
     public function __construct() {
-        $this->ci = &get_instance();
+        parent::__construct();
         $this->ci->load->library("lib_html_tags");
     }
     //--------------------------------------------------------------------------

@@ -15,7 +15,7 @@
  *
  * @author Ryno
  */
-class lib_navbar {
+class lib_navbar extends lib_core{
     private $html = "";
     private $li_right_arr = [];
     private $li_left_arr = [];
@@ -28,12 +28,19 @@ class lib_navbar {
         $this->heading_link = $heading_link ? $heading_link : CI_BASE_URL."index.php";
     }
     //--------------------------------------------------------------------------
+    public function format_href($href = "#") {
+        return $href !== false ? "href='".http_helper::build_url($href)."'" : false;
+    }
+    //--------------------------------------------------------------------------
     public function add_navitem($label, $href = "#", $options = []) {
         $options_arr = array_merge([
             "align" => "left"
         ], $options);
         
-        $this->add_li("<li><a href='$href'>$label</a></li>", $options_arr['align']);
+        $attributes = $this->format_options($options);
+        $formatted_href = $this->format_href($href);
+        
+        $this->add_li("<li><a class='{$attributes['css']}' $formatted_href>$label</a></li>", $options_arr['align']);
     }
     //--------------------------------------------------------------------------
     public function add_navitem_dropdown($label, $item_arr = [], $options = []) {

@@ -15,9 +15,8 @@
  *
  * @author Ryno
  */
-class lib_database {
+class lib_database extends lib_core{
     //put your code here
-    private $ci = false;
     private $db = false;
     
     private $select = false;
@@ -26,7 +25,7 @@ class lib_database {
     private $limit = false;
     //--------------------------------------------------------------------------
     public function __construct(){
-        $this->ci =& get_instance();
+        parent::__construct();
         $this->ci->load->database();
         $this->db = $this->ci->db;
     }
