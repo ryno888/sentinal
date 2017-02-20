@@ -17,7 +17,11 @@ class Index extends CI_Controller {
 	}
     //--------------------------------------------------------------------------
     public function xhome() {
-        http_helper::go_home();
+        $active_id = lib_user::get_active_id();
+        if(!$active_id){
+            http_helper::redirect("index.php/index/vlogin");
+        }
+        http_helper::redirect("index.php/person/vlist");
     }
     //--------------------------------------------------------------------------
     public function vlogin() {

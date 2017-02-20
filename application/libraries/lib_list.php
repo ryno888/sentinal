@@ -15,12 +15,15 @@ class lib_list extends lib_core{
     
     public $id = false;
     public $sql_key = false;
+    public $current_url = false;
     public $sql_select = false;
     public $sql_from = false;
     public $sql_where = false;
     public $sql_limit = 20;
     public $item_arr = [];
-    public $enable_search = false;
+    public $searchfield_value = false;
+    public $searchfield_label = "Search";
+    private $search = false;
     
     private $menu_arr = [];
     private $added_arr = [];
@@ -47,6 +50,9 @@ class lib_list extends lib_core{
         parent::__construct();
         $this->ci->load->database();
         $this->ci->load->library("lib_database");
+        
+        $this->search = request("__search");
+        $this->current_url = current_url();
     }
     //--------------------------------------------------------------------------
     /**
@@ -69,9 +75,7 @@ class lib_list extends lib_core{
         array_unshift ($this->col_header_arr, "", "<th></th>");
         $this->action_arr[] = "
             <td class=''>
-                <button title='$label' class='btn btn-primary btn-sm' onclick=\"location.href = '{$url}?{$this->sql_key}=%{$this->sql_key}%'\">
-                    <i class='fa {$icon}' aria-hidden='true'></i>
-                </button>
+                <i onclick=\"location.href = '{$url}?{$this->sql_key}=%{$this->sql_key}%'\" class='fa {$icon} list-edit-icon' aria-hidden='true'></i>
             </td>";
     }
     //--------------------------------------------------------------------------
@@ -109,12 +113,16 @@ class lib_list extends lib_core{
         $comdb = new lib_database();
         $comdb->select("$this->sql_select $legend_select");
         $comdb->from($this->sql_from);
+        if($this->search){
+            $this->sql_where .= $this->sql_where ? "AND $this->searchfield_value LIKE '%$this->search%'" : "$this->searchfield_value LIKE '%$this->search%'";
+        }
         if($this->sql_where){
             $comdb->where($this->sql_where);
         }
         if($this->sql_limit){
             $comdb->limit($this->sql_limit);
         }
+        
         $this->item_arr = $comdb->get();
     }
     //--------------------------------------------------------------------------
@@ -139,7 +147,7 @@ class lib_list extends lib_core{
                 $table_body .= "</tr>";
             }
             return $this->html = "
-                <table id='$this->id' class='table table-bordred table-striped'>
+                <table id='$this->id' class='table table-bordred table-striped font-size-12'>
                     <thead> {$col_header_str} </thead>
                     <tbody>
                         $table_body
@@ -172,7 +180,7 @@ class lib_list extends lib_core{
         	$this_select .= " END) AS __legend";
             return $this_select;
         }
-        return [];
+        return false;
     }
     //--------------------------------------------------------------------------
     private function get_legend_color($color = false){
@@ -200,18 +208,15 @@ class lib_list extends lib_core{
     //--------------------------------------------------------------------------
     private function get_menu(){
         
-        if($this->enable_search){
-            $url = http_helper::get_current_url();
-            $search = "";
-            $hidden = $search ? "" : "hidden";
+        if($this->searchfield_value){
+            $hidden = $this->search ? "" : "hidden";
             $this->menu_arr[] = "
-                <div class='input-group-addon'><span>Search</span></div>
-                <input class='form-control' value='$search' type='text'>
-                <div class='input-group-btn'>
-                    <button class='btn btn-default' type='button'>Go!</button>
+                <input id='__search' name='__search' class='form-control' value='$this->search' type='text'>
+                <div class='input-group-btn padding-left-5'>
+                    <button class='btn btn-default' type='submit'>$this->searchfield_label</button>
                 </div>
-                <div class='input-group-btn'>
-                    <button class='btn btn-default $hidden' type='button'>Clear!</button>
+                <div class='input-group-btn padding-left-5'>
+                    <button class='btn btn-default $hidden' onclick='document.location=\"$this->current_url\"' type='button'>Clear</button>
                 </div>
             ";
         }
@@ -223,7 +228,7 @@ class lib_list extends lib_core{
                     <div class='row'>
                         <div class='col-md-12'>
                             <div class='col-md-6'>
-                                <form role='form' class='form-inline' action='' method='post'>
+                                <form role='form' class='form-inline' method='post'>
                                     <div class='container'>
                                         <div class='input-group input-group-sm'>
                                             $menu_html
@@ -250,7 +255,7 @@ class lib_list extends lib_core{
     //-----------------------------------------------------------------------
     public function display() {
         $this->build();
-        $html = "<div >";
+        $html = "<div class='container-fluid'>";
             $html .= $this->titel;
             $html .= $this->get_menu();
             $html .= $this->html;

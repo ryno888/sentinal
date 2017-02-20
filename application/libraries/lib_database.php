@@ -59,7 +59,16 @@ class lib_database extends lib_core{
     }
     //--------------------------------------------------------------------------
     public function get_query_string(){
-        return $this->db->get_query_string();
+        $sql = "SELECT $this->select FROM $this->from";
+        if($this->where){ $sql .= " WHERE $this->where"; }
+        if($this->limit){ $sql .= " LIMIT $this->limit"; }
+        return "$sql";
+    }
+    //--------------------------------------------------------------------------
+    public function get_calc_rows(){
+        $sql = "SELECT COUNT(*) AS total FROM $this->from";
+        $result = lib_database::query($sql, 1);
+        return $result->total;
     }
     //--------------------------------------------------------------------------
     public static function query($sql, $limit = false){

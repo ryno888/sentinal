@@ -35,24 +35,17 @@
     $html->end_form();
     $html->display();
     
-    
 //$style_arr = [
-//        "padding-top",
-//        "padding-left",
-//        "padding-right",
-//        "margin-bottom",
-//        "margin-top",
-//        "margin-left",
-//        "margin-right",
+//        "font-size",
 //    ];
 //    
 //    foreach ($style_arr as $value) {
 //        $i = 10;
 //        for ($index = 0; $index < $i; $index++) {
-//            if($i == 100){ break; }
+//            if($i == 30){ break; }
 //            echo ".{$value}-{$i} { {$value}: {$i}px; }";
 //            echo "<br/>";
-//            $i+=10;
+//            $i+=5;
 //        }
 //    }    
     
