@@ -24,11 +24,11 @@
                 <form id="loginform" name="loginform" class="form-horizontal" role="form">
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="login-username" type="text" class="form-control" id="per_usernamme" name="per_usernamme" value="" placeholder="username or email">                                        
+                        <input type="text" class="form-control" id="per_usernamme" name="per_usernamme" value="" placeholder="username or email">                                        
                     </div>
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="login-password" type="password" class="form-control" id="per_password" name="per_password" placeholder="password">
+                        <input type="password" class="form-control" id="per_password" name="per_password" placeholder="password">
                     </div>
                     <div class="input-group">
                         <div class="checkbox">

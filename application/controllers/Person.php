@@ -31,4 +31,18 @@ class Person extends CI_Controller {
         $this->load->view('layout/system/footer');
     }
     //--------------------------------------------------------------------------
+    public function xedit() {
+        $this->load->library("lib_html");
+        $data['per_id'] = $this->request("per_id");
+        
+        $this->form_validation->set_rules('email', "E-mail", "required|trim|valid_email");
+        $this->form_validation->set_rules('per_firstname', "Firstname", "required");
+        $this->form_validation->set_rules('per_lastname', "Surname", "required");
+        if($this->form_validation->run() == false){
+            return http_helper::error(1, validation_errors());
+        }
+        
+        return http_helper::error(0);
+    }
+    //--------------------------------------------------------------------------
 }

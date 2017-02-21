@@ -110,6 +110,16 @@ class lib_html_tags extends lib_core{
         return self::wrap_form_group($label, $id, form_dropdown('', $value_arr, $value, $data_arr));
     }
     //--------------------------------------------------------------------------
+    public static function ilabel($label, $id, $options = []) {
+        $options_arr = array_merge([
+            'append'       => false,
+            'prepend'       => false,
+            'attr_arr'       => [],
+        ], $options);
+        
+        return self::wrap_form_group($label, $id, form_label($label, $id, $options_arr["attr_arr"]));
+    }
+    //--------------------------------------------------------------------------
     public static function iselect_multi($label, $id, $value_arr = [], $value = false, $options = []) {
         $options_arr = array_merge([
             'append'       => false,

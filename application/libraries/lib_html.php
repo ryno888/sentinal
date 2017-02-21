@@ -17,6 +17,7 @@
  */
 class lib_html extends lib_core{
     public $container_fluid = false;
+    private $form_id = false;
     private $html = [
         "html" => false,
         "form_open" => false,
@@ -33,6 +34,9 @@ class lib_html extends lib_core{
     public function form($action, $id = false, $attributes_arr = [], $options = []) {
         $attributes = array_merge([
         ], $attributes_arr);
+        
+        if(!$id){ $id = "form_".time(); }
+        $this->form_id = $id;
         
         $this->add_html("form_open", lib_html_tags::form_open($action, $id, $attributes, $options));
     }
@@ -61,8 +65,13 @@ class lib_html extends lib_core{
     //--------------------------------------------------------------------------
     public function itext($label, $id, $value = false, $options = []) {
         $options_arr = array_merge([
+            "enable_set_value" => false,
         ], $options);
         
+        $error = form_error($id);
+        if($error){
+            $label .= "<div class='form-error-label'>$error</div>";
+        }
         $this->add_html("html", lib_html_tags::itext($label, $id, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
@@ -71,6 +80,13 @@ class lib_html extends lib_core{
         ], $options);
         
         $this->add_html("html", lib_html_tags::itextarea($label, $id, $value, $options_arr));
+    }
+    //--------------------------------------------------------------------------
+    public function ihidden($id, $value = false, $options = []) {
+        $options_arr = array_merge([
+        ], $options);
+        
+        $this->add_html("html", form_hidden($id, $value));
     }
     //--------------------------------------------------------------------------
     public function ipassword($label, $id, $value = false, $options = []) {
@@ -95,12 +111,21 @@ class lib_html extends lib_core{
         $this->menu_html[] = '<button onclick="'.$onclick.'" class="btn btn-default margin-right-5" type="button">'.$icon.$label.'</button>';
     }
     //--------------------------------------------------------------------------
-    public function add_menu_submitbutton($label, $onclick = "javascript:;", $options = []) {
+    public function add_menu_submitbutton($label, $onclick = false, $options = []) {
         $options_arr = array_merge([
-            "icon" => false
+            "icon" => false,
+            "attributes" => [
+                "class" => "btn btn-default margin-right-5",
+                "value" => "Save Changes",
+            ],
         ], $options);
-        $icon = $options_arr["icon"] ? '<i class="fa '.$options_arr["icon"].'" aria-hidden="true"></i> ' : '';
-        $this->menu_html[] = '<button onclick="'.$onclick.'" class="btn btn-default margin-right-5" type="button">'.$icon.$label.'</button>';
+        $icon = $options_arr["icon"] ? '<i class="fa '.$options_arr["icon"].'" aria-hidden="true"></i> Save Changes' : '';
+        
+        if($onclick === false){
+            $onclick = "javascript:;";
+        }
+//        $this->menu_html[] = form_submit($options_arr["attributes"]);
+        $this->menu_html[] = '<button onclick="'.$onclick.'" class="btn btn-default margin-right-5 form-submit" formTarget="'.$this->form_id.'" type="button">'.$icon.$label.'</button>';
     }
     //--------------------------------------------------------------------------
     public function build_menu_html() {

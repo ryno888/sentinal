@@ -41,4 +41,13 @@ class http_helper {
         echo json_encode($data_arr);
     }
     //--------------------------------------------------------------------------
+    public static function error($code, $string = "") {
+        $data_arr = [
+            "code" => $code,
+            "message" => $string,
+        ];
+        header('Content-Type: application/json');
+        echo json_encode($data_arr);
+    }
+    //--------------------------------------------------------------------------
 }

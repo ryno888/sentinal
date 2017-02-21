@@ -66,6 +66,7 @@ $autoload['libraries'] = array(
     "lib_date", 
     "lib_session",
     "lib_html_tags",
+    "form_validation",
 );
 
 /*

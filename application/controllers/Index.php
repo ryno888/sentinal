@@ -46,13 +46,8 @@ class Index extends CI_Controller {
         //add the header here
         $per_usernamme = $this->input->get_post('per_usernamme');
         $per_password = $this->input->get_post('per_password');
-        
         $result = lib_user::login($per_usernamme, $per_password);
         echo $result ? http_helper::json(["code"=> 1]) : http_helper::json(["code"=> 2, "title" => "Username & Password incorrect", "message" => "The username and password combination you have used is incorrect. Please try again."]);
-        
-        
-//        http_helper::json(["code"=> 2, "title" => "Username & Password incorrect", "message" => "The username and password combination you have used is incorrect. Please try again."]);
-        
     }
     //--------------------------------------------------------------------------
     public function xlogin_fb() {

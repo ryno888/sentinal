@@ -6,6 +6,7 @@
 .blockquote-error { padding: 10px 20px; margin: 0 0 20px; font-size: 17.5px; border-left: 5px solid #c70007; }
 .wrapper-error-div{ position: fixed; bottom: 50px; right: 0; background-color: #ffeded; width: 350px;}
 .screen{ position: relative; display:none;}
+.form-error-label{ color: red; font-size: 11px; margin-bottom: -10px; }
 
 /*error page*/
 error-wrapper.div.container{ margin-top:20px; }
@@ -115,3 +116,8 @@ error-wrapper.div.container{ margin-top:20px; }
 .margin-right-70 { margin-right: 70px; }
 .margin-right-80 { margin-right: 80px; }
 .margin-right-90 { margin-right: 90px; }
+
+/*modals*/
+@media (min-width: 768px){
+    .modal-md { width: 450px; }
+}
