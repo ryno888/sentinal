@@ -17,21 +17,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         Modal title
                                     </h4>
                                 </div>
-                                <div class='modal-body' id='modalMessageBody'>
-
-                                </div>
+                                <div class='modal-body' id='modalMessageBody'></div>
                                 <div class='modal-footer'>
-
-                                    <button type='button' class='btn btn-default' data-dismiss='modal'>
-                                        Close
-                                    </button> 
+                                    <button type='button' class='btn btn-default btn-sm' data-dismiss='modal'>Close</button> 
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
