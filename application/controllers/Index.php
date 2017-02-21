@@ -9,13 +9,6 @@ class Index extends CI_Controller {
         $this->load->view('layout/system/footer');
     }
     //--------------------------------------------------------------------------
-    public function studio()
-	{
-        $this->load->view('layout/system/header');
-		$this->load->view('system/studio_example');
-        $this->load->view('layout/system/footer');
-	}
-    //--------------------------------------------------------------------------
     public function xhome() {
         $active_id = lib_user::get_active_id();
         if(!$active_id){
@@ -25,15 +18,11 @@ class Index extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function vlogin() {
-        $this->load->view('layout/web/header');
-		$this->load->view('index/vlogin');
-        $this->load->view('layout/web/footer');
+        $this->load_view('index/vlogin', "web");
     }
     //--------------------------------------------------------------------------
     public function verror() {
-        $this->load->view('layout/system/header');
-		$this->load->view('errors/error');
-        $this->load->view('layout/system/footer');
+        $this->load_view('errors/error', "web");
     }
     //--------------------------------------------------------------------------
     public function vview_error() {

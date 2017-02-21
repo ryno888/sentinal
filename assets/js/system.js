@@ -49,3 +49,13 @@ function errorMessageModal(message, options){
     $('#jqmMessageModal').modal('show');
 }
 //--------------------------------------------------------------------------
+function fadeIn(element, time){
+    if(time == undefined){ time = 200; }
+    $(element).fadeIn({duration : time, queue : false});
+}
+//--------------------------------------------------------------------------
+function fadeOut(element, time){
+    if(time == undefined){ time = 200; }
+    $(element).fadeOut({duration : time, queue : false});
+}
+//--------------------------------------------------------------------------

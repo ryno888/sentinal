@@ -97,5 +97,16 @@ class CI_Controller {
 	public function request($name) {
 		return $this->input->get_post($name);
 	}
+	// --------------------------------------------------------------------
 
+	public function load_view($view, $layout = "system", $data= [], $options = []) {
+        $options_arr = array_merge([
+            "return_view" => false,
+        ], $options);
+        
+		$this->load->view("layout/{$layout}/header");
+        $this->load->view($view, $data);
+        $this->load->view("layout/{$layout}/footer");
+	}
+    // --------------------------------------------------------------------
 }

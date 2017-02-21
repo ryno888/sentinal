@@ -15,20 +15,14 @@ class Person extends CI_Controller {
     public function vlist() {
         $data['search'] = $this->request("__search");
         $this->load->library("lib_list");
-        
-        $this->load->view('layout/system/header');
-        $this->load->view('person/vlist', $data);
-        $this->load->view('layout/system/footer');
+        $this->load_view('person/vlist', "system", $data);
     }
     //--------------------------------------------------------------------------
     public function vadd() {
         
         $data['per_id'] = $this->request("per_id");
         $this->load->library("lib_html");
-        
-        $this->load->view('layout/system/header');
-        $this->load->view('person/vadd', $data);
-        $this->load->view('layout/system/footer');
+        $this->load_view('person/vadd', "system", $data);
     }
     //--------------------------------------------------------------------------
     public function xedit() {

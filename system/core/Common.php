@@ -907,4 +907,44 @@ if ( ! function_exists('function_usable'))
         }
 
     }
+    // ------------------------------------------------------------------------
+
+    if (!function_exists('string')) {
+
+        function message($string) {
+            //--------------------------------------------------------------------------
+
+                echo "
+                    <style>
+                        .screen{ position: relative; display:none;}
+                    </style>
+                    <div class='screen errorPopup'>
+                        <div class='wrapper-message-div'>
+                            <div class='container-fluid'>
+                                <div class='row'>
+                                    <div class='col-md-12'>
+                                        <div class='row'>
+                                            <blockquote class='blockquote-message'>
+                                                <p>Message</p>
+                                                <small>$string</small>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                     <script>
+                        $(document).ready(function () {
+                            fadeIn('.errorPopup', 1000);
+                            setTimeout(function(){
+                                fadeOut('.errorPopup', 1000);
+                            }, 3000)
+                        });
+                     </script>
+                ";
+        }
+
+    }
+    // ------------------------------------------------------------------------
 }

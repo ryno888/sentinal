@@ -46,6 +46,11 @@ function fadeIn(element, time){
     if(time == undefined){ time = 200; }
     $(element).fadeIn({duration : time, queue : false});
 }
+//--------------------------------------------------------------------------
+function fadeOut(element, time){
+    if(time == undefined){ time = 200; }
+    $(element).fadeOut({duration : time, queue : false});
+}
 //------------------------------------------------------------------------------
 function messageModal(title, message){
     $('#modalMessageTitle').html(title);

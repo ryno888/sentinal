@@ -2,8 +2,14 @@
 /*pointers*/
 .cursor-pointer { cursor: pointer; }
 
-/*error*/
+/*blockquote*/
+.blockquote-message { padding: 10px 20px; margin: 0 0 20px; font-size: 17.5px; border-left: 5px solid #99ccff; }
 .blockquote-error { padding: 10px 20px; margin: 0 0 20px; font-size: 17.5px; border-left: 5px solid #c70007; }
+
+/*message*/
+.wrapper-message-div{ position: fixed; bottom: 50px; right: 0; background-color: #dbf2ff; width: 350px;}
+
+/*error*/
 .wrapper-error-div{ position: fixed; bottom: 50px; right: 0; background-color: #ffeded; width: 350px;}
 .screen{ position: relative; display:none;}
 .form-error-label{ color: red; font-size: 11px; margin-bottom: -10px; }
