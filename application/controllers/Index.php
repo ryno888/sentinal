@@ -4,9 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Index extends CI_Controller {
     //--------------------------------------------------------------------------
 	public function page_not_found() {
-        $this->load->view('layout/system/header');
+        $this->load->view('layout/web/header');
         $this->load->view('errors/cli/error_404');
-        $this->load->view('layout/system/footer');
+        $this->load->view('layout/web/footer');
     }
     //--------------------------------------------------------------------------
     public function xhome() {
