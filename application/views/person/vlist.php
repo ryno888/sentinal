@@ -19,6 +19,4 @@
     
     $list->add_action_edit("Edit", "index.php/system/person/vlist");
     $list->display();
-    
-    message("test");
 ?>

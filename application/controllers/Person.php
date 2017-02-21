@@ -35,7 +35,6 @@ class Person extends CI_Controller {
         if($this->form_validation->run() == false){
             return http_helper::error(1, validation_errors());
         }
-        
         return http_helper::error(0);
     }
     //--------------------------------------------------------------------------
