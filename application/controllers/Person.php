@@ -39,6 +39,7 @@ class Person extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function xdelete() {
+        console($this->request("id"));
         return http_helper::error(1, ["test"]);
     }
     //--------------------------------------------------------------------------
