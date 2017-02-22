@@ -28,6 +28,25 @@ $(document).ready(function () {
 function requestUpdate(url){
     document.location= ci_base_url+'index.php/'+url;
 }
+//--------------------------------------------------------------------------
+function requestFunction(url, func, options){
+    var options_obj = $.extend({
+        data: false,
+        success: function() {},
+        error: function() {},
+        form: false
+    }, (options == undefined ? {} : options));
+    
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: options_obj.data,
+        form: options_obj.form,
+        success: (func == undefined ? function() {} : func),
+        error: options_obj.error
+    });
+                
+}
 //------------------------------------------------------------------------------
 function messageModal(title, message){
     $('#modalMessageTitle').html(title);

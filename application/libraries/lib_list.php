@@ -70,12 +70,38 @@ class lib_list extends lib_core{
     	);
     }
     //--------------------------------------------------------------------------
-    public function add_action_edit($label, $href = "#", $icon = "fa-pencil", $options = []){
-        $url = CI_BASE_URL."$href";
+    public function add_action_edit($onclick = "javascript:;", $icon = "fa-pencil", $options = []){
+        $options_arr = array_merge([
+            "class" => false,
+            "style" => false,
+            "title" => "Manage",
+        ], $options);
+        
+        
         array_unshift ($this->col_header_arr, "", "<th></th>");
+        
         $this->action_arr[] = "
-            <td class=''>
-                <i onclick=\"location.href = '{$url}?{$this->sql_key}=%{$this->sql_key}%'\" class='fa {$icon} list-edit-icon' aria-hidden='true'></i>
+            <td class='width-20'>
+                <i title='{$options_arr["title"]}' onclick=\"$onclick\" class='fa {$icon} list-edit-icon {$options_arr["class"]}' aria-hidden='true'></i>
+            </td>";
+    }
+    //--------------------------------------------------------------------------
+    public function add_action_delete($onclick = "javascript:;", $icon = "fa-times", $options = []){
+        $options_arr = array_merge([
+            "class" => false,
+            "style" => false,
+            "title" => "Delete",
+            "confirm" => false,
+        ], $options);
+        
+        array_unshift ($this->col_header_arr, "", "<th></th>");
+        
+        $onclick_js = $onclick;
+        
+        
+        $this->action_arr[] = "
+            <td class='width-20'>
+                <i title='{$options_arr["title"]}' onclick=\"$onclick\" class='fa {$icon} list-edit-icon {$options_arr["class"]}' aria-hidden='true'></i>
             </td>";
     }
     //--------------------------------------------------------------------------

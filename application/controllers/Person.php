@@ -38,4 +38,8 @@ class Person extends CI_Controller {
         return http_helper::error(0);
     }
     //--------------------------------------------------------------------------
+    public function xdelete() {
+        return http_helper::error(1, ["test"]);
+    }
+    //--------------------------------------------------------------------------
 }
