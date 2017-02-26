@@ -38,6 +38,7 @@ class lib_html_tags extends lib_core{
             'attr_arr'       => [],
         ], $options);
         
+        
         $data_arr = array_merge([
             'name'          => $id,
             'id'            => $id,
@@ -45,9 +46,13 @@ class lib_html_tags extends lib_core{
             'maxlength'     => false,
             'size'          => false,
             'style'         => false,
-            'class'         => "form-control input-sm",
+            'class'         => "form-control input-sm ",
             'js'            => "",
         ], $options_arr['attr_arr']);
+        
+        $html_options = lib_html_tags::get_html_options($options);
+        $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
+        $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
         return self::wrap_form_group($label, $id, form_input($data_arr, '', $data_arr['js']), $options_arr);
     }
@@ -70,6 +75,10 @@ class lib_html_tags extends lib_core{
             'js'         => "",
         ], $options_arr["attr_arr"]);
         
+        $html_options = lib_html_tags::get_html_options($options);
+        $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
+        $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
+        
         return self::wrap_form_group($label, $id, form_textarea($data_arr, '', $data_arr['js']), $options_arr);
     }
     //--------------------------------------------------------------------------
@@ -91,13 +100,38 @@ class lib_html_tags extends lib_core{
             'js'         => "",
         ], $options_arr["attr_arr"]);
         
+        $html_options = lib_html_tags::get_html_options($options);
+        $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
+        $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
+        
         return self::wrap_form_group($label, $id, form_password($data_arr, '', $data_arr['js']));
+    }
+    //--------------------------------------------------------------------------
+    public static function ilabel($label, $id, $options = []) {
+        $options_arr = array_merge([
+            'append'        => false,
+            'prepend'       => false,
+            'attr_arr'      => [],
+        ], $options);
+        
+        $data_arr = array_merge([
+            'style'         => false,
+            'class'         => false
+        ], $options_arr["attr_arr"]);
+        
+        $html_options = lib_html_tags::get_html_options($options);
+        $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
+        $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
+        
+        return self::wrap_form_group($label, $id, form_label($label, $id, $options_arr["attr_arr"]));
     }
     //--------------------------------------------------------------------------
     public static function iselect($label, $id, $value_arr = [], $value = false, $options = []) {
         $options_arr = array_merge([
             'append'       => false,
             'prepend'       => false,
+            'style'         => false,
+            'class'         => false,
             'attr_arr'       => [],
         ], $options);
         
@@ -106,33 +140,35 @@ class lib_html_tags extends lib_core{
             'id'       => 'shirts',
             'onChange' => '',
             'class' => 'form-control input-sm',
+            'style'         => false,
         ], $options_arr["attr_arr"]);
-        return self::wrap_form_group($label, $id, form_dropdown('', $value_arr, $value, $data_arr));
-    }
-    //--------------------------------------------------------------------------
-    public static function ilabel($label, $id, $options = []) {
-        $options_arr = array_merge([
-            'append'       => false,
-            'prepend'       => false,
-            'attr_arr'       => [],
-        ], $options);
         
-        return self::wrap_form_group($label, $id, form_label($label, $id, $options_arr["attr_arr"]));
+        $html_options = lib_html_tags::get_html_options($options);
+        $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
+        $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
+        
+        return self::wrap_form_group($label, $id, form_dropdown('', $value_arr, $value, $data_arr));
     }
     //--------------------------------------------------------------------------
     public static function iselect_multi($label, $id, $value_arr = [], $value = false, $options = []) {
         $options_arr = array_merge([
-            'append'       => false,
+            'append'        => false,
             'prepend'       => false,
-            'attr_arr'       => [],
+            'attr_arr'      => [],
         ], $options);
         
         $data_arr = array_merge([
             'name'          => $id,
-            'id'       => 'shirts',
-            'onChange' => '',
-            'class' => 'form-control input-sm',
+            'id'            => 'shirts',
+            'onChange'      => '',
+            'style'         => false,
+            'class'         => 'form-control input-sm',
         ], $options_arr["attr_arr"]);
+        
+        $html_options = lib_html_tags::get_html_options($options);
+        $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
+        $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
+        
         return self::wrap_form_group($label, $id, form_multiselect('', $value_arr, $value, $data_arr));
     }
     //--------------------------------------------------------------------------

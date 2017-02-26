@@ -1,15 +1,8 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of lib_core
+ * Description of lib
  *
- * @author Ryno Laptop
+ * @author Ryno
  */
 class lib_core {
     public $ci = false;
@@ -20,6 +13,20 @@ class lib_core {
     //--------------------------------------------------------------------------
     public function format_options($options = []){
         return lib_html_tags::get_html_options($options);
+    }
+    //--------------------------------------------------------------------------
+    public static function load_db($table, $sql = false){
+        $class = "db_{$table}";
+        $ci = & get_instance();
+        $ci->load->library("lib_db");
+        $ci->load->library("db/$class");
+        
+        $db = new $class;
+        if($sql){
+            $db->get_fromdb($sql);
+        }
+        
+        return $db;
     }
     //--------------------------------------------------------------------------
 }

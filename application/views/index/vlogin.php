@@ -40,7 +40,7 @@
                     <div style="margin-top:10px" class="form-group">
                         <div class="col-sm-12 controls">
                             <a id="btn-login" href="#" class="btn btn-success loginSubmit" formTarget='loginform'>Login  </a>
-                            <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
+                            <a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>
                         </div>
                     </div>
                     <div class="form-group">
@@ -104,19 +104,78 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <!-- Button -->                                        
+                         Button                                         
                         <div class="col-md-offset-3 col-md-9">
                             <button id="btn-signup" type="button" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
                             <span style="margin-left:8px;">or</span>  
                         </div>
                     </div>
-<!--                    <div style="border-top: 1px solid #999; padding-top:20px"  class="form-group">
+                    <div style="border-top: 1px solid #999; padding-top:20px"  class="form-group">
                         <div class="col-md-offset-3 col-md-9">
                             <button id="btn-fbsignup" type="button" class="btn btn-primary"><i class="icon-facebook"></i>   Sign Up with Facebook</button>
                         </div>                                           
-                    </div>-->
+                    </div>
                 </form>
             </div>
         </div>
     </div> 
 </div>
+<!--<style>
+    body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+</style>
+<div class="container">
+
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+    </div> -->

@@ -89,4 +89,10 @@ defined('EXIT__AUTO_MAX')       OR define('EXIT__AUTO_MAX', 125); // highest aut
 defined('DIR_APPLICATION')      OR define('DIR_APPLICATION', BASEPATH."..\\application\\"); // no errors
 defined('DIR_LOGS')             OR define('DIR_LOGS', BASEPATH."..\\application\\logs\\"); // no errors
 
+//database
+defined('DB_INT')               OR define('DB_INT'      , 1);
+defined('DB_VARCHAR')           OR define('DB_VARCHAR'  , 2);
+defined('DB_TINYINT')           OR define('DB_TINYINT'  , 3);
+defined('DB_DATETIME')          OR define('DB_DATETIME' , 4);
+
 include_once DIR_APPLICATION."setup.php";

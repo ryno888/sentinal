@@ -25,6 +25,17 @@ class Person extends CI_Controller {
         $this->load_view('person/vadd', "system", $data);
     }
     //--------------------------------------------------------------------------
+    public function xadd() {
+        $this->load->library("lib_html");
+        $this->form_validation->set_rules('per_grade', "Grade", "required");
+        $this->form_validation->set_rules('per_firstname', "Firstname", "required");
+        $this->form_validation->set_rules('per_lastname', "Surname", "required");
+        if($this->form_validation->run() == false){
+            return http_helper::error(1, validation_errors());
+        }
+        return http_helper::error(0);
+    }
+    //--------------------------------------------------------------------------
     public function xedit() {
         $this->load->library("lib_html");
         $data['per_id'] = $this->request("per_id");

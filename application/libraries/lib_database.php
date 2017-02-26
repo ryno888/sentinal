@@ -83,4 +83,17 @@ class lib_database extends lib_core{
         return $result;
     }
     //--------------------------------------------------------------------------
+    public static function selectsingle($sql){
+        return lib_database::query($sql, 1);
+    }
+    //--------------------------------------------------------------------------
+    public static function selectlist($sql, $field1, $field2){
+        $return_arr = [];
+        $result_arr = lib_database::query($sql);
+        foreach ($result_arr as $key => $value) {
+            $return_arr[$value->{$field1}] = $value->{$field2};
+        }
+        return $return_arr;
+    }
+    //--------------------------------------------------------------------------
 }
