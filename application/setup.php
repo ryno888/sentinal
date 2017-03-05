@@ -33,3 +33,10 @@ defined('CI_DATE')              OR define('CI_DATE', "H:i:s");
 //facebook api
 if (!defined('CR_FACEBOOK_ID'))         { define('CR_FACEBOOK_ID', "145737412583580"); }
 if (!defined('CR_FACEBOOK_SECRET'))     { define('CR_FACEBOOK_SECRET', "1498be992f38d36e181dba78283743d4"); }
+
+//meta
+defined('CI_META_DESCRIPTION')  OR define('CI_META_DESCRIPTION', "Modified System Structure in Codeigniter");
+defined('CI_META_KEYWORDS')     OR define('CI_META_KEYWORDS', "System, Codeigniter, application");
+defined('CI_META_AUTHOR')       OR define('CI_META_AUTHOR', "Ryno van Zyl");
+defined('CI_META_ROBOTS')       OR define('CI_META_ROBOTS', "no-cache");
+defined('CI_META_VIEWPORT')     OR define('CI_META_VIEWPORT', "width=device-width, initial-scale=1.0");

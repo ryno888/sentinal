@@ -303,4 +303,13 @@ class lib_html_tags extends lib_core{
         ];
     }
     //--------------------------------------------------------------------------
+    public static function load_meta_data($meta_arr = []) {
+        echo "<meta charset='utf-8'>";
+        echo "<title>{$meta_arr['title']}</title>";
+        
+        foreach ($meta_arr as $name => $content) {
+            echo meta(array('name' => $name, 'content' => $content));
+        }
+    }
+    //--------------------------------------------------------------------------
 }

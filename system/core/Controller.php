@@ -57,6 +57,7 @@ class CI_Controller {
 	 * @var	object
 	 */
 	private static $instance;
+	private $meta_arr = [];
 
 	/**
 	 * Class constructor
@@ -65,6 +66,12 @@ class CI_Controller {
 	 */
 	public function __construct()
 	{
+        $this->meta_arr['meta']['title'] = CI_NAME;
+        $this->meta_arr['meta']['description'] = CI_META_DESCRIPTION;
+        $this->meta_arr['meta']['keywords'] = CI_META_KEYWORDS;
+        $this->meta_arr['meta']['robots'] = CI_META_ROBOTS;
+        $this->meta_arr['meta']['viewport'] = CI_META_VIEWPORT;
+        
 		self::$instance =& $this;
 
 		// Assign all the class objects that were instantiated by the
@@ -99,12 +106,32 @@ class CI_Controller {
 	}
 	// --------------------------------------------------------------------
 
+	public function set_meta_title($name) {
+		$this->meta_arr['meta']['title'] .= " | $name";
+	}
+	// --------------------------------------------------------------------
+
+	public function set_meta_description($description) {
+		$this->meta_arr['meta']['description'] = $description;
+	}
+	// --------------------------------------------------------------------
+
+	public function set_meta_keywords($keywords) {
+		$this->meta_arr['meta']['keywords'] .= ", $keywords";
+	}
+	// --------------------------------------------------------------------
+
+	public function set_meta_data($name, $content) {
+		$this->meta_arr['meta'][$name] = $content;
+	}
+	// --------------------------------------------------------------------
+
 	public function load_view($view, $layout = "system", $data= [], $options = []) {
         $options_arr = array_merge([
             "return_view" => false,
         ], $options);
         
-		$this->load->view("layout/{$layout}/header");
+		$this->load->view("layout/{$layout}/header", $this->meta_arr);
         $this->load->view($view, $data);
         $this->load->view("layout/{$layout}/footer");
 	}

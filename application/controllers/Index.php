@@ -18,6 +18,7 @@ class Index extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function vlogin() {
+        $this->set_meta_title("Login");
         $this->load_view('index/vlogin', "web");
     }
     //--------------------------------------------------------------------------
