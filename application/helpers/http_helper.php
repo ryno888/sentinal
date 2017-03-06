@@ -50,4 +50,21 @@ class http_helper {
         echo json_encode($data_arr);
     }
     //--------------------------------------------------------------------------
+    public static function response($string = "", $options = []) {
+        $options_arr = array_merge([
+            "code" => 2,
+            "action" => [
+                "type" => "reload",
+                "url" => "",
+            ],
+        ], $options);
+        $data_arr = [
+            "code" => $options_arr["code"],
+            "message" => $string,
+            "action" => $options_arr["action"],
+        ];
+        header('Content-Type: application/json');
+        echo json_encode($data_arr);
+    }
+    //--------------------------------------------------------------------------
 }

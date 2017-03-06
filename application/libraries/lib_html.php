@@ -75,6 +75,17 @@ class lib_html extends lib_core{
         $this->add_html("html", lib_html_tags::itext($label, $id, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
+    public function dbinput($obj, $field, $options = []) {
+        switch ($obj->get_field_type($field)) {
+            case DB_VARCHAR:
+                return $this->itext(ucwords($obj->get_field_display($field)), $field, $obj->get_field_value($field), $options);
+
+            default:
+                break;
+        }
+        
+    }
+    //--------------------------------------------------------------------------
     public function itextarea($label, $id, $value = false, $options = []) {
         $options_arr = array_merge([
         ], $options);
@@ -124,7 +135,6 @@ class lib_html extends lib_core{
         if($onclick === false){
             $onclick = "javascript:;";
         }
-//        $this->menu_html[] = form_submit($options_arr["attributes"]);
         $this->menu_html[] = '<button onclick="'.$onclick.'" class="btn btn-default margin-right-5 form-submit" formTarget="'.$this->form_id.'" type="button">'.$icon.$label.'</button>';
     }
     //--------------------------------------------------------------------------

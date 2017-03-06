@@ -7,7 +7,7 @@ $base_url = CI_BASE_URL;
     <?php echo lib_html_tags::load_meta_data($meta); ?>
     <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>assets/bootstrap/fonts/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>assets/css/system.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>assets/css/web.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>assets/css/style.css">
     
     <script type="text/javascript" src="<?php echo $base_url; ?>assets/js/jquery.min.js"></script>

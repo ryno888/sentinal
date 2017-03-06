@@ -17,7 +17,7 @@
     $list->add_field("Lastname", "per_lastname");
     $list->add_field("Email", "per_email");
     
-    $list->add_action_edit("requestUpdate('person/vadd?id=%per_id%')");
+    $list->add_action_edit("requestUpdate('person/vedit?per_id=%per_id%')");
     $list->add_action_delete("requestFunction('person/xdelete?id=%per_id%', function(){}, {confirm:true})");
 //    $list->add_action_delete("index.php/system/person/vlist");
     $list->display();

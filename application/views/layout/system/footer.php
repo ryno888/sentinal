@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <div class='modal-body' id='modalMessageBody'></div>
                                 <div class='modal-footer'>
-                                    <button type='button' class='btn btn-default btn-sm' data-dismiss='modal'>Close</button> 
+                                    <button type='button' class='btn btn-default btn-sm messageModalCloseBtn' data-dismiss='modal'>Close</button> 
                                 </div>
                             </div>
                         </div>

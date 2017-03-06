@@ -23,6 +23,7 @@ class lib_database extends lib_core{
     private $from = false;
     private $where = false;
     private $limit = false;
+    private $join = false;
     //--------------------------------------------------------------------------
     public function __construct(){
         parent::__construct();
@@ -38,6 +39,24 @@ class lib_database extends lib_core{
     public function from($from){
         $this->from = $from;
         $this->db->from($from);
+    }
+    //--------------------------------------------------------------------------
+    public function join($table, $on){
+        $this->join .= " $table ON ($on) ";
+        $this->db->join($table, $on);
+    }
+    //--------------------------------------------------------------------------
+    public function insert($table, $db_obj = false){
+        if($db_obj && is_object($db_obj)){
+            $this->db->insert($table, $db_obj);
+        }
+    }
+    //--------------------------------------------------------------------------
+    public function update($table, $key, $db_obj = false){
+        if($db_obj && is_object($db_obj)){
+            $this->db->where($key, $db_obj->{$key});
+            $this->db->update($table, $db_obj);
+        }
     }
     //--------------------------------------------------------------------------
     public function where($where){

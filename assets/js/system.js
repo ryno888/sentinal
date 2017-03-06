@@ -12,12 +12,23 @@ $(document).ready(function () {
             success: function (data) {
                 if(data.code == 1){
                     errorMessageModal(data.message);
+                }else if(data.code == 2){
+                    messageModal("Success", data.message);
+                }else if(data.code == 3){
+                    if(data.action.type == "refresh"){
+                        $('.messageModalCloseBtn').click(location.reload());
+                    }else if(data.action.type == "redirect"){
+                        $('.messageModalCloseBtn').click(function(){
+                            requestUpdate(data.action.url);
+                        });
+                    }
+                    messageModal("Success", data.message);
                 }else{
                     location.reload();
                 }
             },
             error: function () {
-                alert('fail');
+                errorMessageModal("An error has occured. If this presists, please contact your system administrator.");
             }
         });
     });

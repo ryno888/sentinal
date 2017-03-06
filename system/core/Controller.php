@@ -135,5 +135,27 @@ class CI_Controller {
         $this->load->view($view, $data);
         $this->load->view("layout/{$layout}/footer");
 	}
+	// --------------------------------------------------------------------
+
+	public function request_obj($tabel = false, $key = false) {
+        $obj = lib_core::load_db_default($tabel);
+        foreach ($obj->get_fields_arr() as $field => $field_data_arr) {
+            $value = $this->request($field);
+            $obj->obj->{$field} = $value ? $value : $obj->get_field_default($field);
+        }
+        
+        if(!$key){
+            unset($obj->obj->{$obj->get_key()});
+        }
+        return $obj;
+	}
+	// --------------------------------------------------------------------
+
+	public function request_db($tabel = false) {
+        $obj = lib_core::load_db_default($tabel);
+        $id = $this->request($obj->get_key());
+        $obj->get_fromdb($id);
+        return $obj;
+	}
     // --------------------------------------------------------------------
 }

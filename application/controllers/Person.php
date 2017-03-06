@@ -20,9 +20,20 @@ class Person extends CI_Controller {
     //--------------------------------------------------------------------------
     public function vadd() {
         
-        $data['per_id'] = $this->request("per_id");
+        $data['result_arr'] = lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
+        $data['person'] = lib_core::load_db_default("person");
+        
         $this->load->library("lib_html");
         $this->load_view('person/vadd', "system", $data);
+    }
+    //--------------------------------------------------------------------------
+    public function vedit() {
+        
+        $data['person'] = lib_core::load_db("person", "per_id = ".$this->request("per_id"));
+        $data['result_arr'] = lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
+        
+        $this->load->library("lib_html");
+        $this->load_view('person/vedit', "system", $data);
     }
     //--------------------------------------------------------------------------
     public function xadd() {
@@ -33,20 +44,30 @@ class Person extends CI_Controller {
         if($this->form_validation->run() == false){
             return http_helper::error(1, validation_errors());
         }
-        return http_helper::error(0);
+        
+        $person = $this->request_obj("person");
+        $person->insert();
+        
+        return http_helper::response("Changes successfully saved", [
+            "code" => 3,
+            "action" => [
+                "type" => "redirect",
+                "url" => "person/vlist",
+            ],
+        ]);
     }
     //--------------------------------------------------------------------------
     public function xedit() {
         $this->load->library("lib_html");
-        $data['per_id'] = $this->request("per_id");
-        
-        $this->form_validation->set_rules('email', "E-mail", "required|trim|valid_email");
         $this->form_validation->set_rules('per_firstname', "Firstname", "required");
         $this->form_validation->set_rules('per_lastname', "Surname", "required");
         if($this->form_validation->run() == false){
             return http_helper::error(1, validation_errors());
         }
-        return http_helper::error(0);
+        
+        $person = $this->request_obj("person", true);
+        $person->update();
+        return http_helper::response("Changes successfully saved");
     }
     //--------------------------------------------------------------------------
     public function xdelete() {
