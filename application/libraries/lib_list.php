@@ -81,8 +81,8 @@ class lib_list extends lib_core{
         array_unshift ($this->col_header_arr, "", "<th></th>");
         
         $this->action_arr[] = "
-            <td class='width-20'>
-                <i title='{$options_arr["title"]}' onclick=\"$onclick\" class='fa {$icon} list-edit-icon {$options_arr["class"]}' aria-hidden='true'></i>
+            <td class='list-action'>
+                <i title='{$options_arr["title"]}' onclick=\"$onclick\" class='fa {$icon} {$options_arr["class"]}' aria-hidden='true'></i>
             </td>";
     }
     //--------------------------------------------------------------------------
@@ -100,8 +100,8 @@ class lib_list extends lib_core{
         
         
         $this->action_arr[] = "
-            <td class='width-20'>
-                <i title='{$options_arr["title"]}' onclick=\"$onclick\" class='fa {$icon} list-edit-icon {$options_arr["class"]}' aria-hidden='true'></i>
+            <td class='list-action'>
+                <i title='{$options_arr["title"]}' onclick=\"$onclick\" class='fa {$icon} {$options_arr["class"]}' aria-hidden='true'></i>
             </td>";
     }
     //--------------------------------------------------------------------------
@@ -116,20 +116,16 @@ class lib_list extends lib_core{
     //--------------------------------------------------------------------------
     public function add_title($title, $info = "", $options = []){
         $options_arr = array_merge([
-            "class" => false,
+            "class" => "list-page-header",
             "style" => false,
+            "type" => 1,
         ], $options);
         $this->titel = "
-            <div class='page-header {$options_arr['class']}' style='{$options_arr['style']}'>
-				<h1>
+            <div class='{$options_arr['class']}' style='{$options_arr['style']}'>
+				<h{$options_arr['type']}>
 					$title <small>$info</small>
-				</h1>
+				</h{$options_arr['type']}>
 			</div>
-        ";
-        $this->titel = "
-            <div class='col-md-12'>
-                <legend>Add new Student</legend>
-            </div>
         ";
     }
     //--------------------------------------------------------------------------

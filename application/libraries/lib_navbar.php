@@ -29,6 +29,9 @@ class lib_navbar extends lib_core{
     }
     //--------------------------------------------------------------------------
     public function format_href($href = "#") {
+        if(strpos($href, "index.php/") === false){
+            $href = "index.php/$href";
+        }
         return $href !== false ? "href='".http_helper::build_url($href)."'" : false;
     }
     //--------------------------------------------------------------------------

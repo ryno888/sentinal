@@ -75,14 +75,41 @@ class lib_html extends lib_core{
         $this->add_html("html", lib_html_tags::itext($label, $id, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
-    public function dbinput($obj, $field, $options = []) {
-        switch ($obj->get_field_type($field)) {
-            case DB_VARCHAR:
-                return $this->itext(ucwords($obj->get_field_display($field)), $field, $obj->get_field_value($field), $options);
-
-            default:
-                break;
+    public function idate($label, $id, $value = false, $options = []) {
+        $options_arr = array_merge([
+            "enable_set_value" => false,
+        ], $options);
+        
+        $error = form_error($id);
+        if($error){
+            $label .= "<div class='form-error-label'>$error</div>";
         }
+        $this->add_html("html", lib_html_tags::idate_picker($label, $id, $value, $options_arr));
+    }
+    //--------------------------------------------------------------------------
+    public function dbinput($obj, $field, $options = []) {
+        if(isset($options['dbtype'])){
+            switch ($options['dbtype']) {
+                case "password":
+                    return $this->ipassword(ucwords($obj->get_field_display($field)), $field, false, $options);
+
+                default:
+                    break;
+            }
+        }else{
+            switch ($obj->get_field_type($field)) {
+                case DB_VARCHAR:
+                    return $this->itext(ucwords($obj->get_field_display($field)), $field, $obj->get_field_value($field), $options);
+                case DB_DATETIME:
+                    return $this->idate(ucwords($obj->get_field_display($field)), $field, $obj->get_field_value($field), $options);
+                case DB_TINYINT:
+                    return $this->iselect(ucwords($obj->get_field_display($field)), $field, $obj->{$field}, $obj->get_field_value($field), $options);
+
+                default:
+                    break;
+            }
+        }
+        
         
     }
     //--------------------------------------------------------------------------
@@ -187,6 +214,11 @@ class lib_html extends lib_core{
     public function display() {
         $this->build_menu_html();
         echo $this->container_wrapper($this->html);
+    }
+    //--------------------------------------------------------------------------
+    public function get() {
+        $this->build_menu_html();
+        return $this->container_wrapper($this->html);
     }
     //--------------------------------------------------------------------------
     public static function make() {

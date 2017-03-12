@@ -1,3 +1,15 @@
+legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: inherit;
+    color: #555555;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
 
 /*pointers*/
 .cursor-pointer { cursor: pointer; }
@@ -22,8 +34,13 @@ error-wrapper.div.container{ margin-top:20px; }
 
 /*table*/
 .table>tbody>tr>td { border-top: 1px solid #cecece !important; }
-.list-edit-icon{cursor: pointer;}
-.list-edit-icon:hover{color: #1d9ce5}
+.list-action{ font-size: 14px; width: 10px; padding: 8px 8px 8px 0px !important; cursor: pointer; };
+.list-action:hover{color: #1d9ce5}
+
+/*text*/
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
 
 /*font*/
 .font-size-10 { font-size: 10px; }

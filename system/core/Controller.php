@@ -58,6 +58,8 @@ class CI_Controller {
 	 */
 	private static $instance;
 	private $meta_arr = [];
+	private $enable_header = true;
+	private $enable_footer = true;
 
 	/**
 	 * Class constructor
@@ -131,14 +133,21 @@ class CI_Controller {
             "return_view" => false,
         ], $options);
         
-		$this->load->view("layout/{$layout}/header", $this->meta_arr);
+        if($this->enable_header){
+            $this->load->view("layout/{$layout}/header", $this->meta_arr);
+        }
+		
         $this->load->view($view, $data);
-        $this->load->view("layout/{$layout}/footer");
+        
+        if($this->enable_footer){
+            $this->load->view("layout/{$layout}/footer");
+        }
+        
 	}
 	// --------------------------------------------------------------------
 
 	public function request_obj($tabel = false, $key = false) {
-        $obj = lib_core::load_db_default($tabel);
+        $obj = lib_db::load_db_default($tabel);
         foreach ($obj->get_fields_arr() as $field => $field_data_arr) {
             $value = $this->request($field);
             $obj->obj->{$field} = $value ? $value : $obj->get_field_default($field);
@@ -152,7 +161,7 @@ class CI_Controller {
 	// --------------------------------------------------------------------
 
 	public function request_db($tabel = false) {
-        $obj = lib_core::load_db_default($tabel);
+        $obj = lib_db::load_db_default($tabel);
         $id = $this->request($obj->get_key());
         $obj->get_fromdb($id);
         return $obj;

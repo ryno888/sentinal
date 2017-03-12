@@ -31,6 +31,34 @@ class lib_html_tags extends lib_core{
         return "<div class='container'>".heading($label, $type, $options_arr['attr_arr'])."</div>";
     }
     //--------------------------------------------------------------------------
+    public static function button($label = '', $onclick = "javascript:;", $options = []) {
+        $options_arr = array_merge([
+			'name'  => false,
+			'type'  => 'button',
+            'class' => "btn btn-default",
+            'onclick' => $onclick,
+            'style' => '',
+            'extra' => '',
+            'attr_arr' => [],
+		], $options);
+        
+        $html_options = lib_html_tags::get_html_options($options);
+        $options_arr['class'] = "{$options_arr['class']} {$html_options['css']}";
+        $options_arr['style'] = "{$options_arr['style']} {$html_options['style']}";
+        
+        $defaults = array_merge([
+			'name'  => $options_arr["name"],
+			'type'  => $options_arr["type"],
+            'class' => $options_arr["class"],
+            'onclick' => $onclick,
+		], $options_arr["attr_arr"]);
+
+
+        return '<button '._parse_form_attributes($options_arr["name"], $defaults)._attributes_to_string($options_arr["extra"]).'>'
+			.$label
+			."</button>\n";
+    }
+    //--------------------------------------------------------------------------
     public static function itext($label, $id, $value = false, $options = []) {
         $options_arr = array_merge([
             'append'       => false,
@@ -172,6 +200,47 @@ class lib_html_tags extends lib_core{
         return self::wrap_form_group($label, $id, form_multiselect('', $value_arr, $value, $data_arr));
     }
     //--------------------------------------------------------------------------
+    public static function idate_picker($label = false, $id = false, $value = false, $options = []){
+        $options_arr = array_merge([
+            "autoclose" => true,
+            "type" => false,  // month / year
+            "format" => "yyyy-mm-dd",
+            "show_today_btn" => false,
+        ], $options);
+        
+        $input = lib_html_tags::itext($label, $id, $value, $options_arr);
+        
+        $today_btn = $options_arr["show_today_btn"] ? "todayBtn: 'linked'," : false;
+        $today_btn_highlight = $options_arr["show_today_btn"] ? "todayHighlight: true," : false;
+                
+        switch ($options_arr["type"]) {
+            case "month": 
+                $minViewMode = "minViewMode: 1,";
+                $options_arr["format"] = "mm";
+                break;
+            case "year": 
+                $minViewMode = "minViewMode: 2,"; 
+                $options_arr["format"] = "yyyy";
+                break;
+            default: $minViewMode = false; break;
+        }
+        
+        return "
+            <script>
+                $(document).ready(function(){
+                    $('#$id input').datepicker({
+                        autoclose: {$options_arr["autoclose"]},
+                        format: '{$options_arr["format"]}',
+                        $today_btn
+                        $today_btn_highlight
+                        $minViewMode
+                    });
+                });
+            </script>
+            <div id='$id'>$input</div>
+        ";
+    }
+    //--------------------------------------------------------------------------
     public static function fieldset($header, $html) {
         $return = '';
         $return .= form_fieldset($header);
@@ -304,12 +373,15 @@ class lib_html_tags extends lib_core{
     }
     //--------------------------------------------------------------------------
     public static function load_meta_data($meta_arr = []) {
-        echo "<meta charset='utf-8'>";
-        echo "<title>{$meta_arr['title']}</title>";
-        
-        foreach ($meta_arr as $name => $content) {
-            echo meta(array('name' => $name, 'content' => $content));
+        if($meta_arr && count($meta_arr > 0)){
+            echo "<meta charset='utf-8'>";
+            echo isset($meta_arr['title']) ? "<title>{$meta_arr['title']}</title>" : false;
+
+            foreach ($meta_arr as $name => $content) {
+                echo meta(array('name' => $name, 'content' => $content));
+            }
         }
+        
     }
     //--------------------------------------------------------------------------
 }

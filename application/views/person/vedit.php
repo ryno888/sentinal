@@ -4,22 +4,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
     $html = new lib_html();
-    $html->header("New form");
+    $html->container_fluid = true;
+    $html->header("General Details", 3);
     $html->form("person/xedit");
-        $html->add_menu_button("Cancel", "requestUpdate('person/vlist')");
         $html->add_menu_submitbutton("Save Changes");
-        $html->add_column("half");
-            $html->fieldset_open("test header");
             $html->ihidden("per_id", $person->id);
-            $html->dbinput($person, "per_firstname");
-            $html->dbinput($person, "per_lastname");
-            
-            $html->itext("Grade", "per_grade");
-            $html->iselect("test select", "teat_select", $result_arr, 2);
-            $html->fieldset_close();
-        $html->end_column();
+            $html->add_column("half");
+                $html->fieldset_open("General Details");
+                    $html->dbinput($person, "per_firstname");
+                    $html->dbinput($person, "per_lastname");
+                    $html->dbinput($person, "per_gender");
+                    $html->dbinput($person, "per_grade");
+                    $html->idate("Year", "per_year_in_class", lib_date::strtodate($person->get_field_value("per_year_in_class"), "Y"), ["type" => "year"]);
+                    $html->idate("Year", "per_birthday", lib_date::strtodate($person->get_field_value("per_birthday"), lib_date::$DATE_FORMAT_12), ["format" => "dd MM yyyy"]);
+                $html->fieldset_close();
+            $html->end_column();
+            $html->add_column("half");
+                $html->fieldset_open("History");
+                    $html->dbinput($person, "per_previous_grade");
+                    $html->dbinput($person, "per_grade_repeated");
+                    $html->dbinput($person, "per_year_in_phase");
+                $html->fieldset_close();
+            $html->end_column();
     $html->end_form();
     $html->display();
-    
     ?>
+                
+

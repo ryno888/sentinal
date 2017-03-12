@@ -4,12 +4,9 @@
  *
  * @author Ryno
  */
-class db_person extends dbx_person{
+class dbx_person extends lib_db{
     
     public function __construct() {
-        
-        parent::__construct();
-        
         $this->set_key("per_id");
         $this->set_table("person");
         
@@ -27,42 +24,34 @@ class db_person extends dbx_person{
             "per_password"      => ["name" => "password"    , "default" => ""       , "type" => DB_VARCHAR],
             "per_online"        => ["name" => "is online"   , "default" => 0        , "type" => DB_TINYINT],
             "per_date_created"  => ["name" => "date created", "default" => ""       , "type" => DB_DATETIME],
-            
-            "per_birthday"          => ["name" => "birthday"        , "default" => ""       , "type" => DB_DATETIME],
-            "per_year_in_class"     => ["name" => "year"            , "default" => ""       , "type" => DB_DATETIME],
-            "per_cemis_nr"          => ["name" => "cms number"      , "default" => ""       , "type" => DB_VARCHAR],
-            "per_grade"             => ["name" => "grade"           , "default" => ""       , "type" => DB_TINYINT],
-            "per_previous_grade"    => ["name" => "previous grade"  , "default" => ""       , "type" => DB_TINYINT],
-            "per_grade_repeated"    => ["name" => "grade repeated"  , "default" => ""       , "type" => DB_VARCHAR],
-            "per_year_in_phase"     => ["name" => "year in phase"   , "default" => ""       , "type" => DB_VARCHAR],
+            "per_birthday"      => ["name" => "birthday"    , "default" => ""       , "type" => DB_DATETIME],
         ]);
     }
-    //----------------------------------------------------------------------------------------
-    public $per_grade = [
+    //----------------------------------------------------------------------------
+    public $per_gender = [
         0 => "-- Not Selected --",
-        -1 => "Grade R",
-        1 => "Grade 1",
-        2 => "Grade 2",
-        3 => "Grade 3",
-        4 => "Grade 4",
-        5 => "Grade 5",
-        6 => "Grade 6",
-        7 => "Grade 7",
+        1 => "Male",
+        2 => "Female",
     ];
-    //----------------------------------------------------------------------------------------
-    public $per_previous_grade = [
-        0 => "-- Not Selected --",
-        -1 => "Grade R",
-        1 => "Grade 1",
-        2 => "Grade 2",
-        3 => "Grade 3",
-        4 => "Grade 4",
-        5 => "Grade 5",
-        6 => "Grade 6",
-        7 => "Grade 7",
-    ];
-    //----------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     public function on_update(&$obj) {
         parent::on_update($obj);
+        
+        if(property_exists($obj, "per_password") && !$this->is_empty("per_password")){
+            $obj->per_password = lib_string::encrypt($obj->per_password);
+        }
+        
+        $obj->per_name = "$obj->per_lastname, $obj->per_firstname";
     }
+    //----------------------------------------------------------------------------
+    public function has_role($obj, $code) {
+        
+    }
+    //----------------------------------------------------------------------------
+    public function format_name() {
+        return $this->get("per_name", function ($obj, $field){
+            return "$obj->per_firstname $obj->per_lastname";
+        });
+    }
+    //----------------------------------------------------------------------------
 }
