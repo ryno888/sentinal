@@ -901,9 +901,10 @@ if ( ! function_exists('function_usable'))
 
     if (!function_exists('request')) {
 
-        function request($var) {
+        function request($var, $default = false) {
             $ci_controller = new CI_Input();
-            return $ci_controller->get_post($var);
+            $result = $ci_controller->get_post($var);
+            return $result ? $result : $default;
         }
 
     }

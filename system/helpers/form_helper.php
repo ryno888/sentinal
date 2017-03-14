@@ -919,7 +919,7 @@ if ( ! function_exists('validation_errors'))
 	 * @param	string
 	 * @return	string
 	 */
-	function validation_errors($prefix = '', $suffix = '')
+	function validation_errors($prefix = '<p class="validation-error">', $suffix = '')
 	{
 		if (FALSE === ($OBJ =& _get_validation_object()))
 		{

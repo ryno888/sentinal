@@ -53,7 +53,19 @@ class error_helper {
                  </div>
                  <script>
                     $(document).ready(function () {
-                       fadeIn('.errorPopup');
+                        system.fadeIn('.errorPopup');
+                        $('body').on('click', '.deleteError', function(){
+                            var file = $(this).attr('file');
+                            $.ajax({
+                                type: 'POST',
+                                data: 'file='+file,
+                                url: ci_base_url+'index.php/index/xclear_error',
+                                cache: false,
+                                success: function(response){
+                                    $('.errorPopup').html(response);
+                                }
+                            });
+                        });
                     });
                  </script>
             ";

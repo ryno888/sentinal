@@ -100,10 +100,19 @@ if ( ! function_exists('current_url'))
 	 *
 	 * @return	string
 	 */
-	function current_url()
+	function current_url($include_query_string = false)
 	{
-		$CI =& get_instance();
-		return $CI->config->site_url($CI->uri->uri_string());
+        
+        $CI =& get_instance();
+
+        $url = $CI->config->site_url($CI->uri->uri_string());
+        if($include_query_string){
+            $url = $_SERVER['QUERY_STRING'] ? $url.'?'.$_SERVER['QUERY_STRING'] : $url;
+        }
+        return $url;
+    
+//		$CI =& get_instance();
+//		return $CI->config->site_url($CI->uri->uri_string());
 	}
 }
 

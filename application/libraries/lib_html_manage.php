@@ -20,6 +20,9 @@ class lib_html_manage extends lib_core{
     private $menu_html = [];
     private $view = false;
     private $titel = false;
+    
+    public $css_link = "cursor:pointer;";
+    public $css_link_hover = "background-color: #e4f5ff;";
     //--------------------------------------------------------------------------
     public function __construct() {
         parent::__construct();
@@ -35,26 +38,12 @@ class lib_html_manage extends lib_core{
         $this->menu_html[] = $mixed;
     }
     //--------------------------------------------------------------------------
-    public function add_button($label, $onclick, $options = []) {
+    public function add_item($label, $onclick, $options = []) {
         $options_arr = array_merge([
-            "class" => "btn btn-default btn-sm btn-block"
+            "class" => ""
         ], $options);
         
-        $this->menu_html[] = lib_html_tags::button($label, $onclick, $options_arr);
-    }
-    //--------------------------------------------------------------------------
-    private function get_elements_html() {
-        $elements = false;
-        
-        foreach ($this->menu_html as $element) {
-            $elements .= "
-                <li class='list-group-item'>
-                    $element
-                </li>
-            ";
-        }
-        
-        return $elements;
+        $this->menu_html[] = "<li class='list-group-item manage-link' onclick=\"$onclick\"><span>$label</span></li>";
     }
     //--------------------------------------------------------------------------
     public function add_title($title, $info = "", $options = []){
@@ -74,19 +63,23 @@ class lib_html_manage extends lib_core{
     //--------------------------------------------------------------------------
     public function display($lib_html = false) {
         $inner_html = $lib_html ? $lib_html : $this->view;
-        
-        $elements = $this->get_elements_html();
+        $container = $this->container_fluid ? "container-fluid" : "container";
+        $elements = implode("", $this->menu_html);
         
         echo "
-            <div class='container'>
+            <style>
+                .manage-link { $this->css_link }
+                .manage-link:hover { $this->css_link_hover }
+            </style>
+            <div class='$container'>
                 <div class='row'>
-                    <div class='col-md-3'>
+                    <div class='col-md-2'>
                         $this->titel
                         <ul class='list-group'>
                             $elements
                         </ul>
                     </div>
-                    <div class='col-md-9'>
+                    <div class='col-md-10'>
                         $inner_html
                     </div>
                 </div>

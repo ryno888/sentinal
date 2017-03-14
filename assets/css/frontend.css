@@ -25,7 +25,7 @@ legend {
 .wrapper-error-div{ position: fixed; bottom: 50px; right: 0; background-color: #ffeded; width: 350px;}
 .screen{ position: relative; display:none;}
 .form-error-label{ color: red; font-size: 11px; margin-bottom: -10px; }
-.validation-error{     font-size: 12px; margin: 0 0 5px; }
+.validation-error{ font-size: 12px; margin: 0 0 5px; }
 
 /*error page*/
 error-wrapper.div.container{ margin-top:20px; }
@@ -155,3 +155,5 @@ error-wrapper.div.container{ margin-top:20px; }
 @media (min-width: 768px){
     .modal-md { width: 450px; }
 }
+
+.login-panel-body{ padding-top: 30px; background-image: url(http://localhost/sentinal/assets/img/city_bg.jpg);     background-size: auto 100%; background-repeat: no-repeat; }

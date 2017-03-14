@@ -84,15 +84,22 @@ defined('EXIT_DATABASE')        OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')       OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')       OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
+include_once BASEPATH."..\\application\\setup.php";
 
 //directories
 defined('DIR_APPLICATION')      OR define('DIR_APPLICATION', BASEPATH."..\\application\\"); // no errors
 defined('DIR_LOGS')             OR define('DIR_LOGS', BASEPATH."..\\application\\logs\\"); // no errors
+defined('DIR_ASSETS')           OR define('DIR_ASSETS', BASEPATH."..\\..\\assets\\"); 
+
+//url
+defined('URL_ASSETS')           OR define('URL_ASSETS', CI_BASE_URL."assets/");
+defined('URL_ASSETS_CSS')       OR define('URL_ASSETS_CSS', CI_BASE_URL."assets/css/");
+defined('URL_ASSETS_js')        OR define('URL_ASSETS_JS', CI_BASE_URL."assets/js/");
 
 //database
 defined('DB_INT')               OR define('DB_INT'      , 1);
 defined('DB_VARCHAR')           OR define('DB_VARCHAR'  , 2);
 defined('DB_TINYINT')           OR define('DB_TINYINT'  , 3);
 defined('DB_DATETIME')          OR define('DB_DATETIME' , 4);
+defined('DB_ENCRYPT')           OR define('DB_ENCRYPT'  , 5);
 
-include_once DIR_APPLICATION."setup.php";

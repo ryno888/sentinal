@@ -20,7 +20,7 @@
                 <div class="panel-title">Sign In</div>
                 <div class="login-forgot-password"><a href="#">Forgot password?</a></div>
             </div>     
-            <div style="padding-top:30px" class="panel-body" >
+            <div class="panel-body login-panel-body" >
                 <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
                 <form id="loginform" name="loginform" class="form-horizontal" role="form">
                     <div style="margin-bottom: 25px" class="input-group">

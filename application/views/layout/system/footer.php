@@ -80,5 +80,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script type="text/javascript" src="<?php echo $base_url; ?>assets/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo $base_url; ?>assets/js/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="<?php echo $base_url; ?>assets/js/system.js"></script>
-    <script type="text/javascript" src="<?php echo $base_url; ?>assets/js/components.js"></script>
 </html>

@@ -25,10 +25,12 @@ class lib_html_tags extends lib_core{
     //--------------------------------------------------------------------------
     public static function header($label, $type = 1, $options = []) {
         $options_arr = array_merge([
-            'attr_arr'       => [],
+            'attr_arr'  => [],
+            'container_fluid' => false,
         ], $options);
+        $container = $options_arr["container_fluid"] ? "container-fluid" : "container";
         
-        return "<div class='container'>".heading($label, $type, $options_arr['attr_arr'])."</div>";
+        return "<div class='$container'>".heading($label, $type, $options_arr['attr_arr'])."</div>";
     }
     //--------------------------------------------------------------------------
     public static function button($label = '', $onclick = "javascript:;", $options = []) {

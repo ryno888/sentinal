@@ -15,23 +15,36 @@ class lib_list extends lib_core{
     
     public $id = false;
     public $sql_key = false;
-    public $current_url = false;
+    
     public $sql_select = false;
     public $sql_from = false;
     public $sql_where = false;
+    public $sql_order_by = false;
     public $sql_limit = 20;
+    public $sql_offset = 0;
+    public $sql_total_items = 0;
+    public $sql = false;
+    
     public $item_arr = [];
+    
     public $searchfield_value = false;
     public $searchfield_label = "Search";
     private $search = false;
+    
+    private $current_page_index = 1;
+    public $pagination_max_pages_to_show = 7;
     
     private $menu_arr = [];
     private $added_arr = [];
     private $legend_arr = [];
     private $action_arr = [];
     private $col_header_arr = [];
+    private $field_class_arr = [];
+    private $field_style_arr = [];
     private $html = "";
     private $titel = false;
+    private $current_url = false;
+    private $current_url_query_string = false;
     
     
     public $ci = false;
@@ -51,8 +64,12 @@ class lib_list extends lib_core{
         $this->ci->load->database();
         $this->ci->load->library("lib_database");
         
+        $this->current_page_index = request("page", 1);
+        
         $this->search = request("__search");
         $this->current_url = current_url();
+        $_url = parse_url(current_url(true));
+        $this->current_url_query_string = $_url && isset($_url['query']) ? $_url['query'] : false;
     }
     //--------------------------------------------------------------------------
     /**
@@ -111,6 +128,10 @@ class lib_list extends lib_core{
             "db_field" => $db_field,
         ];
         
+        $html_options = lib_html_tags::get_html_options($options);
+        $this->field_class_arr[$db_field] = "{$html_options['css']}";
+        $this->field_style_arr[$db_field] = "{$html_options['style']}";
+        
         $this->col_header_arr[] = "<th>$label</th>";
     }
     //--------------------------------------------------------------------------
@@ -132,20 +153,30 @@ class lib_list extends lib_core{
     private function sql_execute(){
         
         $legend_select = $this->get_legend_sql();
-        $comdb = new lib_database();
-        $comdb->select("$this->sql_select $legend_select");
-        $comdb->from($this->sql_from);
+        $this->ci->load->database();
+        $this->db = $this->ci->db;
+        
+        $this->db->select("$this->sql_select $legend_select");
+        
+        $this->db->from($this->sql_from);
+        
         if($this->search){
             $this->sql_where .= $this->sql_where ? "AND $this->searchfield_value LIKE '%$this->search%'" : "$this->searchfield_value LIKE '%$this->search%'";
         }
-        if($this->sql_where){
-            $comdb->where($this->sql_where);
+        
+        if($this->sql_where){ $this->db->where($this->sql_where); }
+        if($this->sql_order_by){
+            $this->db->order_by($this->sql_order_by);
         }
-        if($this->sql_limit){
-            $comdb->limit($this->sql_limit);
+        if($this->current_page_index > 1){
+            $this->sql_offset = $this->sql_limit * ($this->current_page_index - 1);
         }
         
-        $this->item_arr = $comdb->get();
+        $this->db->limit($this->sql_limit, $this->sql_offset);
+        $this->item_arr = $this->db->get()->result();
+        $this->sql_total_items = $this->db->count_all_results($this->sql_from);
+        
+        $this->sql = $this->db->last_query();
     }
     //--------------------------------------------------------------------------
     private function build(){
@@ -164,7 +195,9 @@ class lib_list extends lib_core{
                 }
                 foreach ($this->added_arr as $key => $value) {
                     $field_value = $db_obj->{$value['db_field']};
-                    $table_body .= "<td>$field_value</td>";
+                    $class = $this->field_class_arr["{$value['db_field']}"] ? " class='{$this->field_class_arr["{$value['db_field']}"]}' " : "";
+                    $style = $this->field_style_arr["{$value['db_field']}"] ? " style='{$this->field_style_arr["{$value['db_field']}"]}' " : "";
+                    $table_body .= "<td{$class}{$style}>$field_value</td>";
                 }
                 $table_body .= "</tr>";
             }
@@ -235,7 +268,7 @@ class lib_list extends lib_core{
             $this->menu_arr[] = "
                 <input id='__search' name='__search' class='form-control' value='$this->search' type='text'>
                 <div class='input-group-btn padding-left-5'>
-                    <button class='btn btn-default' type='submit'>$this->searchfield_label</button>
+                    <button class='btn btn-default' type='submit'><i class='fa fa-search' aria-hidden='true'></i> $this->searchfield_label</button>
                 </div>
                 <div class='input-group-btn padding-left-5'>
                     <button class='btn btn-default $hidden' onclick='document.location=\"$this->current_url\"' type='button'>Clear</button>
@@ -249,30 +282,55 @@ class lib_list extends lib_core{
                 <div class='list-menu'>
                     <div class='row'>
                         <div class='col-md-12'>
-                            <div class='col-md-6'>
-                                <form role='form' class='form-inline' method='post'>
-                                    <div class='container'>
-                                        <div class='input-group input-group-sm'>
-                                            $menu_html
-                                            <ul class='padding-left-5 pagination pagination-sm' style='margin: 0px'>
-                                                <li><a href='#'>&laquo;</a></li>
-                                                <li><a href='#'>1</a></li>
-                                                <li><a href='#'>2</a></li>
-                                                <li><a href='#'>3</a></li>
-                                                <li><a href='#'>4</a></li>
-                                                <li><a href='#'>5</a></li>
-                                                <li><a href='#'>&raquo;</a></li>
-                                            </ul>
-                                        </div>
+                            <form role='form' class='form-inline' method='post' action='$this->current_url'>
+                                <div class='container-fluid'>
+                                    <div class='input-group input-group-sm'>
+                                        $menu_html
                                     </div>
-                                </form>
-                            </div>
-                            <div class='col-md-6'></div>
+                                    <div class='input-group input-group-sm'>
+                                        {$this->get_pagination()}
+                                    </div>
+                                </div>
+                            </form>
                         </div>
+                        <div class='col-md-6'></div>
                     </div>
                 </div>
             ";
         }
+    }
+    //-----------------------------------------------------------------------
+    private function get_pagination() {
+        $query = $this->get_url_query_string();
+        $params = array(
+            "totalItems" => $this->get_total_items(), 
+            "itemsPerPage" => $this->sql_limit, 
+            "currentPage" => $this->current_page_index, 
+            "urlPattern" => "$this->current_url?page=(:num){$query}"
+        );
+        $this->ci->load->library("lib_paginator", $params);
+        $lib_paginator = new lib_paginator($params);
+        $lib_paginator->setMaxPagesToShow($this->pagination_max_pages_to_show);
+        return $lib_paginator;
+    }
+    //-----------------------------------------------------------------------
+    private function get_url_query_string() {
+        $query = "";
+        if($this->current_url_query_string){
+            $query_parts = [];
+            parse_str($this->current_url_query_string, $query_parts);
+            if(isset($query_parts['page'])){
+                unset($query_parts["page"]);
+            }
+            if(count($query_parts) > 0){
+                $query = "&".http_build_query($query_parts);
+            }
+        }
+        return $query;
+    }
+    //-----------------------------------------------------------------------
+    private function get_total_items() {
+        return $this->sql_total_items;
     }
     //-----------------------------------------------------------------------
     public function display() {

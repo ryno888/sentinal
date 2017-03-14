@@ -24,7 +24,7 @@ class db_person extends dbx_person{
             "per_telnr"         => ["name" => "tel nr"      , "default" => ""       , "type" => DB_VARCHAR],
             "per_cellnr"        => ["name" => "cell nr"     , "default" => ""       , "type" => DB_VARCHAR],
             "per_username"      => ["name" => "username"    , "default" => ""       , "type" => DB_VARCHAR],
-            "per_password"      => ["name" => "password"    , "default" => ""       , "type" => DB_VARCHAR],
+            "per_password"      => ["name" => "password"    , "default" => ""       , "type" => DB_ENCRYPT],
             "per_online"        => ["name" => "is online"   , "default" => 0        , "type" => DB_TINYINT],
             "per_date_created"  => ["name" => "date created", "default" => ""       , "type" => DB_DATETIME],
             

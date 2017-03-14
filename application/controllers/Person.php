@@ -62,9 +62,13 @@ class Person extends CI_Controller {
     //--------------------------------------------------------------------------
     public function xadd() {
         $this->load->library("lib_html");
-        $this->form_validation->set_rules('per_grade', "Grade", "required");
         $this->form_validation->set_rules('per_firstname', "Firstname", "required");
         $this->form_validation->set_rules('per_lastname', "Surname", "required");
+        $this->form_validation->set_rules('per_gender', "Gender", "required");
+        $this->form_validation->set_rules('per_grade', "Grade", "required");
+        $this->form_validation->set_rules('per_birthday', "Birthday", "required");
+        $this->form_validation->set_rules('per_year_in_class', "Year in class", "required");
+        $this->form_validation->set_rules('per_previous_grade', "Previous Grade", "required");
         if($this->form_validation->run() == false){
             return http_helper::error(1, validation_errors());
         }
@@ -99,6 +103,7 @@ class Person extends CI_Controller {
         $this->form_validation->set_rules('per_firstname', "Firstname", "required");
         $this->form_validation->set_rules('per_lastname', "Surname", "required");
         $this->form_validation->set_rules('per_password', "Password", "trim|min_length[8]");
+        $this->form_validation->set_rules('per_password_confirm', 'Confirm Password', 'trim|min_length[8]|matches[per_password]');
         if($this->form_validation->run() == false){
             return http_helper::error(1, validation_errors());
         }

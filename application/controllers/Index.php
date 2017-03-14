@@ -4,9 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Index extends CI_Controller {
     //--------------------------------------------------------------------------
 	public function page_not_found() {
-        $this->load->view('layout/web/header');
-        $this->load->view('errors/cli/error_404');
-        $this->load->view('layout/web/footer');
+        $this->load_view('errors/cli/error_404', "web");
     }
     //--------------------------------------------------------------------------
     public function xhome() {
@@ -18,6 +16,8 @@ class Index extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function vlogin() {
+        $active_id = lib_user::get_active_id();
+        if($active_id){ http_helper::go_home(); }
         $this->set_meta_title("Login");
         $this->load_view('index/vlogin', "web");
     }

@@ -18,6 +18,8 @@
 class lib_html extends lib_core{
     public $container_fluid = false;
     private $form_id = false;
+    private $form_success_js = false;
+    private $form_error_js = false;
     private $html = [
         "html" => false,
         "form_open" => false,
@@ -58,6 +60,7 @@ class lib_html extends lib_core{
     //--------------------------------------------------------------------------
     public function header($label, $type = 1, $attributes_arr = []) {
         $attributes = array_merge([
+            "container_fluid" => $this->container_fluid
         ], $attributes_arr);
         
         $this->add_html("header", lib_html_tags::header($label, $type, $attributes));
@@ -151,26 +154,66 @@ class lib_html extends lib_core{
     //--------------------------------------------------------------------------
     public function add_menu_submitbutton($label, $onclick = false, $options = []) {
         $options_arr = array_merge([
-            "icon" => false,
+            "icon" => "fa-save",
             "attributes" => [
                 "class" => "btn btn-default margin-right-5",
                 "value" => "Save Changes",
             ],
         ], $options);
-        $icon = $options_arr["icon"] ? '<i class="fa '.$options_arr["icon"].'" aria-hidden="true"></i> Save Changes' : '';
         
+        $this->set_form_js("success");
+        $this->set_form_js("error");
+        
+        $icon = $options_arr["icon"] ? '<i class="fa '.$options_arr["icon"].'" aria-hidden="true"></i> ' : '';
         if($onclick === false){
-            $onclick = "javascript:;";
+            $onclick = "system.ajax.submitForm('$this->form_id', {success: function(data){
+                $this->form_success_js
+            }, error: function(){
+                $this->form_error_js
+            }});";
         }
-        $this->menu_html[] = '<button onclick="'.$onclick.'" class="btn btn-default margin-right-5 form-submit" formTarget="'.$this->form_id.'" type="button">'.$icon.$label.'</button>';
+        
+        $this->menu_html[] = '<button onclick="'.$onclick.'" class="btn btn-default margin-right-5" type="button">'.$icon.$label.'</button>';
+    }
+    //--------------------------------------------------------------------------
+    public function set_form_js($type = "success", $js = false) {
+        switch ($type) {
+            case "success":
+                $this->form_success_js = $js ? $js : "
+                    if(data.code == 1){
+                        system.browser.error(data.message);
+                    }else if(data.code == 2){
+                        system.browser.message('Success', data.message);
+                    }else if(data.code == 3){
+                        if(data.action.type == 'refresh'){
+                            $('.messageModalCloseBtn').click(location.reload());
+                        }else if(data.action.type == 'redirect'){
+                            $('.messageModalCloseBtn').click(function(){
+                                system.ajax.requestUpdate(data.action.url);
+                            });
+                        }
+                        system.browser.message('Success', data.message);
+                    }else{
+                        location.reload();
+                    }
+                ";
+                break;
+            case "error":
+                $this->form_error_js = $js ? $js : "
+                    system.browser.error('An error has occured. If this presists, please contact your system administrator.');
+                ";
+                break;
+        }
+        
     }
     //--------------------------------------------------------------------------
     public function build_menu_html() {
         $menu_wrapper= '';
+        $container = $this->container_fluid ? "container-fluid" : "container";
         if(count($this->menu_html) > 0){
             $menu = implode(" ", $this->menu_html);
             $menu_wrapper = "
-                <div class='container margin-bottom-10'>
+                <div class='$container margin-bottom-10'>
                     <div class='btn-group btn-group-sm' role='group'>
                         $menu
                     </div>
