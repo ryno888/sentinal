@@ -102,4 +102,5 @@ defined('DB_VARCHAR')           OR define('DB_VARCHAR'  , 2);
 defined('DB_TINYINT')           OR define('DB_TINYINT'  , 3);
 defined('DB_DATETIME')          OR define('DB_DATETIME' , 4);
 defined('DB_ENCRYPT')           OR define('DB_ENCRYPT'  , 5);
+defined('DB_TEXT')              OR define('DB_TEXT'     , 6);
 

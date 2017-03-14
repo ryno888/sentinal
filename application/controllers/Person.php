@@ -29,7 +29,7 @@ class Person extends CI_Controller {
     //--------------------------------------------------------------------------
     public function vedit() {
         
-        $data['person'] = lib_db::load_db("person", "per_id = ".$this->request("per_id"));
+        $data['person'] = $this->request_db("person");
         $data['result_arr'] = lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
         
         $this->load->library("lib_html");
@@ -40,14 +40,13 @@ class Person extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function vmanage() {
-        $data['person'] = lib_db::load_db("person", "per_id = ".$this->request("per_id"));
+        $data['person'] = $this->request_db("person");
         $data['result_arr'] = lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
         $data["panel"] = $this->request("p");
         
         $this->load->library("lib_html");
         $this->load->library("lib_html_manage");
         $this->load->library("lib_list");
-        
         $this->load_view('person/vmanage', "system", $data);
     }
     //--------------------------------------------------------------------------
@@ -102,8 +101,8 @@ class Person extends CI_Controller {
         $this->load->library("lib_html");
         $this->form_validation->set_rules('per_firstname', "Firstname", "required");
         $this->form_validation->set_rules('per_lastname', "Surname", "required");
-        $this->form_validation->set_rules('per_password', "Password", "trim|min_length[8]");
-        $this->form_validation->set_rules('per_password_confirm', 'Confirm Password', 'trim|min_length[8]|matches[per_password]');
+        $this->form_validation->set_rules('per_password', "Password", "trim");
+        $this->form_validation->set_rules('per_password_confirm', 'Confirm Password', 'trim|matches[per_password]');
         if($this->form_validation->run() == false){
             return http_helper::error(1, validation_errors());
         }

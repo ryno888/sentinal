@@ -20,7 +20,7 @@
             $html->fieldset_open("Account Details");
                 $html->dbinput($person, "per_email");
                 $html->dbinput($person, "per_password", ["dbtype" => "password"]);
-                $html->itext("Confirm Password", "per_password_confirm", false, ["dbtype" => "password"]);
+                $html->ipassword("Confirm Password", "per_password_confirm", false, ["dbtype" => "password"]);
             $html->fieldset_close();
         $html->end_column();
     $html->end_form();

@@ -76,7 +76,7 @@ class lib_db{
     public function get_fromdb($sql_where) {
         $this->set_new();
         
-        if(is_int($sql_where)){
+        if(is_numeric($sql_where)){
             $this->obj = lib_database::query("SELECT * FROM $this->table WHERE $this->key = $sql_where", 1);
         }else{
             $this->obj = lib_database::query("SELECT * FROM $this->table WHERE $sql_where", 1);

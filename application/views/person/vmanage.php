@@ -11,14 +11,13 @@
     $html_manage->add_item("<i class='fa fa-chevron-left margin-right-5' aria-hidden='true'></i>Back to List", 
         "system.browser.redirect('person/vlist');");
     $html_manage->add_item("<i class='fa fa-info-circle margin-right-5' aria-hidden='true'></i>Details", 
-        "system.browser.redirect('person/vmanage?per_id={$person->id}');");
+        "system.browser.redirect('person/vmanage?per_id={$person->get("per_id")}');");
     $html_manage->add_item("<i class='fa fa-file-text-o margin-right-5' aria-hidden='true'></i>Intervention", 
-        "system.browser.redirect('person/vmanage?per_id={$person->id}&p=intervention');");
+        "system.browser.redirect('person/vmanage?per_id={$person->get("per_id")}&p=intervention');");
     
     switch ($panel) {
         case "details": $html_manage->set_view("person/vedit", $this->_ci_cached_vars); break;
-        case "intervention": $html_manage->set_view("person/vlist_intervention", $this->_ci_cached_vars); break;
-
+        case "intervention": $html_manage->set_view("intervention/vlist", $this->_ci_cached_vars); break;
         default: $html_manage->set_view("person/vedit", $this->_ci_cached_vars); break;
     }
     

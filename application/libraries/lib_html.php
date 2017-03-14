@@ -107,6 +107,8 @@ class lib_html extends lib_core{
                     return $this->idate(ucwords($obj->get_field_display($field)), $field, $obj->get_field_value($field), $options);
                 case DB_TINYINT:
                     return $this->iselect(ucwords($obj->get_field_display($field)), $field, $obj->{$field}, $obj->get_field_value($field), $options);
+                case DB_TEXT:
+                    return $this->itextarea(ucwords($obj->get_field_display($field)), $field, $obj->get_field_value($field), $options);
 
                 default:
                     break;
