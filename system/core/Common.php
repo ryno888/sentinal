@@ -989,6 +989,7 @@ if ( ! function_exists('function_usable'))
             $obj = lib_db::load_db_default($table);
             $id = request($obj->get_key());
             $obj->get_fromdb($id);
+            
             return $obj;
         }
 

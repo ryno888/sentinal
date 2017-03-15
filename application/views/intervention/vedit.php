@@ -4,6 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+    //get intervention
     $intervention = request_db("intervention");
     
     $html = new lib_html();

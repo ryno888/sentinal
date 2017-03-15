@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 
+
     $html_manage = new lib_html_manage();
     $html_manage->container_fluid = true;
     $html_manage->add_title("Manage", $person->format_name());

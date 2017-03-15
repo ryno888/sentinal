@@ -12,7 +12,7 @@
     $list->sql_key = "int_id";
     $list->sql_select = "int_id, int_year, int_remark, int_type";
     $list->sql_from = "intervention";
-    $list->sql_limit = 10;
+    $list->sql_limit = 15;
     $list->add_field("Type", "int_type", ["function" => function($int_type){ return lib_db::get_enum_value("intervention", "int_type", $int_type); }]);
     $list->add_field("Remark", "int_remark");
     
