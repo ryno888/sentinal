@@ -16,6 +16,7 @@
         case "details": $html_manage->set_view("person/vedit", $this->_ci_cached_vars); break;
         case "intervention": $html_manage->set_view("intervention/vlist", $this->_ci_cached_vars); break;
         case "vadd_int": $html_manage->set_view("intervention/vadd", $this->_ci_cached_vars); break;
+        case "vedit_int": $html_manage->set_view("intervention/vedit", $this->_ci_cached_vars); break;
         default: $html_manage->set_view("person/vedit", $this->_ci_cached_vars); break;
     }
     

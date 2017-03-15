@@ -983,6 +983,18 @@ if ( ! function_exists('function_usable'))
     }
     // ------------------------------------------------------------------------
 
+    if (!function_exists('request_db')) {
+
+        function request_db($table) {
+            $obj = lib_db::load_db_default($table);
+            $id = request($obj->get_key());
+            $obj->get_fromdb($id);
+            return $obj;
+        }
+
+    }
+    // ------------------------------------------------------------------------
+
     if (!function_exists('request')) {
 
         function request($var, $default = false) {

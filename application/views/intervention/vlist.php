@@ -16,7 +16,7 @@
     $list->add_field("Type", "int_type", ["function" => function($int_type){ return lib_db::get_enum_value("intervention", "int_type", $int_type); }]);
     $list->add_field("Remark", "int_remark");
     
-    $list->add_action_edit("system.browser.redirect('person/vmanage?per_id=%int_id%')");
+    $list->add_action_edit("system.browser.redirect('person/vmanage?int_id=%int_id%&per_id=$person->id&p=vedit_int')");
     $list->add_action_delete("system.ajax.requestFunction('person/xdelete?id=%int_id%', function(){}, {confirm:true})");
     $list->display();
 ?>
