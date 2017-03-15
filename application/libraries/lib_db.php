@@ -178,4 +178,16 @@ class lib_db{
         return $db;
     }
     //--------------------------------------------------------------------------
+    public static function get_enum_arr($table, $field){
+        $class = lib_db::load_db_default($table);
+        
+        return $class->{$field};
+    }
+    //--------------------------------------------------------------------------
+    public static function get_enum_value($table, $field, $value = false){
+        $class = lib_db::load_db_default($table);
+        
+        return isset($class->{$field}[$value]) ? $class->{$field}[$value] : false;
+    }
+    //--------------------------------------------------------------------------
 }

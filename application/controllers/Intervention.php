@@ -28,15 +28,15 @@ class Intervention extends CI_Controller {
             return http_helper::error(1, validation_errors());
         }
         
+        $person = $this->request_db("person");
         $intervention = $this->request_obj("intervention");
-        console($intervention);
-//        $person->insert();
+        $intervention->insert();
         
         return http_helper::response("Changes successfully saved", [
             "code" => 3,
             "action" => [
                 "type" => "redirect",
-                "url" => "person/vlist",
+                "url" => "person/vmanage?per_id=$person->id&p=intervention",
             ],
         ]);
     }

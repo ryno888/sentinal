@@ -109,5 +109,12 @@ var system = {
     fadeOut: function(element, time){
         if(time == undefined){ time = 200; }
         $(element).fadeOut({duration : time, queue : false});
+    },
+    copyToClipboard: function (element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
     }
 }

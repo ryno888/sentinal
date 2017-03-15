@@ -8,7 +8,9 @@
 
 defined('CI_BASE_URL')          OR define('CI_BASE_URL', "http://sentinal.local/"); 
 defined('CI_NAME')              OR define('CI_NAME', "Sentinal"); 
+defined('CI_SYSTEM_NAME')       OR define('CI_SYSTEM_NAME', "Admin System"); 
 defined('CI_ENCRYPT_KEY')       OR define('CI_ENCRYPT_KEY', "locSentinalKey"); 
+defined('CI_CONTACT_NUMBER')    OR define('CI_CONTACT_NUMBER', ""); 
 
 //site db
 defined('DB_DATABASE')          OR define('DB_DATABASE', "loc_sentinal"); 
@@ -23,7 +25,8 @@ defined('EMAIL_HOST')           OR define('EMAIL_HOST', "ssl://smtp.gmail.com");
 defined('EMAIL_PORT')           OR define('EMAIL_PORT', "465"); 
 defined('EMAIL_USERNAME')       OR define('EMAIL_USERNAME', "ryno888@gmail.com"); 
 defined('EMAIL_PASSWORD')       OR define('EMAIL_PASSWORD', "083229Ryno"); 
-defined('EMAIL_ADDRESS')        OR define('EMAIL_ADDRESS', "ryno888@gmail.com"); 
+defined('EMAIL_FROM')           OR define('EMAIL_FROM', "ryno888@gmail.com"); 
+defined('EMAIL_DEV')            OR define('EMAIL_DEV', "ryno888@gmail.com"); 
 
 //formatting
 defined('CI_DATETIME')          OR define('CI_DATETIME', "Y-m-d H:i:s");
@@ -35,6 +38,7 @@ if (!defined('CR_FACEBOOK_ID'))         { define('CR_FACEBOOK_ID', "145737412583
 if (!defined('CR_FACEBOOK_SECRET'))     { define('CR_FACEBOOK_SECRET', "1498be992f38d36e181dba78283743d4"); }
 
 //meta
+defined('CI_META_TITLE')        OR define('CI_META_TITLE', CI_NAME." | ".CI_SYSTEM_NAME);
 defined('CI_META_DESCRIPTION')  OR define('CI_META_DESCRIPTION', "Modified System Structure in Codeigniter");
 defined('CI_META_KEYWORDS')     OR define('CI_META_KEYWORDS', "System, Codeigniter, application");
 defined('CI_META_AUTHOR')       OR define('CI_META_AUTHOR', "Ryno van Zyl");

@@ -99,7 +99,7 @@ class lib_list extends lib_core{
         
         $this->action_arr[] = "
             <td class='list-action'>
-                <i title='{$options_arr["title"]}' onclick=\"$onclick\" class='fa {$icon} {$options_arr["class"]}' aria-hidden='true'></i>
+                <i title='{$options_arr["title"]}' onclick=\"$onclick\" class='fa {$icon} {$options_arr["class"]} padding-left-5' aria-hidden='true'></i>
             </td>";
     }
     //--------------------------------------------------------------------------
@@ -118,14 +118,20 @@ class lib_list extends lib_core{
         
         $this->action_arr[] = "
             <td class='list-action'>
-                <i title='{$options_arr["title"]}' onclick=\"$onclick\" class='fa {$icon} {$options_arr["class"]}' aria-hidden='true'></i>
+                <i title='{$options_arr["title"]}' onclick=\"$onclick\" class='fa {$icon} {$options_arr["class"]} padding-left-5' aria-hidden='true'></i>
             </td>";
     }
     //--------------------------------------------------------------------------
     public function add_field($label, $db_field, $options = []){
+        
+        $options_arr = array_merge([
+            "function" => false,
+        ], $options);
+        
         $this->added_arr [$db_field] = [
             "label" => $label,
             "db_field" => $db_field,
+            "function" => $options_arr["function"],
         ];
         
         $html_options = lib_html_tags::get_html_options($options);
@@ -195,6 +201,9 @@ class lib_list extends lib_core{
                 }
                 foreach ($this->added_arr as $key => $value) {
                     $field_value = $db_obj->{$value['db_field']};
+                    if($value['function']){
+                        $field_value = call_user_func($value['function'], $field_value);
+                    }
                     $class = $this->field_class_arr["{$value['db_field']}"] ? " class='{$this->field_class_arr["{$value['db_field']}"]}' " : "";
                     $style = $this->field_style_arr["{$value['db_field']}"] ? " style='{$this->field_style_arr["{$value['db_field']}"]}' " : "";
                     $table_body .= "<td{$class}{$style}>$field_value</td>";

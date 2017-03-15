@@ -187,7 +187,7 @@ class lib_html extends lib_core{
                             $('.messageModalCloseBtn').click(location.reload());
                         }else if(data.action.type == 'redirect'){
                             $('.messageModalCloseBtn').click(function(){
-                                system.ajax.requestUpdate(data.action.url);
+                                system.browser.redirect(data.action.url);
                             });
                         }
                         system.browser.message('Success', data.message);

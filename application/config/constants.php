@@ -97,11 +97,12 @@ defined('URL_ASSETS_CSS')       OR define('URL_ASSETS_CSS', CI_BASE_URL."assets/
 defined('URL_ASSETS_js')        OR define('URL_ASSETS_JS', CI_BASE_URL."assets/js/");
 
 //database
-defined('DB_INT')               OR define('DB_INT'      , 1);
-defined('DB_VARCHAR')           OR define('DB_VARCHAR'  , 2);
-defined('DB_TINYINT')           OR define('DB_TINYINT'  , 3);
-defined('DB_DATETIME')          OR define('DB_DATETIME' , 4);
-defined('DB_ENCRYPT')           OR define('DB_ENCRYPT'  , 5);
-defined('DB_TEXT')              OR define('DB_TEXT'     , 6);
-defined('DB_DATE')              OR define('DB_DATE'     , 7);
+defined('DB_INT')               OR define('DB_INT'          , 1);
+defined('DB_VARCHAR')           OR define('DB_VARCHAR'      , 2);
+defined('DB_TINYINT')           OR define('DB_TINYINT'      , 3);
+defined('DB_DATETIME')          OR define('DB_DATETIME'     , 4);
+defined('DB_ENCRYPT')           OR define('DB_ENCRYPT'      , 5);
+defined('DB_TEXT')              OR define('DB_TEXT'         , 6);
+defined('DB_DATE')              OR define('DB_DATE'         , 7);
+defined('DB_REFERENCE')         OR define('DB_REFERENCE'    , 8);
 

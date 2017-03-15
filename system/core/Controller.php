@@ -68,7 +68,7 @@ class CI_Controller {
 	 */
 	public function __construct()
 	{
-        $this->meta_arr['meta']['title'] = CI_NAME;
+        $this->meta_arr['meta']['title'] = CI_META_TITLE;
         $this->meta_arr['meta']['description'] = CI_META_DESCRIPTION;
         $this->meta_arr['meta']['keywords'] = CI_META_KEYWORDS;
         $this->meta_arr['meta']['robots'] = CI_META_ROBOTS;
