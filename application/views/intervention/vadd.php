@@ -4,8 +4,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+    $intervention = lib_db::load_db_default("intervention");
+    
     $html = new lib_html();
-    $html->header("New Intervention", 1);
+    $html->container_fluid = true;
+    $html->header("New Intervention", 3);
     $html->form("intervention/xadd");
         $html->add_menu_button("Cancel", "system.browser.redirect('person/vmanage?per_id=$person->id&p=intervention');");
         $html->add_menu_submitbutton("Save Changes");

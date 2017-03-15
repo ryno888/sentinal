@@ -40,10 +40,20 @@ class lib_html_manage extends lib_core{
     //--------------------------------------------------------------------------
     public function add_item($label, $onclick, $options = []) {
         $options_arr = array_merge([
-            "class" => ""
+            "class" => false,
+            "icon" => false,
+            "onclick" => false,
         ], $options);
         
-        $this->menu_html[] = "<li class='list-group-item manage-link' onclick=\"$onclick\"><span>$label</span></li>";
+        if($options_arr["onclick"]){ 
+            $onclick = $options_arr["onclick"]; 
+        }else{
+            $onclick = "system.browser.redirect('$onclick');"; 
+        }
+        
+        $icon = $options_arr["icon"] ? "<i class='fa {$options_arr["icon"]} margin-right-5' aria-hidden='true'></i>" : "";
+        
+        $this->menu_html[] = "<li class='list-group-item manage-link' onclick=\"$onclick\"><span>{$icon}{$label}</span></li>";
     }
     //--------------------------------------------------------------------------
     public function add_title($title, $info = "", $options = []){
