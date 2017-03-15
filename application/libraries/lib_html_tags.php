@@ -65,6 +65,7 @@ class lib_html_tags extends lib_core{
         $options_arr = array_merge([
             'append'       => false,
             'prepend'       => false,
+            'required'       => false,
             'attr_arr'       => [],
         ], $options);
         
@@ -84,7 +85,7 @@ class lib_html_tags extends lib_core{
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
-        return self::wrap_form_group($label, $id, form_input($data_arr, '', $data_arr['js']), $options_arr);
+        return self::wrap_form_group($label.$html_options['span'], $id, form_input($data_arr, '', $data_arr['js']), $options_arr);
     }
     //--------------------------------------------------------------------------
     public static function itextarea($label, $id, $value = false, $options = []) {
@@ -109,7 +110,7 @@ class lib_html_tags extends lib_core{
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
-        return self::wrap_form_group($label, $id, form_textarea($data_arr, '', $data_arr['js']), $options_arr);
+        return self::wrap_form_group($label.$html_options['span'], $id, form_textarea($data_arr, '', $data_arr['js']), $options_arr);
     }
     //--------------------------------------------------------------------------
     public static function ipassword($label, $id, $value = false, $options = []) {
@@ -134,7 +135,7 @@ class lib_html_tags extends lib_core{
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
-        return self::wrap_form_group($label, $id, form_password($data_arr, '', $data_arr['js']));
+        return self::wrap_form_group($label.$html_options['span'], $id, form_password($data_arr, '', $data_arr['js']));
     }
     //--------------------------------------------------------------------------
     public static function ilabel($label, $id, $options = []) {
@@ -153,7 +154,7 @@ class lib_html_tags extends lib_core{
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
-        return self::wrap_form_group($label, $id, form_label($label, $id, $options_arr["attr_arr"]));
+        return self::wrap_form_group($label.$html_options['span'], $id, form_label($label, $id, $options_arr["attr_arr"]));
     }
     //--------------------------------------------------------------------------
     public static function iselect($label, $id, $value_arr = [], $value = false, $options = []) {
@@ -177,7 +178,7 @@ class lib_html_tags extends lib_core{
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
-        return self::wrap_form_group($label, $id, form_dropdown('', $value_arr, $value, $data_arr));
+        return self::wrap_form_group($label.$html_options['span'], $id, form_dropdown('', $value_arr, $value, $data_arr));
     }
     //--------------------------------------------------------------------------
     public static function iselect_multi($label, $id, $value_arr = [], $value = false, $options = []) {
@@ -199,30 +200,28 @@ class lib_html_tags extends lib_core{
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
-        return self::wrap_form_group($label, $id, form_multiselect('', $value_arr, $value, $data_arr));
+        return self::wrap_form_group($label.$html_options['span'], $id, form_multiselect('', $value_arr, $value, $data_arr));
     }
     //--------------------------------------------------------------------------
     public static function idate_picker($label = false, $id = false, $value = false, $options = []){
         $options_arr = array_merge([
             "autoclose" => true,
-            "type" => false,  // month / year
-            "format" => "yyyy-mm-dd",
+            "format" => CI_DATE,
             "show_today_btn" => false,
         ], $options);
         
+        $format = php_dateformat_to_js_dateformat($options_arr["format"]);
         $input = lib_html_tags::itext($label, $id, $value, $options_arr);
         
         $today_btn = $options_arr["show_today_btn"] ? "todayBtn: 'linked'," : false;
         $today_btn_highlight = $options_arr["show_today_btn"] ? "todayHighlight: true," : false;
                 
-        switch ($options_arr["type"]) {
-            case "month": 
+        switch ($format) {
+            case "mm": 
                 $minViewMode = "minViewMode: 1,";
-                $options_arr["format"] = "mm";
                 break;
-            case "year": 
+            case "yyyy": 
                 $minViewMode = "minViewMode: 2,"; 
-                $options_arr["format"] = "yyyy";
                 break;
             default: $minViewMode = false; break;
         }
@@ -232,7 +231,7 @@ class lib_html_tags extends lib_core{
                 $(document).ready(function(){
                     $('#$id input').datepicker({
                         autoclose: {$options_arr["autoclose"]},
-                        format: '{$options_arr["format"]}',
+                        format: '$format',
                         $today_btn
                         $today_btn_highlight
                         $minViewMode
@@ -278,7 +277,7 @@ class lib_html_tags extends lib_core{
         
         return self::wrap_form_group(false, $id, "
             <label class='btn btn-primary btn-sm btn-file'>
-                $label ".form_upload($data_arr, '', $data_arr['js'])."
+                $label{$html_options['span']} ".form_upload($data_arr, '', $data_arr['js'])."
             </label>");
     }
     //--------------------------------------------------------------------------
@@ -348,6 +347,7 @@ class lib_html_tags extends lib_core{
         $css = "";
         $attr = "";
         $style = "";
+        $span = "";
         foreach ($options as $key => $value) {
             $r = substr($key, 0, 1);
             $el = substr($key, 1);
@@ -366,11 +366,16 @@ class lib_html_tags extends lib_core{
                     break;
                 default: break;
             }
+            
+            if($key == "required"){
+                $span = "<span class='required-span'>[ ! ]</span>";
+            }
         }
         return[
             "css" => $css,
             "attr" => $attr,
             "style" => $style,
+            "span" => $span,
         ];
     }
     //--------------------------------------------------------------------------

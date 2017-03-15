@@ -20,4 +20,25 @@ class Intervention extends CI_Controller {
         $this->load_view('intervention/vadd', "system", $data);
     }
     //--------------------------------------------------------------------------
+    public function xadd() {
+        $this->load->library("lib_html");
+        $this->form_validation->set_rules('int_type', "Type", "required");
+        $this->form_validation->set_rules('int_remark', "Remark", "required");
+        if($this->form_validation->run() == false){
+            return http_helper::error(1, validation_errors());
+        }
+        
+        $intervention = $this->request_obj("intervention");
+        console($intervention);
+//        $person->insert();
+        
+        return http_helper::response("Changes successfully saved", [
+            "code" => 3,
+            "action" => [
+                "type" => "redirect",
+                "url" => "person/vlist",
+            ],
+        ]);
+    }
+    //--------------------------------------------------------------------------
 }

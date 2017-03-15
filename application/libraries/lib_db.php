@@ -58,13 +58,31 @@ class lib_db{
         return $this->obj->{$field_name};
     }
     //--------------------------------------------------------------------------
-    public function get($field_name, $function = false) {
+    public function get($field_name, $function = false, $options = []) {
         $return = false;
+        if($this->is_empty($field_name)){ return false; }
         if($function){
-            $return = call_user_func($function, $this->obj, $field_name);
+            return call_user_func($function, $this->obj, $field_name);
         }else{
-            $return = $this->obj->{$field_name};
+            switch ($this->get_field_type($field_name)) {
+                case DB_DATETIME:
+                    $options_arr = array_merge([
+                        "format" => CI_DATETIME
+                    ], $options);
+                    $return = lib_date::strtodatetime($this->obj->{$field_name}, $options_arr["format"]);
+                    break;
+                case DB_DATE:
+                    $options_arr = array_merge([
+                        "format" => CI_DATE
+                    ], $options);
+                    $return = lib_date::strtodatetime($this->obj->{$field_name}, $options_arr["format"]);
+                    break;
+
+                default: $return = $this->obj->{$field_name}; break;
+            }
         }
+        
+        
         
         return $return;
     }

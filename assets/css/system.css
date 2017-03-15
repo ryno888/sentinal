@@ -26,6 +26,7 @@ legend {
 .screen{ position: relative; display:none;}
 .form-error-label{ color: red; font-size: 11px; margin-bottom: -10px; }
 .validation-error{     font-size: 12px; margin: 0 0 5px; }
+.required-span{  margin-left: 5px; color: #b70a0a; font-size: 12px; font-weight: bold; }
 
 /*error page*/
 error-wrapper.div.container{ margin-top:20px; }

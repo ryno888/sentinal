@@ -11,18 +11,11 @@
         $html->add_menu_submitbutton("Save Changes");
             $html->add_column("half");
                 $html->fieldset_open("General Details");
-                    $html->dbinput($intervention, "int_type");
-                    $html->dbinput($intervention, "int_remark");
-//                    $html->idate("Year in class", "per_year_in_class", false, ["type" => "year"]);
+                    $html->dbinput($intervention, "int_type", ["required" => true]);
+                    $html->dbinput($intervention, "int_remark", ["required" => true]);
+                    $html->idate("Year", "int_year", lib_date::strtodate("NOW", "Y"), ["type" => "year", "required" => true]);
                 $html->fieldset_close();
             $html->end_column();
-//            $html->add_column("half");
-//                $html->fieldset_open("History");
-//                    $html->dbinput($person, "per_previous_grade");
-//                    $html->dbinput($person, "per_grade_repeated");
-//                    $html->dbinput($person, "per_year_in_phase");
-//                $html->fieldset_close();
-//            $html->end_column();
     $html->end_form();
     $html->display();
     

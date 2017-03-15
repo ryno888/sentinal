@@ -899,6 +899,90 @@ if ( ! function_exists('function_usable'))
     }
     // ------------------------------------------------------------------------
 
+    if (!function_exists('php_dateformat_to_js_dateformat')) {
+
+        /*
+        * Matches each symbol of PHP date format standard
+        * with jQuery equivalent codeword
+        * @author Tristan Jahier
+        */
+        function php_dateformat_to_js_dateformat($php_format) {
+            $SYMBOLS_MATCHING = array(
+                // Day
+                'd' => 'dd',
+                'D' => 'D',
+                'j' => 'd',
+                'l' => 'DD',
+                'N' => '',
+                'S' => '',
+                'w' => '',
+                'z' => 'o',
+                // Week
+                'W' => '',
+                // Month
+                'F' => 'MM',
+                'm' => 'mm',
+                'M' => 'M',
+                'n' => 'm',
+                't' => '',
+                // Year
+                'L' => '',
+                'o' => '',
+                'Y' => 'yyyy',
+                'y' => 'y',
+                // Time
+                'a' => 'a',
+                'A' => 'A',
+                'B' => 'B',
+                'g' => 'g',
+                'G' => 'G',
+                'h' => 'h',
+                'H' => 'HH',
+                'i' => 'mm',
+                's' => 'ss',
+                'u' => 'u'
+            );
+            $jqueryui_format = "";
+            $escaping = false;
+            for ($i = 0; $i < strlen($php_format); $i++) {
+                $char = $php_format[$i];
+                if ($char === '\\') { // PHP date format escaping character
+                    $i++;
+                    if ($escaping)
+                        $jqueryui_format .= $php_format[$i];
+                    else
+                        $jqueryui_format .= '\'' . $php_format[$i];
+                    $escaping = true;
+                }
+                else {
+                    if ($escaping) {
+                        $jqueryui_format .= "'";
+                        $escaping = false;
+                    }
+                    if (isset($SYMBOLS_MATCHING[$char]))
+                        $jqueryui_format .= $SYMBOLS_MATCHING[$char];
+                    else
+                        $jqueryui_format .= $char;
+                }
+            }
+            return $jqueryui_format;
+        }
+
+    }
+    
+    // ------------------------------------------------------------------------
+
+    if (!function_exists('request')) {
+
+        function request($var, $default = false) {
+            $ci_controller = new CI_Input();
+            $result = $ci_controller->get_post($var);
+            return $result ? $result : $default;
+        }
+
+    }
+    // ------------------------------------------------------------------------
+
     if (!function_exists('request')) {
 
         function request($var, $default = false) {

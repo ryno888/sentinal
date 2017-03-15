@@ -24,12 +24,12 @@ class dbx_person extends lib_db{
             "per_password"      => ["name" => "password"    , "default" => ""       , "type" => DB_VARCHAR],
             "per_online"        => ["name" => "is online"   , "default" => 0        , "type" => DB_TINYINT],
             "per_date_created"  => ["name" => "date created", "default" => ""       , "type" => DB_DATETIME],
-            "per_birthday"      => ["name" => "birthday"    , "default" => ""       , "type" => DB_DATETIME],
+            "per_birthday"      => ["name" => "birthday"    , "default" => ""       , "type" => DB_DATE],
         ]);
     }
     //----------------------------------------------------------------------------
     public $per_gender = [
-        0 => "-- Not Selected --",
+        "" => "-- Not Selected --",
         1 => "Male",
         2 => "Female",
     ];

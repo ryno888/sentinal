@@ -103,4 +103,5 @@ defined('DB_TINYINT')           OR define('DB_TINYINT'  , 3);
 defined('DB_DATETIME')          OR define('DB_DATETIME' , 4);
 defined('DB_ENCRYPT')           OR define('DB_ENCRYPT'  , 5);
 defined('DB_TEXT')              OR define('DB_TEXT'     , 6);
+defined('DB_DATE')              OR define('DB_DATE'     , 7);
 

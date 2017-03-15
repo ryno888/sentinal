@@ -19,7 +19,7 @@ class db_intervention extends lib_db{
     }
     //----------------------------------------------------------------------------------------
     public $int_type = [
-        0 => "-- Not Selected --",
+        "" => "-- Not Selected --",
         1 => "Class Tutoring",
         2 => "OT",
         3 => "REM",

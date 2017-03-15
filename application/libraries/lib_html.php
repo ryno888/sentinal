@@ -82,7 +82,6 @@ class lib_html extends lib_core{
         $options_arr = array_merge([
             "enable_set_value" => false,
         ], $options);
-        
         $error = form_error($id);
         if($error){
             $label .= "<div class='form-error-label'>$error</div>";
@@ -91,31 +90,28 @@ class lib_html extends lib_core{
     }
     //--------------------------------------------------------------------------
     public function dbinput($obj, $field, $options = []) {
-        if(isset($options['dbtype'])){
-            switch ($options['dbtype']) {
-                case "password":
-                    return $this->ipassword(ucwords($obj->get_field_display($field)), $field, false, $options);
+        
+        $options_arr = array_merge([
+            "function" => false
+        ], $options);
+        
+        switch ($obj->get_field_type($field)) {
+            case DB_VARCHAR:
+                return $this->itext(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
+            case DB_DATETIME:
+                return $this->idate(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
+            case DB_DATE:
+                return $this->idate(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
+            case DB_TINYINT:
+                return $this->iselect(ucwords($obj->get_field_display($field)), $field, $obj->{$field}, $obj->get($field, $options_arr["function"], $options), $options);
+            case DB_TEXT:
+                return $this->itextarea(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
+            case DB_ENCRYPT:
+                return $this->ipassword(ucwords($obj->get_field_display($field)), $field, false, $options);
 
-                default:
-                    break;
-            }
-        }else{
-            switch ($obj->get_field_type($field)) {
-                case DB_VARCHAR:
-                    return $this->itext(ucwords($obj->get_field_display($field)), $field, $obj->get_field_value($field), $options);
-                case DB_DATETIME:
-                    return $this->idate(ucwords($obj->get_field_display($field)), $field, $obj->get_field_value($field), $options);
-                case DB_TINYINT:
-                    return $this->iselect(ucwords($obj->get_field_display($field)), $field, $obj->{$field}, $obj->get_field_value($field), $options);
-                case DB_TEXT:
-                    return $this->itextarea(ucwords($obj->get_field_display($field)), $field, $obj->get_field_value($field), $options);
-
-                default:
-                    break;
-            }
+            default:
+                break;
         }
-        
-        
     }
     //--------------------------------------------------------------------------
     public function itextarea($label, $id, $value = false, $options = []) {

@@ -28,8 +28,8 @@ class db_person extends dbx_person{
             "per_online"        => ["name" => "is online"   , "default" => 0        , "type" => DB_TINYINT],
             "per_date_created"  => ["name" => "date created", "default" => ""       , "type" => DB_DATETIME],
             
-            "per_birthday"          => ["name" => "birthday"        , "default" => ""       , "type" => DB_DATETIME],
-            "per_year_in_class"     => ["name" => "year"            , "default" => ""       , "type" => DB_DATETIME],
+            "per_birthday"          => ["name" => "birthday"        , "default" => ""       , "type" => DB_DATE],
+            "per_year_in_class"     => ["name" => "year"            , "default" => ""       , "type" => DB_DATE],
             "per_cemis_nr"          => ["name" => "cms number"      , "default" => ""       , "type" => DB_VARCHAR],
             "per_grade"             => ["name" => "grade"           , "default" => ""       , "type" => DB_TINYINT],
             "per_previous_grade"    => ["name" => "previous grade"  , "default" => ""       , "type" => DB_TINYINT],
@@ -39,7 +39,7 @@ class db_person extends dbx_person{
     }
     //----------------------------------------------------------------------------------------
     public $per_grade = [
-        0 => "-- Not Selected --",
+        "" => "-- Not Selected --",
         -1 => "Grade R",
         1 => "Grade 1",
         2 => "Grade 2",
@@ -51,7 +51,7 @@ class db_person extends dbx_person{
     ];
     //----------------------------------------------------------------------------------------
     public $per_previous_grade = [
-        0 => "-- Not Selected --",
+        "" => "-- Not Selected --",
         -1 => "Grade R",
         1 => "Grade 1",
         2 => "Grade 2",
