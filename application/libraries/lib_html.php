@@ -192,7 +192,7 @@ class lib_html extends lib_core{
                     if(data.code == 1){
                         system.browser.error(data.message);
                     }else if(data.code == 2){
-                        system.browser.message('Success', data.message, {fade_out_delay:4000});
+                        system.browser.message('Success', data.message);
                     }else if(data.code == 3){
                         if(data.action.type == 'refresh'){
                             $('.messageModalCloseBtn').click(location.reload());
