@@ -94,7 +94,6 @@ class lib_html extends lib_core{
         $options_arr = array_merge([
             "function" => false
         ], $options);
-        
         switch ($obj->get_field_type($field)) {
             case DB_VARCHAR:
                 return $this->itext(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);

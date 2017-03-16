@@ -31,7 +31,11 @@ class lib_html_manage extends lib_core{
     //--------------------------------------------------------------------------
     public function set_view($view, $data = false) {
         $ci = CI_Controller::get_instance();
-        $this->view = $ci->load->view($view, $data, true);
+        if (is_file(APPPATH . 'views/' . $view . ".php")) {
+            $this->view = $ci->load->view($view, $data, true);
+        } else {
+            http_helper::go_404();
+        }
     }
     //--------------------------------------------------------------------------
     public function add($mixed) {

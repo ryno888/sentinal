@@ -32,6 +32,10 @@ class http_helper {
         self::redirect("index.php");
     }
     //--------------------------------------------------------------------------
+    public static function go_404() {
+        self::redirect("index.php/index/page_not_found");
+    }
+    //--------------------------------------------------------------------------
     public static function get_current_url() {
         return current_url();
     }

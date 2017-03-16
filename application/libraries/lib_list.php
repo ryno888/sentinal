@@ -103,7 +103,7 @@ class lib_list extends lib_core{
             </td>";
     }
     //--------------------------------------------------------------------------
-    public function add_action_delete($onclick = "javascript:;", $icon = "fa-times", $options = []){
+    public function add_action_delete($onclick = false, $icon = "fa-times", $options = []){
         $options_arr = array_merge([
             "class" => false,
             "style" => false,
@@ -113,12 +113,14 @@ class lib_list extends lib_core{
         
         array_unshift ($this->col_header_arr, "", "<th></th>");
         
-        $onclick_js = $onclick;
+        $onclick_js = "system.browser.confirm('Are you sure you want to delete this entry?',
+            function(){ alert('yes'); }
+            );";
         
         
         $this->action_arr[] = "
             <td class='list-action'>
-                <i title='{$options_arr["title"]}' onclick=\"$onclick\" class='fa {$icon} {$options_arr["class"]} padding-left-5' aria-hidden='true'></i>
+                <i title='{$options_arr["title"]}' onclick=\"$onclick_js\" class='fa {$icon} {$options_arr["class"]} padding-left-5' aria-hidden='true'></i>
             </td>";
     }
     //--------------------------------------------------------------------------
