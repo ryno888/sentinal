@@ -146,10 +146,20 @@ class lib_html extends lib_core{
     //--------------------------------------------------------------------------
     public function add_menu_button($label, $onclick = "javascript:;", $options = []) {
         $options_arr = array_merge([
-            "icon" => false
+            "icon" => false,
+            "btn" => false,
         ], $options);
+        
+        if(!$options_arr["btn"]){
+            switch (strtolower($label)) {
+                case "cancel": $options_arr["btn"] = "btn-cancel"; break;
+                default: $options_arr["btn"] = "btn-default"; break;
+            }
+            
+        }
+        
         $icon = $options_arr["icon"] ? '<i class="fa '.$options_arr["icon"].'" aria-hidden="true"></i> ' : '';
-        $this->menu_html[] = '<button onclick="'.$onclick.'" class="btn btn-default margin-right-5" type="button">'.$icon.$label.'</button>';
+        $this->menu_html[] = '<button onclick="'.$onclick.'" class="btn '.$options_arr["btn"].' margin-right-5" type="button">'.$icon.$label.'</button>';
     }
     //--------------------------------------------------------------------------
     public function add_menu_submitbutton($label, $onclick = false, $options = []) {
@@ -183,7 +193,7 @@ class lib_html extends lib_core{
                     if(data.code == 1){
                         system.browser.error(data.message);
                     }else if(data.code == 2){
-                        system.browser.message('Success', data.message, {fade_out_delay:1000});
+                        system.browser.message('Success', data.message, {fade_out_delay:4000});
                     }else if(data.code == 3){
                         if(data.action.type == 'refresh'){
                             $('.messageModalCloseBtn').click(location.reload());

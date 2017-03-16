@@ -10,6 +10,69 @@ legend {
     border-bottom: 1px solid #e5e5e5;
 }
 
+/*button*/
+.btn-default{ 
+    border-radius: 2px; 
+    border: 1px solid #73d8ff; 
+    background-image: linear-gradient(#73d8ff, #53afe6 60%, #2e94d0); 
+    color: #FFF; 
+}
+.btn-default:hover, .btn-default:focus, .btn-default:active{ 
+    border-radius: 2px;
+    border: 1px solid #73d8ff; 
+    background-image: linear-gradient(#69ccf3, #3387b9 60%, #0068a5); 
+    color: #FFF; 
+}
+.btn-default:active:hover, .btn-default.active:hover, .open>.dropdown-toggle.btn-default:hover, 
+.btn-default:active:focus, .btn-default.active:focus, .open>.dropdown-toggle.btn-default:focus, 
+.btn-default:active.focus, .btn-default.active.focus, .open>.dropdown-toggle.btn-default.focus {
+    border-radius: 2px;
+    border: 1px solid #73d8ff;
+    background-image: linear-gradient(#69ccf3, #3387b9 60%, #0068a5); 
+    color: #FFF;
+}
+
+.btn-close{ 
+    border-radius: 2px; 
+    border: 1px solid #ffe142; 
+    background-image: linear-gradient(#fffdeb, #fff7bf 60%, #fff14c); 
+    color: #525252; 
+}
+.btn-close:hover, .btn-close:focus{ 
+    border-radius: 2px;
+    border: 1px solid #fff473; 
+    background-image: linear-gradient(#fff473, #e6d453 60%, #d0a62e); 
+    color: #525252; 
+}
+.btn-close:active:hover, .btn-close.active:hover, .open>.dropdown-toggle.btn-close:hover, 
+.btn-close:active:focus, .btn-close.active:focus, .open>.dropdown-toggle.btn-close:focus, 
+.btn-close:active.focus, .btn-close.active.focus, .open>.dropdown-toggle.btn-close.focus {
+    border-radius: 2px;
+    border: 1px solid #fff473;
+    background-image: linear-gradient(#fff473, #e6d453 60%, #d0a62e); 
+    color: #525252;
+}
+
+.btn-cancel{ 
+    border-radius: 2px; 
+    border: 1px solid #ffaba5; 
+    background-image: linear-gradient(#ffc8c4, #d24444 60%, #b9040c); 
+    color: #FFF; 
+}
+.btn-cancel:hover, .btn-cancel:focus{ 
+    border-radius: 2px;
+    border: 1px solid #ffaba5; 
+    background-image: linear-gradient(#ff766c, #b71010 60%, #84040a); 
+    color: #ffffff; 
+}
+.btn-cancel:active:hover, .btn-cancel.active:hover, .open>.dropdown-toggle.btn-cancel:hover, 
+.btn-cancel:active:focus, .btn-cancel.active:focus, .open>.dropdown-toggle.btn-cancel:focus, 
+.btn-cancel:active.focus, .btn-cancel.active.focus, .open>.dropdown-toggle.btn-cancel.focus {
+    border-radius: 2px;
+    border: 1px solid #ffaba5;
+    background-image: linear-gradient(#ff766c, #b71010 60%, #84040a); 
+    color: #ffffff;
+}
 
 /*pointers*/
 .cursor-pointer { cursor: pointer; }
