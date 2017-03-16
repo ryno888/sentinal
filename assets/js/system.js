@@ -82,11 +82,21 @@ var system = {
             $('#modalConfirmBody').html(message);
             $('#jqmModalConfirm').modal('show');
         },
-        message: function(title, message) {
+        message: function(title, message, options) {
+            var options_obj = $.extend({
+                fade_out_delay: false,
+            }, (options == undefined ? {} : options));
+            
             // params
             $('#modalMessageTitle').html(title);
             $('#modalMessageBody').html(message);
             $('#jqmMessageModal').modal('show');
+            
+            if(options_obj.fade_out_delay){
+                setTimeout(function(){
+                    $('#jqmMessageModal').modal('hide');
+                }, options_obj.fade_out_delay);
+            }
         },
         error: function(message, options){
             var options_obj = $.extend({

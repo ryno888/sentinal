@@ -29,7 +29,7 @@ class db_person extends dbx_person{
             "per_date_created"  => ["name" => "date created", "default" => ""       , "type" => DB_DATETIME],
             
             "per_birthday"          => ["name" => "birthday"        , "default" => ""       , "type" => DB_DATE],
-            "per_year_in_class"     => ["name" => "year"            , "default" => ""       , "type" => DB_DATE],
+            "per_year_in_class"     => ["name" => "year"            , "default" => ""       , "type" => DB_YEAR],
             "per_cemis_nr"          => ["name" => "cms number"      , "default" => ""       , "type" => DB_VARCHAR],
             "per_grade"             => ["name" => "grade"           , "default" => ""       , "type" => DB_TINYINT],
             "per_previous_grade"    => ["name" => "previous grade"  , "default" => ""       , "type" => DB_TINYINT],

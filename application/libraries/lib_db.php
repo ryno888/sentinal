@@ -77,7 +77,6 @@ class lib_db{
                     ], $options);
                     $return = lib_date::strtodatetime($this->obj->{$field_name}, $options_arr["format"]);
                     break;
-
                 default: $return = $this->obj->{$field_name}; break;
             }
         }
@@ -139,6 +138,7 @@ class lib_db{
             }else{
                 switch ($this->get_field_type($key)) {
                     case DB_DATETIME: $clean_object->{$key} = lib_date::strtodatetime($clean_object->{$key}); break;
+                    case DB_DATE: $clean_object->{$key} = lib_date::strtodatetime($clean_object->{$key}, CI_DATE); break;
                 }
             }
         }

@@ -102,6 +102,8 @@ class lib_html extends lib_core{
                 return $this->idate(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
             case DB_DATE:
                 return $this->idate(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
+            case DB_YEAR:
+                return $this->idate(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
             case DB_TINYINT:
                 return $this->iselect(ucwords($obj->get_field_display($field)), $field, $obj->{$field}, $obj->get($field, $options_arr["function"], $options), $options);
             case DB_TEXT:
@@ -181,7 +183,7 @@ class lib_html extends lib_core{
                     if(data.code == 1){
                         system.browser.error(data.message);
                     }else if(data.code == 2){
-                        system.browser.message('Success', data.message);
+                        system.browser.message('Success', data.message, {fade_out_delay:1000});
                     }else if(data.code == 3){
                         if(data.action.type == 'refresh'){
                             $('.messageModalCloseBtn').click(location.reload());

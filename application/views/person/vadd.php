@@ -17,7 +17,7 @@
                     $html->dbinput($person, "per_gender", ["required" => true]);
                     $html->dbinput($person, "per_grade", ["required" => true]);
                     $html->dbinput($person, "per_birthday", ["format" => lib_date::$DATE_FORMAT_12, "required" => true]);
-                    $html->dbinput($person, "per_year_in_class", ["required" => true]);
+                    $html->dbinput($person, "per_year_in_class", ["required" => true, "format" => "Y"]);
                 $html->fieldset_close();
             $html->end_column();
             $html->add_column("half");
