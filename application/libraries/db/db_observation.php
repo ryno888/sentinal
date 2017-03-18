@@ -27,7 +27,7 @@ class db_observation extends lib_db{
         4 => "Term 4",
     ];
     //----------------------------------------------------------------------------------------
-    public $obs_term = [
+    public $obs_type = [
         "" => "-- Not Selected --",
         1 => "attended info evening",
         2 => "neatness",

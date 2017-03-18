@@ -65,6 +65,18 @@ class lib_html extends lib_core{
         
         $this->add_html("header", lib_html_tags::header($label, $type, $attributes));
     }
+//    //--------------------------------------------------------------------------
+//    public function itext($label, $id, $value = false, $options = []) {
+//        $options_arr = array_merge([
+//            "enable_set_value" => false,
+//        ], $options);
+//        
+//        $error = form_error($id);
+//        if($error){
+//            $label .= "<div class='form-error-label'>$error</div>";
+//        }
+//        $this->add_html("html", lib_html_tags::itext($label, $id, $value, $options_arr));
+//    }
     //--------------------------------------------------------------------------
     public function itext($label, $id, $value = false, $options = []) {
         $options_arr = array_merge([
@@ -104,7 +116,7 @@ class lib_html extends lib_core{
             case DB_YEAR:
                 return $this->idate(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
             case DB_TINYINT:
-                return $this->iselect(ucwords($obj->get_field_display($field)), $field, $obj->{$field}, $obj->get($field, $options_arr["function"], $options), $options);
+                return $this->iselect(ucwords($obj->get_field_display($field)), $field, array_map('ucwords', $obj->{$field}), $obj->get($field, $options_arr["function"], $options), $options);
             case DB_TEXT:
                 return $this->itextarea(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
             case DB_ENCRYPT:

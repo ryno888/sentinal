@@ -8,7 +8,7 @@
 
     $list = new lib_list();
     $list->add_title("Observation", false, ["type" => 3]);
-    $list->add_new_btn("Add new Observation", "system.browser.redirect('observation/vadd?per_id=$person->id&p=observation');");
+    $list->add_new_btn("Add new Observation", "system.browser.redirect('person/vmanage?per_id=$person->id&p=vadd_obs');");
     $list->sql_key = "obs_id";
     $list->sql_select = "obs_id, obs_type, obs_value, obs_term";
     $list->sql_from = "observation";

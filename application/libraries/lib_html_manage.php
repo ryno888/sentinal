@@ -29,10 +29,29 @@ class lib_html_manage extends lib_core{
         $this->ci->load->library("lib_html_tags");
     }
     //--------------------------------------------------------------------------
+    public function load_controller($controller, $method = 'index') {
+        require_once(APPPATH . 'controllers/' . $controller . '.php');
+        $controller = new $controller();
+
+        return $controller->$method();
+    }
+    //--------------------------------------------------------------------------
     public function set_view($view, $data = false) {
-        $ci = CI_Controller::get_instance();
+        $CI_Controller = CI_Controller::get_instance();
         if (is_file(APPPATH . 'views/' . $view . ".php")) {
-            $this->view = $ci->load->view($view, $data, true);
+            $parts = explode("/", $view);
+//            $this->load_controller($parts[0], $parts[1]);
+//            $this->ci->load->library('../controllers/'.$parts[0]);
+//            $this->ci->load->library('../controllers/'.$parts[0]);
+//            $loader = new MY_Loader();
+//            $loader->controller('observation');
+//            $CI_Controller->load->controller('observation');
+//            $CI_Controller->observation->vadd();
+            
+//            $obj = new $this->{$parts[0]}();
+//            $obj->{$parts[1]}();
+            
+            $this->view = $CI_Controller->load->view($view, $data, true);
         } else {
             http_helper::go_404();
         }

@@ -24,6 +24,7 @@
         
         //observation
         case "observation": $html_manage->set_view("observation/vlist", $this->_ci_cached_vars); break;
+        case "vadd_obs": $html_manage->set_view("observation/vadd", $this->_ci_cached_vars); break;
         
         //default
         default: $html_manage->set_view("person/vedit", $this->_ci_cached_vars); break;
