@@ -20,9 +20,6 @@ class lib_html_manage extends lib_core{
     private $menu_html = [];
     private $view = false;
     private $titel = false;
-    
-    public $css_link = "cursor:pointer;";
-    public $css_link_hover = "background-color: #e4f5ff;";
     //--------------------------------------------------------------------------
     public function __construct() {
         parent::__construct();
@@ -100,10 +97,6 @@ class lib_html_manage extends lib_core{
         $elements = implode("", $this->menu_html);
         
         echo "
-            <style>
-                .manage-link { $this->css_link }
-                .manage-link:hover { $this->css_link_hover }
-            </style>
             <div class='$container'>
                 <div class='row'>
                     <div class='col-md-2'>

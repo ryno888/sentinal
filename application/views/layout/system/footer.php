@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <div class='modal-body' id='modalMessageBody'></div>
                                 <div class='modal-footer'>
-                                    <button type='button' class='btn btn-close btn-sm messageModalCloseBtn' data-dismiss='modal'>Close</button> 
+                                    <button type='button' class='btn btn-warning btn-sm messageModalCloseBtn' data-dismiss='modal'>Close</button> 
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <div class='modal-body' id='modalMessageBody'></div>
                                 <div class='modal-footer'>
-                                    <button type='button' class='btn btn-close btn-sm' data-dismiss='modal'>Close</button> 
+                                    <button type='button' class='btn btn-warning btn-sm' data-dismiss='modal'>Close</button> 
                                 </div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-cancel" id="modalConfirmCancelBtn" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="modalConfirmCancelBtn" data-dismiss="modal">Cancel</button>
                         <a class="btn btn-danger" id="modalConfirmOkBtn">Ok</a>
                     </div>
                 </div>

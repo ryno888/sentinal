@@ -163,8 +163,8 @@ class lib_html extends lib_core{
         
         if(!$options_arr["btn"]){
             switch (strtolower($label)) {
-                case "cancel": $options_arr["btn"] = "btn-cancel"; break;
-                default: $options_arr["btn"] = "btn-default"; break;
+                case "cancel": $options_arr["btn"] = "btn-danger"; break;
+                default: $options_arr["btn"] = "btn-primary"; break;
             }
             
         }
@@ -177,7 +177,7 @@ class lib_html extends lib_core{
         $options_arr = array_merge([
             "icon" => "fa-save",
             "attributes" => [
-                "class" => "btn btn-default margin-right-5",
+                "class" => "btn btn-primary margin-right-5",
                 "value" => "Save Changes",
             ],
         ], $options);
@@ -194,7 +194,7 @@ class lib_html extends lib_core{
             }});";
         }
         
-        $this->menu_html[] = '<button onclick="'.$onclick.'" class="btn btn-default margin-right-5" type="button">'.$icon.$label.'</button>';
+        $this->menu_html[] = '<button onclick="'.$onclick.'" class="btn btn-success margin-right-5" type="button">'.$icon.$label.'</button>';
     }
     //--------------------------------------------------------------------------
     public function set_form_js($type = "success", $js = false) {

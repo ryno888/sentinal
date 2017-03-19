@@ -12,7 +12,7 @@
     $html->container_fluid = true;
     $html->header("General Details", 3);
     $html->form("person/xadd");
-        $html->add_menu_button("Cancel", "system.browser.redirect('person/vmanage?per_id=$person->id&p=observation');", ["btn" => "btn-cancel"]);
+        $html->add_menu_button("Cancel", "system.browser.redirect('person/vmanage?per_id=$person->id&p=observation');", ["btn" => "btn-danger"]);
         $html->add_menu_submitbutton("Save Changes");
             $html->add_column("half");
                 $html->fieldset_open("General Details");

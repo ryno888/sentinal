@@ -137,7 +137,7 @@ class lib_navbar extends lib_core{
         $this->build();
         
         echo "
-            <nav class='navbar navbar-default'>
+            <nav class='navbar navbar-inverse'>
                 <div class='col-md-12'>
                     <div class='container-fluid'>
                         <div class='navbar-header'>
