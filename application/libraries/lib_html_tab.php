@@ -15,9 +15,10 @@
  *
  * @author Ryno
  */
-class lib_html_manage extends lib_core{
+class lib_html_tab extends lib_core{
     public $container_fluid = false;
     private $menu_html = [];
+    private $body_html = [];
     private $view = false;
     private $titel = false;
     //--------------------------------------------------------------------------
@@ -46,22 +47,31 @@ class lib_html_manage extends lib_core{
         $this->menu_html[] = $mixed;
     }
     //--------------------------------------------------------------------------
-    public function add_item($label, $onclick, $options = []) {
+    public function add_item($id, $label, $html, $options = []) {
         $options_arr = array_merge([
             "class" => false,
             "icon" => false,
             "onclick" => false,
+            "show" => false,
         ], $options);
         
-        if($options_arr["onclick"]){ 
-            $onclick = $options_arr["onclick"]; 
-        }else{
-            $onclick = "system.browser.redirect('$onclick');"; 
-        }
-        
         $icon = $options_arr["icon"] ? "<i class='fa {$options_arr["icon"]} margin-right-5' aria-hidden='true'></i>" : "";
+        $fade = $options_arr["show"] ? "fade in" : "";
+        $active = $options_arr["show"] ? "active" : "";
         
-        $this->menu_html[] = "<li class='list-group-item manage-link' onclick=\"$onclick\"><span>{$icon}{$label}</span></li>";
+        $this->menu_html[$id] = "
+            <li role='presentation' class='$active'>
+                <a href='#$id' id='$id-tab' role='tab' data-toggle='tab' aria-controls='$id' aria-expanded='true'>
+                    <span class='text'><span>{$icon}{$label}</span></span>
+                </a>
+            </li>
+        ";
+        
+        $this->body_html[$id] = "
+            <div role='tabpanel' class='tab-pane $fade $active' id='$id' aria-labelledby='profile-tab'>
+                $html
+            </div>
+        ";
     }
     //--------------------------------------------------------------------------
     public function add_title($title, $info = "", $options = []){
@@ -83,22 +93,23 @@ class lib_html_manage extends lib_core{
         $inner_html = $lib_html ? $lib_html : $this->view;
         $container = $this->container_fluid ? "container-fluid" : "container";
         $elements = implode("", $this->menu_html);
+        $body = implode("", $this->body_html);
         
         echo "
-            <div class='$container'>
-                <div class='row'>
-                    <div class='col-md-2'>
-                        $this->titel
-                        <ul class='list-group'>
+            <div class='wrapper'>
+                <div class='$container'>
+                    <div class='bs-example bs-example-tabs' role='tabpanel' data-example-id='togglable-tabs'>
+                        <ul id='myTab' class='nav nav-tabs nav-tabs-responsive' role='tablist'>
                             $elements
                         </ul>
-                    </div>
-                    <div class='col-md-10'>
-                        $inner_html
+
+                        <div id='myTabContent' class='tab-content'>
+                            $body
+                        </div>
                     </div>
                 </div>
             </div>
-            ";
+        ";
     }
     //--------------------------------------------------------------------------
 }

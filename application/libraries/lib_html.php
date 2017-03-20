@@ -25,6 +25,8 @@ class lib_html extends lib_core{
         "form_open" => false,
         "form_close" => false,
         "header" => false,
+        "script_ready" => false,
+        "script" => false,
     ];
     private $menu_html = [];
     //--------------------------------------------------------------------------
@@ -47,7 +49,7 @@ class lib_html extends lib_core{
         $this->add_html("form_close", lib_html_tags::form_close());
     }
     //--------------------------------------------------------------------------
-    public function fieldset_open($header, $options = []) {
+    public function fieldset_open($header = "", $options = []) {
         $options_arr = array_merge([
         ], $options);
         
@@ -65,18 +67,42 @@ class lib_html extends lib_core{
         
         $this->add_html("header", lib_html_tags::header($label, $type, $attributes));
     }
-//    //--------------------------------------------------------------------------
-//    public function itext($label, $id, $value = false, $options = []) {
-//        $options_arr = array_merge([
-//            "enable_set_value" => false,
-//        ], $options);
-//        
-//        $error = form_error($id);
-//        if($error){
-//            $label .= "<div class='form-error-label'>$error</div>";
-//        }
-//        $this->add_html("html", lib_html_tags::itext($label, $id, $value, $options_arr));
-//    }
+    //--------------------------------------------------------------------------
+    public function iradio_multi($label, $id, $item_arr = [], $checked = false, $options = []) {
+        $options_arr = array_merge([
+            "enable_set_value" => false,
+        ], $options);
+        
+        $error = form_error($id);
+        if($error){
+            $label .= "<div class='form-error-label'>$error</div>";
+        }
+        $this->add_html("html", lib_html_tags::iradio_multi($label, $id, $item_arr, $checked, $options_arr));
+    }
+    //--------------------------------------------------------------------------
+    public function iradio($label, $id, $checked = false, $options = []) {
+        $options_arr = array_merge([
+            "enable_set_value" => false,
+        ], $options);
+        
+        $error = form_error($id);
+        if($error){
+            $label .= "<div class='form-error-label'>$error</div>";
+        }
+        $this->add_html("html", lib_html_tags::iradio($label, $id, $checked, $options_arr));
+    }
+    //--------------------------------------------------------------------------
+    public function icheckbox($label, $id, $checked = false, $options = []) {
+        $options_arr = array_merge([
+            "enable_set_value" => false,
+        ], $options);
+        
+        $error = form_error($id);
+        if($error){
+            $label .= "<div class='form-error-label'>$error</div>";
+        }
+        $this->add_html("html", lib_html_tags::icheckbox($label, $id, $checked, $options_arr));
+    }
     //--------------------------------------------------------------------------
     public function itext($label, $id, $value = false, $options = []) {
         $options_arr = array_merge([
@@ -248,6 +274,14 @@ class lib_html extends lib_core{
         $this->html[$key] .= $html;
     }
     //--------------------------------------------------------------------------
+    public function add_script($script, $ready = true) {
+        if($ready){
+            $this->html["script_ready"] .= $script;
+        }else{
+            $this->html["script"] .= $script;
+        }
+    }
+    //--------------------------------------------------------------------------
     public function add_column($size) {
         switch ($size) {
             case "full": $this->add_html("html", "<div class='col-md-12'>"); break;
@@ -263,6 +297,18 @@ class lib_html extends lib_core{
     //--------------------------------------------------------------------------
     public function container_wrapper($html) {
         $container = $this->container_fluid ? "container-fluid" : "container";
+        $script_ready = strlen(trim($html['script_ready'])) > 1 ? "
+            <script>
+                $(document).ready(fucntion(){
+                    {$html['script_ready']}
+                });
+            </script>
+        " : "";
+        $script = strlen(trim($html['script'])) > 1 ? "
+            <script>
+                {$html['script']}
+            </script>
+        " : "";
         return "
             <div class='$container'>
                 <div class='row'>
@@ -270,6 +316,8 @@ class lib_html extends lib_core{
                     {$html['header']}
                     {$html['html']}
                     {$html['form_close']}
+                    {$script_ready}
+                    {$script}
                 </div>
             </div>
         ";

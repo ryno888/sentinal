@@ -50,6 +50,16 @@ class lib_db{
         return $this->fields_arr[$field_name]["default"];
     }
     //--------------------------------------------------------------------------
+    public function get_field_reference_data($field_name) {
+        
+        $table = isset($this->fields_arr[$field_name]["reference"]) ? $this->fields_arr[$field_name]["reference"] : false;
+        $key = false;
+        if($table){
+            $key = $this->get_table_key($table);
+        }
+        return ["table" => $table, "key" => $key];
+    }
+    //--------------------------------------------------------------------------
     public function get_field_display($field_name) {
         return $this->fields_arr[$field_name]["name"];
     }
@@ -176,6 +186,12 @@ class lib_db{
         $db->get_fromdefault();
         
         return $db;
+    }
+    //--------------------------------------------------------------------------
+    public static function get_table_key($table){
+        $class = lib_db::load_db_default($table);
+        
+        return $class->get_key();
     }
     //--------------------------------------------------------------------------
     public static function get_enum_arr($table, $field){

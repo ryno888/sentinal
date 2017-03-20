@@ -15,7 +15,7 @@ class db_intervention extends lib_db{
             "int_year"          => ["name" => "year"        , "default" => ""       , "type" => DB_TINYINT],
             "int_remark"        => ["name" => "remark"      , "default" => ""       , "type" => DB_TEXT],
             "int_type"          => ["name" => "type"        , "default" => 0        , "type" => DB_TINYINT],
-            "int_ref_person"    => ["name" => "person"      , "default" => "null"   , "type" => DB_REFERENCE],
+            "int_ref_person"    => ["name" => "person"      , "default" => "null"   , "type" => DB_REFERENCE, "reference" => "person"],
         ]);
     }
     //----------------------------------------------------------------------------------------

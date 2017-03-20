@@ -46,6 +46,7 @@ class Person extends CI_Controller {
         
         $this->load->library("lib_html");
         $this->load->library("lib_html_manage");
+        $this->load->library("lib_html_tab");
         $this->load->library("lib_list");
         $this->load_view('person/vmanage', "system", $data);
     }

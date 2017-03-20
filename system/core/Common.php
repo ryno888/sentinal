@@ -856,6 +856,16 @@ if ( ! function_exists('function_usable'))
 	}
     // ------------------------------------------------------------------------
 
+    if (!function_exists('console_db_create')) {
+
+        function console_db_create($table) {
+            $ci = &get_instance();
+            $ci->load->library("lib_db_forge", ["table" => $table]);
+        }
+
+    }
+    // ------------------------------------------------------------------------
+
     if (!function_exists('console')) {
 
         function &console($mixed, $options = []) {

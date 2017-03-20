@@ -95,8 +95,8 @@ class lib_database extends lib_core{
         $ci->load->database();
         $resultSet = $ci->db->query($limit ? "$sql LIMIT $limit " : $sql);
         
-        $result = $resultSet->result();
-        if($limit == 1 && array_key_exists(0, $result)){
+        $result = $resultSet && is_object($resultSet) ? $resultSet->result() : false;
+        if($result && $limit == 1 && array_key_exists(0, $result)){
             return $result[0];
         }
         return $result;

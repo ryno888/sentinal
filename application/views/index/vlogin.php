@@ -40,8 +40,8 @@
                     </div>
                     <div style="margin-top:10px" class="form-group">
                         <div class="col-sm-12 controls">
-                            <a id="btn-login" href="#" class="btn btn-success loginSubmit" formTarget='loginform'>Login  </a>
-                            <a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>
+                            <a id="btn-login" href="#" class="btn btn-default btn-sm loginSubmit" formTarget='loginform'>Login  </a>
+                            <a id="btn-fblogin" href="#" class="btn btn-primary btn-sm">Login with Facebook</a>
                         </div>
                     </div>
                     <div class="form-group">
@@ -101,7 +101,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-3 col-md-9">
-                            <button id="btn-signup" type="button" class="btn btn-info"><i class="icon-hand-right"></i>Register</button>
+                            <button id="btn-signup" type="button" class="btn btn-default btn-sm"><i class="icon-hand-right"></i>Register</button>
                         </div>
                     </div>
                     <div class="form-group">

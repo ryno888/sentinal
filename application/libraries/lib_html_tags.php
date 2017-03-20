@@ -61,6 +61,108 @@ class lib_html_tags extends lib_core{
 			."</button>\n";
     }
     //--------------------------------------------------------------------------
+    public static function icheckbox($label, $id, $checked = false, $options = []) {
+        $options_arr = array_merge([
+            'append'       => false,
+            'prepend'       => false,
+            'required'       => false,
+            'onclick'       => false,
+            'attr_arr'       => [],
+        ], $options);
+        
+        
+        $data_arr = array_merge([
+            'name'          => $id,
+            'id'            => $id,
+            'value'         => $label,
+            'checked'       => $checked,
+            'style'         => '',
+            'class'         => '',
+        ], $options_arr['attr_arr']);
+        
+        $html_options = lib_html_tags::get_html_options($options);
+        $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
+        $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
+        
+        return self::wrap_form_group($label.$html_options['span'], $id, form_checkbox($data_arr), $options_arr);
+    }
+    //--------------------------------------------------------------------------
+    public static function iradio($label, $id, $checked = false, $options = []) {
+        $options_arr = array_merge([
+            'append'       => false,
+            'prepend'       => false,
+            'required'       => false,
+            'onclick'       => false,
+            'attr_arr'       => [],
+        ], $options);
+        
+        
+        $data_arr = array_merge([
+            'name'          => $id,
+            'id'            => $id,
+            'value'         => $label,
+            'checked'       => $checked,
+            'style'         => '',
+            'class'         => '',
+        ], $options_arr['attr_arr']);
+        
+        $html_options = lib_html_tags::get_html_options($options);
+        $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
+        $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
+        
+        return self::wrap_form_group($label.$html_options['span'], $id, form_radio($data_arr), $options_arr);
+    }
+    //--------------------------------------------------------------------------
+    public static function iradio_multi($label, $id, $item_arr = [], $checked = false, $options = []) {
+        $options_arr = array_merge([
+            'inline'       => false,
+            'hidden'       => false,
+            'required'       => false,
+            'onclick'       => false,
+            'parent_id'       => "__$id",
+            'exclude'       => [],
+            'attr_arr'       => [],
+        ], $options);
+
+        $data_arr = array_merge([
+                'name'          => $id,
+                'id'            => "{$id}[]",
+                'value'         => false,
+                'checked'       => false,
+                'style'         => '',
+                'class'         => '',
+        ], $options_arr['attr_arr']);
+        
+        $radio_array = [];
+        if($options_arr["exclude"]){
+            foreach ($options_arr["exclude"] as $value) {
+                if(isset($item_arr[$value])){
+                    unset($item_arr[$value]);
+                }
+            }
+        }
+        
+        foreach ($item_arr as $key => $value) {
+            
+            $data_arr["value"] = $value;
+            $data_arr["checked"] = $checked == $key ? true : false;
+            $inline = $options_arr["inline"] == true ? "class='radio-inline'" : false;
+            
+            $html_options = lib_html_tags::get_html_options($options);
+            $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
+            $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
+            if($inline){
+                $radio_array[] = "<span class='margin-right-10'><label $inline>".form_radio($data_arr)." $value</label></span>";
+            }else{
+                $radio_array[] = "<div class='radio checkbox-inline-group'><label $inline>".form_radio($data_arr)."$value</label></div>";
+            }
+        }
+        
+        $__label = $options_arr["inline"] ? "<div class='col-md-12'><label>{$label}{$html_options['span']}</label></div>" : $label.$html_options['span'];
+        
+        return self::wrap_form_group($__label, $id, implode("", $radio_array), $options_arr);
+    }
+    //--------------------------------------------------------------------------
     public static function itext($label, $id, $value = false, $options = []) {
         $options_arr = array_merge([
             'append'       => false,
@@ -161,6 +263,7 @@ class lib_html_tags extends lib_core{
         $options_arr = array_merge([
             'append'       => false,
             'prepend'       => false,
+            '!change'       => false,
             'style'         => false,
             'class'         => false,
             'attr_arr'       => [],
@@ -169,7 +272,7 @@ class lib_html_tags extends lib_core{
         $data_arr = array_merge([
             'name'          => $id,
             'id'       => 'shirts',
-            'onChange' => '',
+            'onChange' => $options_arr["!change"],
             'class' => 'form-control input-sm',
             'style'         => false,
         ], $options_arr["attr_arr"]);
@@ -313,6 +416,8 @@ class lib_html_tags extends lib_core{
         $options_arr = array_merge([
             "prepend" => false,
             "append" => false,
+            "hidden" => false,
+            "parent_id" => false,
         ], $options);
         
         if($label !== false){
@@ -335,8 +440,11 @@ class lib_html_tags extends lib_core{
             ';
         }
         
+        $__hidden = $options_arr["hidden"] ? "hidden" : "";
+        $__parent_id = $options_arr["parent_id"] ? "id='{$options_arr["parent_id"]}'" : "";
+        
         return '
-            <div class="form-group">
+            <div class="form-group '.$__hidden.'" '.$__parent_id.'>
                 '.$label.'
                 '.$element.'
             </div>

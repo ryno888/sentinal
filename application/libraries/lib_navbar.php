@@ -48,16 +48,19 @@ class lib_navbar extends lib_core{
     //--------------------------------------------------------------------------
     public function add_navitem_dropdown($label, $item_arr = [], $options = []) {
         $options_arr = array_merge([
-            "align" => "left"
+            "align" => "left",
+            "show_caret" => true,
         ], $options);
         
         $li_item_html = "";
-        foreach ($item_arr as $href => $inner_label) {
-            $li_item_html .= "<li><a href='$href'>$inner_label</a></li>";
+        foreach ($item_arr as $inner_label => $href) {
+            $formatted_href = $this->format_href($href);
+            $li_item_html .= "<li><a $formatted_href>$inner_label</a></li>";
         }
         
+        $caret = $options_arr["show_caret"] ? "<span class='caret'></span>" : "";
         $li = "
-            <li class='dropdown'><a class='dropdown-toggle' data-toggle='dropdown' aria-expanded='false' href='#'>$label <span class='caret'></span></a>
+            <li class='dropdown'><a class='dropdown-toggle' data-toggle='dropdown' aria-expanded='false' href='#'>{$label}{$caret}</a>
                 <ul class='dropdown-menu' role='menu'>
                     $li_item_html
                 </ul>

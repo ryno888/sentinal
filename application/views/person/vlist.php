@@ -5,7 +5,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
     $list = new lib_list();
     $list->add_title("Userlist", "All users", ["class" => "list-page-header"]);
     $list->add_new_btn("Add new Student", "system.browser.redirect('person/vadd');");

@@ -1,8 +1,27 @@
 
 .panel-heading{ color:#fff; border-color: #1995dc; background-image: linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5); background-repeat: no-repeat; }
-a { color: #FFF; text-decoration: none; }
+a { color: #7a008a; text-decoration: none; }
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: #640084;
+}
+
+.panel-info>.panel-heading {
+    color: #3a87ad;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    border-color: #dcc5b5;
+    background-image: none;
+    background-color: #f5d2ba;
+}
+
+.panel-info {
+    border-color: #f5d2ba;
+}
+
 
 .login-forgot-password{ float: right; font-size: 80%; position: relative; top: -15px;}
 .login-forgot-signin{ float: right; font-size: 80%; position: relative; top: -15px;}
-.login-signup-link{ color: #239fe6;}
 .login-footer-wrapper{ border-top: 1px solid#888; padding-top:15px; font-size:85% }
