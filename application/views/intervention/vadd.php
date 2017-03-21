@@ -10,7 +10,7 @@
     $html->container_fluid = true;
     $html->header("New Intervention", 3);
     $html->form("intervention/xadd");
-        $html->add_menu_button("Cancel", "system.browser.redirect('person/vmanage?per_id=$person->id&p=intervention');");
+        $html->add_menu_button("Cancel", "system.browser.redirect('person/vmanage/per_id/$person->id/p/intervention');");
         $html->add_menu_submitbutton("Save Changes");
             $html->add_column("half");
                 $html->fieldset_open("General Details");

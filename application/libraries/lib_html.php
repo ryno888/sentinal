@@ -120,6 +120,18 @@ class lib_html extends lib_core{
         $this->add_html("html", lib_html_tags::itext($label, $id, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
+    public function itextarea($label, $id, $value = false, $options = []) {
+        $options_arr = array_merge([
+            "enable_set_value" => false,
+        ], $options);
+        
+        $error = form_error($id);
+        if($error){
+            $label .= "<div class='form-error-label'>$error</div>";
+        }
+        $this->add_html("html", lib_html_tags::itextarea($label, $id, $value, $options_arr));
+    }
+    //--------------------------------------------------------------------------
     public function idate($label, $id, $value = false, $options = []) {
         $options_arr = array_merge([
             "enable_set_value" => false,

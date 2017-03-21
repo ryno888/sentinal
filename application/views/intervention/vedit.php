@@ -10,11 +10,12 @@
     $html = new lib_html();
     $html->container_fluid = true;
     $html->header("New Intervention", 3);
-    $html->form("intervention/xadd");
-        $html->add_menu_button("Cancel", "system.browser.redirect('person/vmanage?per_id=$person->id&p=intervention');");
+    $html->form("intervention/xedit");
+        $html->add_menu_button("Cancel", "system.browser.redirect('person/vmanage/per_id/$person->id/p/intervention');");
         $html->add_menu_submitbutton("Save Changes");
             $html->add_column("half");
                 $html->fieldset_open("General Details");
+                    $html->ihidden("int_id", $intervention->id);
                     $html->ihidden("per_id", $person->id);
                     $html->ihidden("int_ref_person", $person->id);
                     $html->dbinput($intervention, "int_type", ["required" => true]);

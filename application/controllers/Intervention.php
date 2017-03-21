@@ -36,8 +36,24 @@ class Intervention extends CI_Controller {
             "code" => 3,
             "action" => [
                 "type" => "redirect",
-                "url" => "person/vmanage?per_id=$person->id&p=intervention",
+                "url" => "person/vmanage/per_id/$person->id/p/intervention",
             ],
+        ]);
+    }
+    //--------------------------------------------------------------------------
+    public function xedit() {
+        $this->load->library("lib_html");
+        $this->form_validation->set_rules('int_type', "Type", "required");
+        $this->form_validation->set_rules('int_remark', "Remark", "required");
+        if($this->form_validation->run() == false){
+            return http_helper::error(1, validation_errors());
+        }
+        
+        $intervention = $this->request_obj("intervention", true);
+        $intervention->update();
+        
+        return http_helper::response("Changes successfully saved", [
+            "code" => 3,
         ]);
     }
     //--------------------------------------------------------------------------

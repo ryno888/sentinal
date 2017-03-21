@@ -25,7 +25,7 @@ class error_helper {
         if(count($result_arr) > 1){
             foreach ($result_arr as $file) {
                 if(strpos($file, "index") === false){
-                    $url = CI_BASE_URL."index.php/index/vview_error?file=$file";
+                    $url = CI_BASE_URL."index.php/index/vview_error/file/$file";
                     $file_html .= "<small><a title='Delete Error' class='deleteError cursor-pointer' file='$file'><i class='padding-right-10 fa fa-times' aria-hidden='true'> </i></a><a href='$url' target='_blank'>$file</a></small>";
                 }
             }

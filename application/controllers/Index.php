@@ -27,15 +27,15 @@ class Index extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function vview_error() {
-        $file = $this->input->get_post('file');
+        $file = request('file');
         $data["error"] = file_get_contents(DIR_LOGS."$file");
         $this->load->view('errors/view_error', $data);
     }
     //--------------------------------------------------------------------------
     public function xlogin() {
         //add the header here
-        $per_usernamme = $this->input->get_post('per_usernamme');
-        $per_password = $this->input->get_post('per_password');
+        $per_usernamme = request('per_usernamme');
+        $per_password = request('per_password');
         $result = lib_user::login($per_usernamme, $per_password);
         echo $result ? http_helper::json(["code"=> 1]) : http_helper::json(["code"=> 2, "title" => "Username & Password incorrect", "message" => "The username and password combination you have used is incorrect. Please try again."]);
     }
