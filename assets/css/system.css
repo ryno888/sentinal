@@ -49,6 +49,15 @@ error-wrapper.div.container{ margin-top:20px; }
 .wrapper {
   padding: 15px 0;
 }
+.tab-link{
+    color: #f5d2ba;
+}
+
+.nav-tabs>li>a:hover {
+    border-color: #e8bd9f #e8bd9f #e8bd9f;
+    color: #fff;
+    background-color: #f5d2ba;
+}
 
 .bs-example-tabs .nav-tabs {
   margin-bottom: 15px;

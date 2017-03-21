@@ -103,6 +103,25 @@ class lib_list extends lib_core{
             </td>";
     }
     //--------------------------------------------------------------------------
+    public function add_action_assoc($url = false, $uri_data = [], $icon = "fa-pencil", $options = []){
+        
+        $options_arr = array_merge([
+            "class" => false,
+            "style" => false,
+            "title" => "Manage",
+        ], $options);
+        
+        $edit_url = $this->ci->uri->assoc_to_uri($uri_data);
+        
+        array_unshift ($this->col_header_arr, "", "<th></th>");
+        $onclick = !$url ? "javascript:;" : "system.browser.redirect('$url/$edit_url')";
+        
+        $this->action_arr[] = "
+        <td class='list-action'>
+            <i title='{$options_arr["title"]}' onclick=\"$onclick\" class='fa {$icon} {$options_arr["class"]} padding-left-5' aria-hidden='true'></i>
+        </td>";
+    }
+    //--------------------------------------------------------------------------
     public function add_action_delete($onclick = false, $icon = "fa-times", $options = []){
         $options_arr = array_merge([
             "class" => false,

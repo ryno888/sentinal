@@ -71,29 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </div>
         </div>
-        <footer class="footer footer-ext">
-            <div class="footer-bottom">
-                <div class="container padding-top-15">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="copyright">
-                                <?php echo lib_date::strtodatetime("NOW", lib_date::$DATE_FORMAT_12); ?>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="copyright text-center font-size-16">
-                                <a href="<?php echo http_helper::build_url(); ?>"><?php echo CI_META_TITLE; ?></a>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="copyright">
-                                <?php echo CI_CONTACT_NUMBER; ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <!--<footer class="footer footer-ext"></footer>-->
     </body>
     <script type="text/javascript" src="<?php echo $base_url; ?>assets/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo $base_url; ?>assets/js/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>

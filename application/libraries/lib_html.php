@@ -68,6 +68,10 @@ class lib_html extends lib_core{
         $this->add_html("header", lib_html_tags::header($label, $type, $attributes));
     }
     //--------------------------------------------------------------------------
+    public function add_title($title, $info = false, $options = []) {
+        $this->add_html("html", lib_html_tags::title($title, $info, $options));
+    }
+    //--------------------------------------------------------------------------
     public function iradio_multi($label, $id, $item_arr = [], $checked = false, $options = []) {
         $options_arr = array_merge([
             "enable_set_value" => false,
@@ -153,11 +157,38 @@ class lib_html extends lib_core{
         }
     }
     //--------------------------------------------------------------------------
-    public function itextarea($label, $id, $value = false, $options = []) {
+    public function dbvalue($obj, $field, $options = []) {
+        
+        $options_arr = array_merge([
+            "function" => false
+        ], $options);
+        switch ($obj->get_field_type($field)) {
+            case DB_VARCHAR:
+                return $this->itext(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
+                return $this->itext(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
+            case DB_DATETIME:
+                return $this->idate(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
+            case DB_DATE:
+                return $this->idate(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
+            case DB_YEAR:
+                return $this->idate(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
+            case DB_TINYINT:
+                return $this->iselect(ucwords($obj->get_field_display($field)), $field, array_map('ucwords', $obj->{$field}), $obj->get($field, $options_arr["function"], $options), $options);
+            case DB_TEXT:
+                return $this->itextarea(ucwords($obj->get_field_display($field)), $field, $obj->get($field, $options_arr["function"], $options), $options);
+            case DB_ENCRYPT:
+                return $this->ipassword(ucwords($obj->get_field_display($field)), $field, false, $options);
+
+            default:
+                break;
+        }
+    }
+    //--------------------------------------------------------------------------
+    public function value($label, $value = false, $options = []) {
         $options_arr = array_merge([
         ], $options);
         
-        $this->add_html("html", lib_html_tags::itextarea($label, $id, $value, $options_arr));
+        $this->add_html("html", lib_html_tags::value($label, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
     public function ihidden($id, $value = false, $options = []) {

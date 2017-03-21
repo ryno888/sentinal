@@ -15,7 +15,7 @@
     $list->sql_limit = 15;
     $list->add_field("Type", "obs_term", ["function" => function($obs_term){ return lib_db::get_enum_value("observation", "obs_term", $obs_term); }]);
     
-    $list->add_action_edit("system.browser.redirect('person/vmanage?int_id=%obs_id%&per_id=$person->id&p=vedit_obs')");
+    $list->add_action_edit("system.browser.redirect('person/vmanage?obs_id=%obs_id%&per_id=$person->id&p=vedit_obs')");
     $list->add_action_delete("system.ajax.requestFunction('person/xdelete?id=%obs_id%', function(){}, {confirm:true})");
     $list->display();
 ?>

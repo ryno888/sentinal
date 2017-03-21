@@ -33,6 +33,27 @@ class lib_html_tags extends lib_core{
         return "<div class='$container'>".heading($label, $type, $options_arr['attr_arr'])."</div>";
     }
     //--------------------------------------------------------------------------
+    public static function title($title, $info = false, $options = []) {
+        $options_arr = array_merge([
+            "class" => "list-page-header",
+            'container_fluid' => false,
+            "style" => false,
+            "type" => 1,
+        ], $options);
+        
+        $container = $options_arr["container_fluid"] ? "container-fluid" : "container";
+        
+        $titel = "
+            <div class='{$options_arr['class']}' style='{$options_arr['style']}'>
+				<h{$options_arr['type']}>
+					$title <small>$info</small>
+				</h{$options_arr['type']}>
+			</div>
+        ";
+        
+        return "<div class='$container'>$titel</div>";
+    }
+    //--------------------------------------------------------------------------
     public static function button($label = '', $onclick = "javascript:;", $options = []) {
         $options_arr = array_merge([
 			'name'  => false,
@@ -144,7 +165,7 @@ class lib_html_tags extends lib_core{
         
         foreach ($item_arr as $key => $value) {
             
-            $data_arr["value"] = $value;
+            $data_arr["value"] = $key;
             $data_arr["checked"] = $checked == $key ? true : false;
             $inline = $options_arr["inline"] == true ? "class='radio-inline'" : false;
             
@@ -257,6 +278,25 @@ class lib_html_tags extends lib_core{
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
         return self::wrap_form_group($label.$html_options['span'], $id, form_label($label, $id, $options_arr["attr_arr"]));
+    }
+    //--------------------------------------------------------------------------
+    public static function value($label, $value, $options = []) {
+        $options_arr = array_merge([
+            'append'        => false,
+            'prepend'       => false,
+            'attr_arr'      => [],
+        ], $options);
+        
+        $data_arr = array_merge([
+            'style'         => false,
+            'class'         => false
+        ], $options_arr["attr_arr"]);
+        
+        $html_options = lib_html_tags::get_html_options($options);
+        $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
+        $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
+        
+        return self::wrap_form_group($label.$html_options['span'], false, $value);
     }
     //--------------------------------------------------------------------------
     public static function iselect($label, $id, $value_arr = [], $value = false, $options = []) {

@@ -18,4 +18,10 @@ class lib_core {
         return lib_html_tags::get_html_options($options);
     }
     //--------------------------------------------------------------------------
+    public static function load($library, $data = null){
+        $ci = &get_instance();
+        $ci->load->library($library, $data);
+        return $ci->{$library};
+    }
+    //--------------------------------------------------------------------------
 }

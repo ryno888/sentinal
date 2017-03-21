@@ -18,7 +18,8 @@
     $list->add_field("Lastname", "per_lastname", ["#width" => "15%"]);
     $list->add_field("Email", "per_email");
     
-    $list->add_action_edit("system.browser.redirect('person/vmanage?per_id=%per_id%')");
+    $list->add_action_assoc("person/vmanage", ["per_id" => "%per_id%"]);
+//    $list->add_action_edit("system.browser.redirect('person/vmanage?per_id=%per_id%')");
     $list->add_action_delete("system.ajax.requestFunction('person/xdelete?id=%per_id%', function(){}, {confirm:true})");
     $list->display();
 ?>

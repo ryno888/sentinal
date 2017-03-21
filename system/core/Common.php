@@ -856,6 +856,39 @@ if ( ! function_exists('function_usable'))
 	}
     // ------------------------------------------------------------------------
 
+    if (!function_exists('cast')) {
+
+        function cast($object, $class) {
+            if (!is_object($object))
+                throw new InvalidArgumentException('$object must be an object.');
+            if (!is_string($class))
+                throw new InvalidArgumentException('$class must be a string.');
+            if (!class_exists($class))
+                throw new InvalidArgumentException(sprintf('Unknown class: %s.', $class));
+            if (!is_subclass_of($class, get_class($object)))
+                throw new InvalidArgumentException(sprintf(
+                        '%s is not a descendant of $object class: %s.', $class, get_class($object)
+                ));
+            /**
+             * This is a beautifully ugly hack.
+             *
+             * First, we serialize our object, which turns it into a string, allowing
+             * us to muck about with it using standard string manipulation methods.
+             *
+             * Then, we use preg_replace to change it's defined type to the class
+             * we're casting it to, and then serialize the string back into an
+             * object.
+             */
+            return unserialize(
+                    preg_replace(
+                            '/^O:\d+:"[^"]++"/', 'O:' . strlen($class) . ':"' . $class . '"', serialize($object)
+                    )
+            );
+        }
+
+    }
+    // ------------------------------------------------------------------------
+
     if (!function_exists('console_db_create')) {
 
         function console_db_create($table) {
@@ -986,6 +1019,11 @@ if ( ! function_exists('function_usable'))
 
         function request($var, $default = false) {
             $ci_controller = new CI_Input();
+            $ci = &get_instance();
+            $uri_arr = $ci->uri->uri_to_assoc();
+            if(array_key_exists($var, $uri_arr)){
+                return $uri_arr[$var];
+            }
             $result = $ci_controller->get_post($var);
             return $result ? $result : $default;
         }
@@ -1006,12 +1044,19 @@ if ( ! function_exists('function_usable'))
     }
     // ------------------------------------------------------------------------
 
-    if (!function_exists('request')) {
+    if (!function_exists('request_obj')) {
 
-        function request($var, $default = false) {
-            $ci_controller = new CI_Input();
-            $result = $ci_controller->get_post($var);
-            return $result ? $result : $default;
+        function request_obj($tabel = false, $key = false) {
+            $obj = lib_db::load_db_default($tabel);
+            foreach ($obj->get_fields_arr() as $field => $field_data_arr) {
+                $value = request($field);
+                $obj->obj->{$field} = $value ? $value : $obj->get_field_default($field);
+            }
+
+            if(!$key){
+                unset($obj->obj->{$obj->get_key()});
+            }
+            return $obj;
         }
 
     }

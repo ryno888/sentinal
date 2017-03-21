@@ -37,6 +37,9 @@ defined('CI_DATE')              OR define('CI_TIME', "H:i:s");
 if (!defined('CR_FACEBOOK_ID'))         { define('CR_FACEBOOK_ID', "145737412583580"); }
 if (!defined('CR_FACEBOOK_SECRET'))     { define('CR_FACEBOOK_SECRET', "1498be992f38d36e181dba78283743d4"); }
 
+//tinypng api
+if (!defined('CR_TINYPNG_KEY'))         { define('CR_TINYPNG_KEY', "ns7WnrJa5UqLKfvUOdfeo6dajxw-9hWA"); }
+
 //meta
 defined('CI_META_TITLE')        OR define('CI_META_TITLE', CI_NAME." | ".CI_SYSTEM_NAME);
 defined('CI_META_DESCRIPTION')  OR define('CI_META_DESCRIPTION', "Modified System Structure in Codeigniter");

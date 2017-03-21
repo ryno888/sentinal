@@ -87,4 +87,11 @@ class error_helper {
 		if (!$options["no_formatting"])echo "</pre>";
 	}
     //--------------------------------------------------------------------------
+    public static function log($message, $level = "error") {
+        $exception = new Exception($message);
+		log_message($level, "-----------------------------------------------------");
+		log_message($level, $exception);
+		log_message($level, "-----------------------------------------------------");
+	}
+    //--------------------------------------------------------------------------
 }
