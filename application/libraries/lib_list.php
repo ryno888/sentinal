@@ -43,6 +43,7 @@ class lib_list extends lib_core{
     private $field_style_arr = [];
     private $html = "";
     private $titel = false;
+    private $base_url = false;
     private $current_url = false;
     private $current_url_query_string = false;
     
@@ -67,7 +68,9 @@ class lib_list extends lib_core{
         $this->current_page_index = request("page", 1);
         
         $this->search = request("__search");
-        $this->current_url = current_url();
+        $current_url_parts = explode("/", str_replace(base_url(), "", current_url()));
+        $this->current_url = base_url()."{$current_url_parts[0]}/{$current_url_parts[1]}/{$current_url_parts[2]}";
+        $this->base_url = $this->base_url ? $this->base_url : current_url();
         $_url = parse_url(current_url(true));
         $this->current_url_query_string = $_url && isset($_url['query']) ? $_url['query'] : false;
     }
@@ -336,7 +339,7 @@ class lib_list extends lib_core{
             "totalItems" => $this->get_total_items(), 
             "itemsPerPage" => $this->sql_limit, 
             "currentPage" => $this->current_page_index, 
-            "urlPattern" => "$this->current_url?page=(:num){$query}"
+            "urlPattern" => "$this->current_url/page/(:num){$query}"
         );
         $this->ci->load->library("lib_paginator", $params);
         $lib_paginator = new lib_paginator($params);
@@ -345,18 +348,12 @@ class lib_list extends lib_core{
     }
     //-----------------------------------------------------------------------
     private function get_url_query_string() {
-        $query = "";
-        if($this->current_url_query_string){
-            $query_parts = [];
-            parse_str($this->current_url_query_string, $query_parts);
-            if(isset($query_parts['page'])){
-                unset($query_parts["page"]);
-            }
-            if(count($query_parts) > 0){
-                $query = "&".http_build_query($query_parts);
-            }
+        $query_parts = $this->ci->uri->uri_to_assoc();
+        if(isset($query_parts['page'])){
+            unset($query_parts["page"]);
         }
-        return $query;
+        
+        return $this->ci->uri->assoc_to_uri($query_parts);
     }
     //-----------------------------------------------------------------------
     private function get_total_items() {
