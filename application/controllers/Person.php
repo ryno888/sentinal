@@ -75,12 +75,11 @@ class Person extends CI_Controller {
         
         $person = $this->request_obj("person");
         $person->insert();
-        
         return http_helper::response("Changes successfully saved", [
             "code" => 3,
             "action" => [
                 "type" => "redirect",
-                "url" => "person/vlist",
+                "url" => "person/vmanage/per_id/$person->id",
             ],
         ]);
     }
@@ -116,6 +115,11 @@ class Person extends CI_Controller {
     public function xdelete() {
         console($this->request("id"));
         return http_helper::error(1, ["test"]);
+    }
+    //--------------------------------------------------------------------------
+    public function xstream_observation_sheet() {
+        $this->load->model("mod_pdf");
+        $this->mod_pdf->generate_observation_sheet();
     }
     //--------------------------------------------------------------------------
 }

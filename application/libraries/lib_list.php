@@ -125,24 +125,25 @@ class lib_list extends lib_core{
         </td>";
     }
     //--------------------------------------------------------------------------
-    public function add_action_delete($onclick = false, $icon = "fa-times", $options = []){
+    public function add_action_delete($url = false, $options = []){
         $options_arr = array_merge([
             "class" => false,
             "style" => false,
             "title" => "Delete",
-            "confirm" => false,
+            "!complete" => "browser.refresh();",
+            "icon" => "fa-times",
+            "confirm" => true,
+            "confirm_message" => "Are you sure you want to delete this item?",
         ], $options);
         
         array_unshift ($this->col_header_arr, "", "<th></th>");
         
-        $onclick_js = "system.browser.confirm('Are you sure you want to delete this entry?',
-            function(){ alert('yes'); }
-            );";
-        
+        $confirm = $options_arr["confirm"] ? "true" : "false";
+        $onclick_js = "system.ajax.requestFunction('$url', function(){ {$options_arr["!complete"]} }, {confirm:$confirm, confirm_message:'{$options_arr["confirm_message"]}'})";
         
         $this->action_arr[] = "
             <td class='list-action'>
-                <i title='{$options_arr["title"]}' onclick=\"$onclick_js\" class='fa {$icon} {$options_arr["class"]} padding-left-5' aria-hidden='true'></i>
+                <i title='{$options_arr["title"]}' onclick=\"$onclick_js\" class='fa {$options_arr["icon"]} {$options_arr["class"]} padding-left-5' aria-hidden='true'></i>
             </td>";
     }
     //--------------------------------------------------------------------------

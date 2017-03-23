@@ -9,6 +9,8 @@
     $html->header("General Details", 3);
     $html->form("person/xedit");
         $html->add_menu_submitbutton("Save Changes");
+//        $html->add_menu_button("Export Observation Sheet", "document.location='".http_helper::build_url("index.php/person/xstream_observation_sheet")."'");
+        $html->add_menu_button("Export Observation Sheet", "system.browser.new_tab('".http_helper::build_url("index.php/person/xstream_observation_sheet")."')");
             $html->ihidden("per_id", $person->id);
             $html->add_column("third");
                 $html->fieldset_open("General Details");

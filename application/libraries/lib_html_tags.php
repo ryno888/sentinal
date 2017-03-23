@@ -91,6 +91,7 @@ class lib_html_tags extends lib_core{
             'attr_arr'       => [],
         ], $options);
         
+        if(isset($options_arr["label"]) && $options_arr["label"]){ $label = $options_arr["label"]; }
         
         $data_arr = array_merge([
             'name'          => $id,
@@ -117,6 +118,7 @@ class lib_html_tags extends lib_core{
             'attr_arr'       => [],
         ], $options);
         
+        if(isset($options_arr["label"]) && $options_arr["label"]){ $label = $options_arr["label"]; }
         
         $data_arr = array_merge([
             'name'          => $id,
@@ -145,6 +147,8 @@ class lib_html_tags extends lib_core{
             'attr_arr'       => [],
         ], $options);
 
+        if(isset($options_arr["label"]) && $options_arr["label"]){ $label = $options_arr["label"]; }
+        
         $data_arr = array_merge([
                 'name'          => $id,
                 'id'            => "{$id}[]",
@@ -189,9 +193,11 @@ class lib_html_tags extends lib_core{
             'append'       => false,
             'prepend'       => false,
             'required'       => false,
+            'label'       => false,
             'attr_arr'       => [],
         ], $options);
         
+        if($options_arr["label"]){ $label = $options_arr["label"]; }
         
         $data_arr = array_merge([
             'name'          => $id,
@@ -217,6 +223,8 @@ class lib_html_tags extends lib_core{
             'prepend'       => false,
             'attr_arr'       => [],
         ], $options);
+        
+        if(isset($options_arr["label"]) && $options_arr["label"]){ $label = $options_arr["label"]; }
         
         $data_arr = array_merge([
             'name'          => $id,

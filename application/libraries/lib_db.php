@@ -131,13 +131,19 @@ class lib_db{
     //--------------------------------------------------------------------------
     public function insert() {
         $database = new lib_database();
-        $database->insert($this->table, $this->obj);
+        $this->id = $this->obj->{$this->key} = $database->insert($this->table, $this->obj);
     }
     //--------------------------------------------------------------------------
     public function update() {
         $database = new lib_database();
         $this->on_update($this->obj);
         $database->update($this->table, $this->key, $this->clean_obj());
+    }
+    //--------------------------------------------------------------------------
+    public function delete() {
+        $database = new lib_database();
+        $this->on_delete($this->obj);
+        $database->delete($this->table, $this->key, $this->get($this->key));
     }
     //--------------------------------------------------------------------------
     public function clean_obj() {

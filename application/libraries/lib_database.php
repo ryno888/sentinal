@@ -50,6 +50,7 @@ class lib_database extends lib_core{
         if($db_obj && is_object($db_obj)){
             $this->db->insert($table, $db_obj);
         }
+        return $this->db->insert_id();
     }
     //--------------------------------------------------------------------------
     public function update($table, $key, $db_obj = false){
@@ -57,6 +58,10 @@ class lib_database extends lib_core{
             $this->db->where($key, $db_obj->{$key});
             $this->db->update($table, $db_obj);
         }
+    }
+    //--------------------------------------------------------------------------
+    public function delete($table, $key, $id){
+        $this->db->delete($table, array($key => $id));
     }
     //--------------------------------------------------------------------------
     public function where($where){

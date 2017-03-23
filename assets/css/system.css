@@ -44,6 +44,9 @@ error-wrapper.div.container{ margin-top:20px; }
 
 /*form*/
 .checkbox-inline-group { margin-top: 0; margin-bottom: 0; padding: 2px; }
+.input-width-full { width: 100% }
+.input-width-half { width: 50% }
+.input-width-third { width: 30% }
 
 /*tab*/
 .wrapper {

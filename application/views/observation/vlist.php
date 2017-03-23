@@ -12,6 +12,7 @@
     $list->sql_key = "obs_id";
     $list->sql_select = "obs_id,  obs_term";
     $list->sql_from = "observation";
+    $list->sql_where = "obs_ref_person = $person->id";
     $list->sql_limit = 15;
     $list->add_field("Type", "obs_term", ["function" => function($obs_term){ return lib_db::get_enum_value("observation", "obs_term", $obs_term); }]);
     

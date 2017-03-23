@@ -100,4 +100,16 @@ class db_observation extends lib_db{
         3 => "No/Weak",
     ];
     //----------------------------------------------------------------------------------------
+    public function get_available_terms($per_id){
+        $term_item_arr = $this->obs_term;
+        $existing_terms = lib_database::selectlist("SELECT obs_id, obs_term FROM observation WHERE obs_ref_person = $per_id", "obs_id", "obs_term");
+        
+        foreach ($existing_terms as $obs_id => $obs_term) {
+            if(array_key_exists($obs_term, $term_item_arr)){
+                unset($term_item_arr[$obs_term]);
+            }
+        }
+        return $term_item_arr;
+    }
+    //----------------------------------------------------------------------------------------
 }

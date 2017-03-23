@@ -56,11 +56,21 @@ class Index extends CI_Controller {
     public function xclear_error() {
         //add the header here
         $file = $this->input->get_post('file');
-        if(file_exists(DIR_LOGS."$file")){
-            unlink(DIR_LOGS."$file");
+        if($file == "all"){
+            $files_arr = glob(DIR_LOGS."*");
+            foreach ($files_arr as $file) {
+                if(basename($file) != "index.html"){
+                    unlink($file);
+                }
+            }
+        }else{
+            if(file_exists(DIR_LOGS."$file")){
+                unlink(DIR_LOGS."$file");
+            }
         }
         
         $error_html = error_helper::check_errors();
+        
         
         http_helper::json($error_html);
     }

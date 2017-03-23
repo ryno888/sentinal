@@ -18,6 +18,6 @@
     $list->add_field("Remark", "int_remark");
     
     $list->add_action_assoc("person/vmanage", ["per_id" => "$person->id", "int_id" => "%int_id%", "p" => "vedit_int"]);
-    $list->add_action_delete("system.ajax.requestFunction('person/xdelete?id=%int_id%', function(){}, {confirm:true})");
+    $list->add_action_delete("intervention/xdelete/int_id/%int_id%");
     $list->display();
 ?>

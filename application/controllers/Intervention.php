@@ -57,4 +57,9 @@ class Intervention extends CI_Controller {
         ]);
     }
     //--------------------------------------------------------------------------
+    public function xdelete() {
+        $intervention = request_db("intervention");
+        $intervention->delete();
+    }
+    //--------------------------------------------------------------------------
 }

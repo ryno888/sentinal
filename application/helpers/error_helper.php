@@ -32,6 +32,7 @@ class error_helper {
             
             return "
                 <style>
+                    .deleteAllWrapper{ margin-bottom: -10px; padding: 10px; cursor: pointer; text-decoration: none;}
                     .screen{ position: relative; display:none;}
                 </style>
                 <div class='screen errorPopup'>
@@ -40,11 +41,12 @@ class error_helper {
                             <div class='row'>
                                 <div class='col-md-12'>
                                     <div class='row'>
+                                        <div class='pull-right deleteAllWrapper'><a class='deleteErrorAll'>Clear All</a></div>
+                                        <div class='clearfix'></div>
                                         <blockquote class='blockquote-error'>
                                             <p>New Error</p>
                                             $file_html
                                         </blockquote>
-
                                     </div>
                                 </div>
                             </div>
@@ -59,6 +61,18 @@ class error_helper {
                             $.ajax({
                                 type: 'POST',
                                 data: 'file='+file,
+                                url: ci_base_url+'index.php/index/xclear_error',
+                                cache: false,
+                                success: function(response){
+                                    $('.errorPopup').html(response);
+                                }
+                            });
+                        });
+                        $('body').on('click', '.deleteErrorAll', function(){
+                            var file = $(this).attr('file');
+                            $.ajax({
+                                type: 'POST',
+                                data: 'file=all',
                                 url: ci_base_url+'index.php/index/xclear_error',
                                 cache: false,
                                 success: function(response){

@@ -14,7 +14,7 @@
         $html->add_menu_submitbutton("Save Changes");
             $html->add_column("third");
                     $html->ihidden("per_id", $person->id);
-                    $html->dbinput($observation, "obs_term", ["required" => true, "!change" => "
+                    $html->iselect("Term", "obs_term", $observation->get_available_terms($person->id), $observation->get("obs_term"), ["required" => true, "!change" => "
                             var term = $(this).val();
                             if(term == '1'){
                                 $('#__obs_adjustment').removeClass('hidden');

@@ -22,7 +22,7 @@ var system = {
             }, (options == undefined ? {} : options));
 
             if (options_obj.confirm) {
-                messageConfirm(options_obj.confirm_message, function () {
+                system.browser.confirm(options_obj.confirm_message, function () {
                     $.ajax({
                         type: "POST",
                         url: ci_base_url + 'index.php/' + url,
@@ -69,7 +69,14 @@ var system = {
         redirect: function(url){
             document.location= ci_base_url+'index.php/'+url;
         },
-        
+        refresh: function(){
+            location.reload();
+        },
+        new_tab: function(url){
+            window.open(
+                url, '_blank'
+            );
+        },
         confirm: function(message, ok_callback, cancel_callback, title) {
             // params
             $('#modalConfirmOkBtn').prop('onclick',null).off('click');
