@@ -358,7 +358,7 @@ class lib_html_tags extends lib_core{
         $options_arr = array_merge([
             "autoclose" => true,
             "format" => CI_DATE,
-            "show_today_btn" => false,
+            "show_today_btn" => true,
         ], $options);
         
         $format = php_dateformat_to_js_dateformat($options_arr["format"]);

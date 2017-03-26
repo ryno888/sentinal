@@ -86,13 +86,20 @@ class Person extends CI_Controller {
     //--------------------------------------------------------------------------
     public function xedit() {
         $this->load->library("lib_html");
-        $this->form_validation->set_rules('per_firstname', "Firstname", "required");
-        $this->form_validation->set_rules('per_lastname', "Surname", "required");
+        $person = $this->request_obj("person", true);
+        
+        
+        $this->form_validation->set_rule_db($person, 'per_lastname');
+        $this->form_validation->set_rule_db($person, 'per_gender');
+        $this->form_validation->set_rule_db($person, 'per_grade');
+        $this->form_validation->set_rule_db($person, 'per_birthday');
+        $this->form_validation->set_rule_db($person, 'per_year_in_class');
+        $this->form_validation->set_rule_db($person, 'per_previous_grade');
+        $this->form_validation->set_rule_db($person, 'per_year_in_phase');
         if($this->form_validation->run() == false){
             return http_helper::error(1, validation_errors());
         }
         
-        $person = $this->request_obj("person", true);
         $person->update();
         return http_helper::response("Changes successfully saved");
     }
@@ -118,7 +125,9 @@ class Person extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function xstream_observation_sheet() {
+        $person = request_db("person");
         $this->load->model("mod_pdf");
+        $this->mod_pdf->set_person($person);
         $this->mod_pdf->generate_observation_sheet();
     }
     //--------------------------------------------------------------------------

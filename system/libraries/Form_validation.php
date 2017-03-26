@@ -148,6 +148,13 @@ class CI_Form_validation {
 
 		log_message('info', 'Form Validation Class Initialized');
 	}
+    
+    // --------------------------------------------------------------------
+    
+	public function set_rule_db($obj, $field, $rule = "required")
+	{
+		$this->set_rules($field, $obj->get_field_display($field), $rule);
+	}
 
 	// --------------------------------------------------------------------
 

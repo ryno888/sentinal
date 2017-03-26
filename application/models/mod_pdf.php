@@ -14,31 +14,74 @@
 class mod_pdf {
     
     private $ci;
+    private $person;
+    private $pdf;
+    private $border_color = "#5f5f5f";
+    
     public function __construct() {
         $this->ci = &get_instance();
         $this->ci->load->library("lib_pdf");
-    }
-    //--------------------------------------------------------------------------
-    //put your code here
-    public function generate_observation_sheet(){
-        $pdf = new lib_pdf([
+        
+        $this->pdf = new lib_pdf([
             "enable_header" => false,   
             "enable_footer" => false,   
         ]);
+        $this->set_css();
+    }
+    //--------------------------------------------------------------------------
+    function set_person($person) {
+        $this->person = $person;
+    }
+    //--------------------------------------------------------------------------
+    function get_previous_grade_html() {
+        $html =" <td class='no-border width-40-perc'>PREV. GRADE</td>";
+        $per_grade = $this->person->get("per_grade");
+        $grade_arr = [
+            -2 => "PP",
+            -1 => "R",
+            1 => "1",
+            2 => "2",
+            3 => "3",
+        ];
         
+        foreach ($grade_arr as $key => $value) {
+            if($per_grade == $key){
+                $html .= "<td class='no-border width-12-perc text-bold color-black'>$value</td>";
+            }else{
+                $html .= "<td class='no-border width-12-perc color-grey'>$value</td>";
+            }
+        }
         
-        $tick = DIR_ASSETS."img/accept_small.png";
-        $cross = DIR_ASSETS."img/delete_small.png";
-        $dot = DIR_ASSETS."img/dot_small.png";
-        $border_color = "#5f5f5f";
+        return $html;
+    }
+    //--------------------------------------------------------------------------
+    function get_grade_repeated_html() {
+        $html =" <td class='no-border width-64-perc'>GRADE REPEATED</td>";
+        $per_grade = $this->person->get("per_grade_repeated");
+        $grade_arr = [
+            1 => "1",
+            2 => "2",
+            3 => "3",
+        ];
         
+        foreach ($grade_arr as $key => $value) {
+            if($per_grade == $key){
+                $html .= "<td class='no-border width-12-perc text-bold color-black'>$value</td>";
+            }else{
+                $html .= "<td class='no-border width-12-perc color-grey'>$value</td>";
+            }
+        }
         
-        $pdf->add_css("
+        return $html;
+    }
+    //--------------------------------------------------------------------------
+    private function set_css($css = false){
+        $this->pdf->add_css("
             <style>
                 table { border-collapse:collapse; }
                 th{ font-size:12px }
                 td, th {
-                    border: 1px solid $border_color;
+                    border: 1px solid $this->border_color;
                     text-align: left;
                     font-size:8px;
                     padding: 8px;
@@ -56,6 +99,7 @@ class mod_pdf {
                 .{ line-height: 16px; }
                 .line-heght-14{ line-height: 14px; }
                 
+                .width-64-perc{ width:64%; }
                 .width-40-perc{ width:40%; }
                 .width-30-perc{ width:30%; }
                 .width-25-perc{ width:25%; }
@@ -66,19 +110,33 @@ class mod_pdf {
                 .width-5-perc{ width:5%; }
                 
                 .border-black {border: 1px solid black;}
+                .color-grey {color:#cccccc;}
+                .color-green {color:#52da34;}
+                .color-red { color: #d40202;}
+                .color-black { color: black;}
                 
-                .table-border{ border: 1px solid $border_color; }
-                .td-border{ border: 1px solid $border_color; }
-                .td-color-grey{ background-color:$border_color; }
-                .td-border-left{border-left: 1px solid $border_color;}
-                .td-border-right{border-right: 1px solid $border_color;}
-                .td-border-bottom{border-bottom: 1px solid $border_color;}
-                .td-border-top{border-top: 1px solid $border_color;}
+                .text-bold{ font-weight: bold;}
+                
+                .table-border{ border: 1px solid $this->border_color; }
+                .td-border{ border: 1px solid $this->border_color; }
+                .td-color-grey{ background-color:$this->border_color; }
+                .td-border-left{border-left: 1px solid $this->border_color;}
+                .td-border-right{border-right: 1px solid $this->border_color;}
+                .td-border-bottom{border-bottom: 1px solid $this->border_color;}
+                .td-border-top{border-top: 1px solid $this->border_color;}
             </style>
         ");
+    }
+    //--------------------------------------------------------------------------
+    //put your code here
+    public function generate_observation_sheet(){
+        
+        $tick = DIR_ASSETS."img/accept_small.png";
+        $cross = DIR_ASSETS."img/delete_small.png";
+        $dot = DIR_ASSETS."img/dot_small.png";
         
         //header
-        $pdf->add_html("
+        $this->pdf->add_html("
             <table cellspacing='0' class='table-border'>
                 <tr>
                     <td class='font12 text-center' >OBSERVATION SHEET</td>
@@ -87,12 +145,12 @@ class mod_pdf {
         ");
         
         // body
-        $pdf->add_html("
+        $this->pdf->add_html("
             <table cellspacing='0' cellpadding='2'>
                 <tr>
-                    <td colspan='6' class='' >NAME<br/>name_here</td>
-                    <td colspan='1' class='' >GRADE<br/>grade_here</td>
-                    <td colspan='1' class='' >YEAR<br/>year_here</td>
+                    <td colspan='6' class='' >NAME<br/>{$this->person->format_name()}</td>
+                    <td colspan='1' class='' >GRADE<br/>Grade {$this->person->get("per_grade")}</td>
+                    <td colspan='1' class='' >YEAR<br/>{$this->person->get("per_year_in_class")}</td>
                     <td colspan='3' class=''></td>
                 </tr>
                 <tr>
@@ -100,37 +158,27 @@ class mod_pdf {
                     <td colspan='4' class=''>
                         <table style='width:100%'>
                             <tr>
-                                <td class='no-border width-40-perc'>PREV. GRADE</td>
-                                <td class='no-border width-12-perc'>PP</td>
-                                <td class='no-border width-12-perc'>R</td>
-                                <td class='no-border width-12-perc'>1</td>
-                                <td class='no-border width-12-perc'>2</td>
-                                <td class='no-border width-12-perc'>3</td>
+                                {$this->get_previous_grade_html()}
                             </tr>
                         </table>
                     </td>
                     <td colspan='3' class='' >PREVIOUS SCHOOL</td>
                 </tr>
                 <tr>
-                    <td colspan='4' class='' >birthdate_here</td>
+                    <td colspan='4' class='' >".lib_date::strtodate($this->person->get("per_birthday"), lib_date::$DATE_FORMAT_12)."</td>
                     <td colspan='4' class=''>
                         <table style='width:100%'>
                             <tr>
-                                <td class='no-border width-40-perc'>PREV. GRADE</td>
-                                <td class='no-border width-12-perc'>PP</td>
-                                <td class='no-border width-12-perc'>R</td>
-                                <td class='no-border width-12-perc'>1</td>
-                                <td class='no-border width-12-perc'>2</td>
-                                <td class='no-border width-12-perc'>3</td>
+                                {$this->get_grade_repeated_html()}
                             </tr>
                         </table>
                     </td>
-                    <td colspan='3' class='' ></td>
+                    <td colspan='3' class='' >{$this->person->get("per_prev_school")}</td>
                 </tr>
             </table>
         ");
         
-        $pdf->add_html("
+        $this->pdf->add_html("
             <br/><br/>
             <table cellspacing='0' cellpadding='2' class='table-border'>
                 <tr>
@@ -212,7 +260,7 @@ class mod_pdf {
             </table>
         ");
         
-        $pdf->add_html("
+        $this->pdf->add_html("
             <br/><br/>
             <table cellspacing='0' cellpadding='2' class='table-border'>
                 <tr>
@@ -306,7 +354,7 @@ class mod_pdf {
                 </tr>
             </table>
         ");
-        $pdf->add_html("
+        $this->pdf->add_html("
             <br/><br/>
             <table cellspacing='0' cellpadding='2' class='table-border'>
                 <tr>
@@ -346,7 +394,7 @@ class mod_pdf {
                 </tr>
             </table>
         ");
-        $pdf->add_html("
+        $this->pdf->add_html("
             <br/><br/>
             <table cellspacing='0' cellpadding='2' class='table-border'>
                 <tr>
@@ -428,7 +476,7 @@ class mod_pdf {
             </table>
         ");
         
-        $pdf->add_html("
+        $this->pdf->add_html("
             <br/><br/>
             <table cellspacing='0' cellpadding='2' class='table-border'>
                 <tr>
@@ -490,7 +538,7 @@ class mod_pdf {
                 </tr>
             </table>
         ");
-        $pdf->add_html("
+        $this->pdf->add_html("
             <br/><br/>
             <table cellspacing='0' cellpadding='2' class='table-border'>
                 <tr>
@@ -552,7 +600,7 @@ class mod_pdf {
                 </tr>
             </table>
         ");
-        $pdf->add_html("
+        $this->pdf->add_html("
             <br/><br/>
             <table cellspacing='0' cellpadding='2' class='table-border'>
                 <tr>
@@ -614,7 +662,7 @@ class mod_pdf {
                 </tr>
             </table>
         ");
-        $pdf->add_html("
+        $this->pdf->add_html("
             <br/><br/>
             <table cellspacing='0' cellpadding='2' class='table-border'>
                 <tr>
@@ -677,6 +725,6 @@ class mod_pdf {
             </table>
         ");
         
-        $pdf->stream();
+        $this->pdf->stream();
     }
 }

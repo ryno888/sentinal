@@ -31,15 +31,30 @@ class db_person extends dbx_person{
             "per_birthday"          => ["name" => "birthday"        , "default" => ""       , "type" => DB_DATE],
             "per_year_in_class"     => ["name" => "year"            , "default" => ""       , "type" => DB_YEAR],
             "per_cemis_nr"          => ["name" => "cms number"      , "default" => ""       , "type" => DB_VARCHAR],
-            "per_grade"             => ["name" => "grade"           , "default" => ""       , "type" => DB_TINYINT],
-            "per_previous_grade"    => ["name" => "previous grade"  , "default" => ""       , "type" => DB_TINYINT],
-            "per_grade_repeated"    => ["name" => "grade repeated"  , "default" => ""       , "type" => DB_VARCHAR],
+            "per_grade"             => ["name" => "grade"           , "default" => 0       , "type" => DB_TINYINT],
+            "per_previous_grade"    => ["name" => "previous grade"  , "default" => 0       , "type" => DB_TINYINT],
+            "per_grade_repeated"    => ["name" => "grade repeated"  , "default" => 0       , "type" => DB_TINYINT],
             "per_year_in_phase"     => ["name" => "year in phase"   , "default" => ""       , "type" => DB_VARCHAR],
+            "per_prev_school"       => ["name" => "previous school" , "default" => ""       , "type" => DB_VARCHAR],
         ]);
     }
     //----------------------------------------------------------------------------------------
     public $per_grade = [
         "" => "-- Not Selected --",
+        -2 => "Pre-Primary",
+        -1 => "Grade R",
+        1 => "Grade 1",
+        2 => "Grade 2",
+        3 => "Grade 3",
+        4 => "Grade 4",
+        5 => "Grade 5",
+        6 => "Grade 6",
+        7 => "Grade 7",
+    ];
+    //----------------------------------------------------------------------------------------
+    public $per_grade_repeated = [
+        "" => "-- Not Selected --",
+        -2 => "Pre-Primary",
         -1 => "Grade R",
         1 => "Grade 1",
         2 => "Grade 2",
@@ -52,6 +67,7 @@ class db_person extends dbx_person{
     //----------------------------------------------------------------------------------------
     public $per_previous_grade = [
         "" => "-- Not Selected --",
+        -2 => "Pre-Primary",
         -1 => "Grade R",
         1 => "Grade 1",
         2 => "Grade 2",
