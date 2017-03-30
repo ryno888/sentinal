@@ -14,6 +14,7 @@
     $list->sql_key = "obv_id";
     $list->sql_select = "obv_id,  obv_content";
     $list->sql_from = "observation_item";
+    $list->sql_where = "obv_ref_observation = $obs_id";
     $list->sql_limit = 15;
     $list->add_field("Item", "obv_content", ["function" => function($obv_content){ return nl2br($obv_content); }]);
     

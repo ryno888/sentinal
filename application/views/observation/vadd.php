@@ -14,6 +14,7 @@
         $html->add_menu_submitbutton("Save Changes");
             $html->add_column("third");
                     $html->ihidden("per_id", $person->id);
+                    $html->ihidden("obs_ref_person", $person->id);
                     $html->iselect("Term", "obs_term", $observation->get_available_terms($person->id), $observation->get("obs_term"), ["required" => true, "!change" => "
                             var term = $(this).val();
                             if(term == '1'){

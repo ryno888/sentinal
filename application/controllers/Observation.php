@@ -68,12 +68,13 @@ class Observation extends CI_Controller {
         if($this->form_validation->run() == false){
             return Http_helper::error(1, validation_errors());
         }
+        $observation->insert();
         
         return Http_helper::response("Changes successfully saved", [
             "code" => 3,
             "action" => [
                 "type" => "redirect",
-                "url" => "person/vmanage?per_id=$person->id&p=onservation",
+                "url" => "person/vmanage/per_id/$person->id/p/observation",
             ],
         ]);
     }
