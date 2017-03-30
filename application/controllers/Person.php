@@ -13,6 +13,7 @@ class Person extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function vlist() {
+        
         $data['search'] = $this->request("__search");
         $this->load->library("lib_list");
         $this->load_view('person/vlist', "system", $data);

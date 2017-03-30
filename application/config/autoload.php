@@ -60,6 +60,7 @@ $autoload['packages'] = array();
 */
 $autoload['libraries'] = array(
     "lib_core", 
+    "lib_db", 
     "lib_string", 
     "lib_database", 
     "lib_user", 
@@ -67,6 +68,8 @@ $autoload['libraries'] = array(
     "lib_session",
     "lib_html_tags",
     "form_validation",
+    
+    "dbx/dbx_person",
 );
 
 /*

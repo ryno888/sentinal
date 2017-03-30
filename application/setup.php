@@ -21,11 +21,11 @@ defined('DB_PORT')              OR define('DB_PORT', "3306");
 
 //email
 defined('EMAIL_PROTOCOL')       OR define('EMAIL_PROTOCOL', "smtp"); 
-defined('EMAIL_HOST')           OR define('EMAIL_HOST', "ssl://smtp.gmail.com"); 
-defined('EMAIL_PORT')           OR define('EMAIL_PORT', "465"); 
-defined('EMAIL_USERNAME')       OR define('EMAIL_USERNAME', "ryno888@gmail.com"); 
-defined('EMAIL_PASSWORD')       OR define('EMAIL_PASSWORD', "083229Ryno"); 
-defined('EMAIL_FROM')           OR define('EMAIL_FROM', "ryno888@gmail.com"); 
+defined('EMAIL_HOST')           OR define('EMAIL_HOST', "mail.s-system.co.za"); 
+defined('EMAIL_PORT')           OR define('EMAIL_PORT', "587"); 
+defined('EMAIL_USERNAME')       OR define('EMAIL_USERNAME', "admin@s-system.co.za"); 
+defined('EMAIL_PASSWORD')       OR define('EMAIL_PASSWORD', "dDkf36pWMe9Bza4uu"); 
+defined('EMAIL_FROM')           OR define('EMAIL_FROM', "admin@s-system.co.za"); 
 defined('EMAIL_DEV')            OR define('EMAIL_DEV', "ryno888@gmail.com"); 
 
 //formatting
