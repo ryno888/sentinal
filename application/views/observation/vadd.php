@@ -5,8 +5,8 @@
  * and open the template in the editor.
  */
     
-    $observation = lib_db::load_db_default("observation");
-    $html = new lib_html();
+    $observation = Lib_db::load_db_default("observation");
+    $html = new Lib_html();
     $html->container_fluid = true;
     $html->header("General Details", 3);
     $html->form("observation/xadd");

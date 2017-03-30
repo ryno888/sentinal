@@ -2,7 +2,7 @@
 
 /*
  * Class 
- * @filename lib_email 
+ * @filename Lib_email 
  * @encoding UTF-8
  * @author Liquid Edge Solutions  * 
  * @copyright Copyright Liquid Edge Solutions. All rights reserved. * 
@@ -11,11 +11,11 @@
  */
 
 /**
- * Description of lib_email
+ * Description of Lib_email
  *
  * @author Ryno
  */
-class lib_email extends lib_core{
+class Lib_email extends Lib_core{
     
     //smtp setup
     private $protocol = EMAIL_PROTOCOL;

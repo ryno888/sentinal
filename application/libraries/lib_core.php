@@ -4,7 +4,7 @@
  *
  * @author Ryno
  */
-class lib_core {
+class Lib_core {
     public $ci = false;
     //--------------------------------------------------------------------------
     public function __construct(){
@@ -12,7 +12,7 @@ class lib_core {
     }
     //--------------------------------------------------------------------------
     public function format_options($options = []){
-        return lib_html_tags::get_html_options($options);
+        return Lib_html_tags::get_html_options($options);
     }
     //--------------------------------------------------------------------------
     public static function load($library, $data = null){

@@ -7,7 +7,7 @@
     //get intervention
     $intervention = request_db("intervention");
     
-    $html = new lib_html();
+    $html = new Lib_html();
     $html->container_fluid = true;
     $html->header("New Intervention", 3);
     $html->form("intervention/xedit");
@@ -20,7 +20,7 @@
                     $html->ihidden("int_ref_person", $person->id);
                     $html->dbinput($intervention, "int_type", ["required" => true]);
                     $html->dbinput($intervention, "int_remark", ["required" => true]);
-                    $html->idate("Year", "int_year", lib_date::strtodate("NOW", "Y"), ["format" => "Y", "required" => true]);
+                    $html->idate("Year", "int_year", Lib_date::strtodate("NOW", "Y"), ["format" => "Y", "required" => true]);
                 $html->fieldset_close();
             $html->end_column();
     $html->end_form();

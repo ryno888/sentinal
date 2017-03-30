@@ -893,7 +893,7 @@ if ( ! function_exists('function_usable'))
 
         function console_db_create($table) {
             $ci = &get_instance();
-            $ci->load->library("lib_db_forge", ["table" => $table]);
+            $ci->load->library("Lib_db_forge", ["table" => $table]);
         }
 
     }
@@ -1034,7 +1034,7 @@ if ( ! function_exists('function_usable'))
     if (!function_exists('request_db')) {
 
         function request_db($table) {
-            $obj = lib_db::load_db_default($table);
+            $obj = Lib_db::load_db_default($table);
             $id = request($obj->get_key());
             $obj->get_fromdb($id);
             
@@ -1047,7 +1047,7 @@ if ( ! function_exists('function_usable'))
     if (!function_exists('request_obj')) {
 
         function request_obj($tabel = false, $key = false) {
-            $obj = lib_db::load_db_default($tabel);
+            $obj = Lib_db::load_db_default($tabel);
             foreach ($obj->get_fields_arr() as $field => $field_data_arr) {
                 $value = request($field);
                 $obj->obj->{$field} = $value ? $value : $obj->get_field_default($field);

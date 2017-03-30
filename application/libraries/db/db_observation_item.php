@@ -4,7 +4,7 @@
  *
  * @author Ryno
  */
-class db_observation_item extends lib_db{
+class db_observation_item extends Lib_db{
     
     public function __construct() {
         $this->set_key("obv_id");

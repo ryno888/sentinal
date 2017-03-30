@@ -15,7 +15,7 @@
  *
  * @author Ryno
  */
-class lib_html_tags extends lib_core{
+class Lib_html_tags extends Lib_core{
     //--------------------------------------------------------------------------
     public function __construct() {
         parent::__construct();
@@ -65,7 +65,7 @@ class lib_html_tags extends lib_core{
             'attr_arr' => [],
 		], $options);
         
-        $html_options = lib_html_tags::get_html_options($options);
+        $html_options = Lib_html_tags::get_html_options($options);
         $options_arr['class'] = "{$options_arr['class']} {$html_options['css']}";
         $options_arr['style'] = "{$options_arr['style']} {$html_options['style']}";
         
@@ -102,7 +102,7 @@ class lib_html_tags extends lib_core{
             'class'         => '',
         ], $options_arr['attr_arr']);
         
-        $html_options = lib_html_tags::get_html_options($options);
+        $html_options = Lib_html_tags::get_html_options($options);
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
@@ -129,7 +129,7 @@ class lib_html_tags extends lib_core{
             'class'         => '',
         ], $options_arr['attr_arr']);
         
-        $html_options = lib_html_tags::get_html_options($options);
+        $html_options = Lib_html_tags::get_html_options($options);
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
@@ -173,7 +173,7 @@ class lib_html_tags extends lib_core{
             $data_arr["checked"] = $checked == $key ? true : false;
             $inline = $options_arr["inline"] == true ? "class='radio-inline'" : false;
             
-            $html_options = lib_html_tags::get_html_options($options);
+            $html_options = Lib_html_tags::get_html_options($options);
             $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
             $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
             if($inline){
@@ -210,7 +210,7 @@ class lib_html_tags extends lib_core{
             'js'            => "",
         ], $options_arr['attr_arr']);
         
-        $html_options = lib_html_tags::get_html_options($options);
+        $html_options = Lib_html_tags::get_html_options($options);
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
@@ -237,7 +237,7 @@ class lib_html_tags extends lib_core{
             'js'         => "",
         ], $options_arr["attr_arr"]);
         
-        $html_options = lib_html_tags::get_html_options($options);
+        $html_options = Lib_html_tags::get_html_options($options);
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
@@ -262,7 +262,7 @@ class lib_html_tags extends lib_core{
             'js'         => "",
         ], $options_arr["attr_arr"]);
         
-        $html_options = lib_html_tags::get_html_options($options);
+        $html_options = Lib_html_tags::get_html_options($options);
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
@@ -281,7 +281,7 @@ class lib_html_tags extends lib_core{
             'class'         => false
         ], $options_arr["attr_arr"]);
         
-        $html_options = lib_html_tags::get_html_options($options);
+        $html_options = Lib_html_tags::get_html_options($options);
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
@@ -300,7 +300,7 @@ class lib_html_tags extends lib_core{
             'class'         => false
         ], $options_arr["attr_arr"]);
         
-        $html_options = lib_html_tags::get_html_options($options);
+        $html_options = Lib_html_tags::get_html_options($options);
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
@@ -325,7 +325,7 @@ class lib_html_tags extends lib_core{
             'style'         => false,
         ], $options_arr["attr_arr"]);
         
-        $html_options = lib_html_tags::get_html_options($options);
+        $html_options = Lib_html_tags::get_html_options($options);
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
@@ -347,7 +347,7 @@ class lib_html_tags extends lib_core{
             'class'         => 'form-control input-sm',
         ], $options_arr["attr_arr"]);
         
-        $html_options = lib_html_tags::get_html_options($options);
+        $html_options = Lib_html_tags::get_html_options($options);
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
@@ -362,7 +362,7 @@ class lib_html_tags extends lib_core{
         ], $options);
         
         $format = php_dateformat_to_js_dateformat($options_arr["format"]);
-        $input = lib_html_tags::itext($label, $id, $value, $options_arr);
+        $input = Lib_html_tags::itext($label, $id, $value, $options_arr);
         
         $today_btn = $options_arr["show_today_btn"] ? "todayBtn: 'linked'," : false;
         $today_btn_highlight = $options_arr["show_today_btn"] ? "todayHighlight: true," : false;

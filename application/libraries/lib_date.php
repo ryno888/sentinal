@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class lib_date{
+class Lib_date{
     /**
      * output date format: 24-03-12
      */
@@ -77,7 +77,7 @@ class lib_date{
     }
     //-----------------------------------------------------------------------
     public static function strtodatetime($date = "NOW", $dateformat = CI_DATETIME) {
-        return lib_date::strtodate($date, $dateformat);
+        return Lib_date::strtodate($date, $dateformat);
     }
     //-----------------------------------------------------------------------
 }

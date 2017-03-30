@@ -1,7 +1,7 @@
 <?php
 
 
-class lib_paginator
+class Lib_paginator
 {
     const NUM_PLACEHOLDER = '(:num)';
 

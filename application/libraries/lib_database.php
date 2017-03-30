@@ -15,7 +15,7 @@
  *
  * @author Ryno
  */
-class lib_database extends lib_core{
+class Lib_database extends Lib_core{
     //put your code here
     private $db = false;
     
@@ -91,7 +91,7 @@ class lib_database extends lib_core{
     //--------------------------------------------------------------------------
     public function get_calc_rows(){
         $sql = "SELECT COUNT(*) AS total FROM $this->from";
-        $result = lib_database::query($sql, 1);
+        $result = Lib_database::query($sql, 1);
         return $result->total;
     }
     //--------------------------------------------------------------------------
@@ -108,12 +108,12 @@ class lib_database extends lib_core{
     }
     //--------------------------------------------------------------------------
     public static function selectsingle($sql){
-        return lib_database::query($sql, 1);
+        return Lib_database::query($sql, 1);
     }
     //--------------------------------------------------------------------------
     public static function selectlist($sql, $field1, $field2){
         $return_arr = [];
-        $result_arr = lib_database::query($sql);
+        $result_arr = Lib_database::query($sql);
         foreach ($result_arr as $key => $value) {
             $return_arr[$value->{$field1}] = $value->{$field2};
         }

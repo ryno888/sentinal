@@ -20,9 +20,9 @@ class mod_pdf {
     
     public function __construct() {
         $this->ci = &get_instance();
-        $this->ci->load->library("lib_pdf");
+        $this->ci->load->library("Lib_pdf");
         
-        $this->pdf = new lib_pdf([
+        $this->pdf = new Lib_pdf([
             "enable_header" => false,   
             "enable_footer" => false,   
         ]);
@@ -165,7 +165,7 @@ class mod_pdf {
                     <td colspan='3' class='' >PREVIOUS SCHOOL</td>
                 </tr>
                 <tr>
-                    <td colspan='4' class='' >".lib_date::strtodate($this->person->get("per_birthday"), lib_date::$DATE_FORMAT_12)."</td>
+                    <td colspan='4' class='' >".Lib_date::strtodate($this->person->get("per_birthday"), Lib_date::$DATE_FORMAT_12)."</td>
                     <td colspan='4' class=''>
                         <table style='width:100%'>
                             <tr>

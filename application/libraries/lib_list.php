@@ -11,7 +11,7 @@
  *
  * @author Ryno Laptop
  */
-class lib_list extends lib_core{
+class Lib_list extends Lib_core{
     
     public $id = false;
     public $sql_key = false;
@@ -63,7 +63,7 @@ class lib_list extends lib_core{
     public function __construct(){
         parent::__construct();
         $this->ci->load->database();
-        $this->ci->load->library("lib_database");
+        $this->ci->load->library("Lib_database");
         
         $this->current_page_index = request("page", 1);
         
@@ -159,7 +159,7 @@ class lib_list extends lib_core{
             "function" => $options_arr["function"],
         ];
         
-        $html_options = lib_html_tags::get_html_options($options);
+        $html_options = Lib_html_tags::get_html_options($options);
         $this->field_class_arr[$db_field] = "{$html_options['css']}";
         $this->field_style_arr[$db_field] = "{$html_options['style']}";
         
@@ -342,10 +342,10 @@ class lib_list extends lib_core{
             "currentPage" => $this->current_page_index, 
             "urlPattern" => "$this->current_url/page/(:num){$query}"
         );
-        $this->ci->load->library("lib_paginator", $params);
-        $lib_paginator = new lib_paginator($params);
-        $lib_paginator->setMaxPagesToShow($this->pagination_max_pages_to_show);
-        return $lib_paginator;
+        $this->ci->load->library("Lib_paginator", $params);
+        $Lib_paginator = new Lib_paginator($params);
+        $Lib_paginator->setMaxPagesToShow($this->pagination_max_pages_to_show);
+        return $Lib_paginator;
     }
     //-----------------------------------------------------------------------
     private function get_url_query_string() {

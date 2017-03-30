@@ -7,7 +7,7 @@
  */
 require_once(DIR_THIRD_PARTY.'TCPDF-master/tcpdf.php');
 
-class lib_pdf extends TCPDF {
+class Lib_pdf extends TCPDF {
     
     private $pdf = false;
     private $footer = false;

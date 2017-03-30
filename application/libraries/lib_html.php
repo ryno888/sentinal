@@ -15,7 +15,7 @@
  *
  * @author Ryno
  */
-class lib_html extends lib_core{
+class Lib_html extends Lib_core{
     public $container_fluid = false;
     private $form_id = false;
     private $form_success_js = false;
@@ -32,7 +32,7 @@ class lib_html extends lib_core{
     //--------------------------------------------------------------------------
     public function __construct() {
         parent::__construct();
-        $this->ci->load->library("lib_html_tags");
+        $this->ci->load->library("Lib_html_tags");
     }
     //--------------------------------------------------------------------------
     public function form($action, $id = false, $attributes_arr = [], $options = []) {
@@ -42,22 +42,22 @@ class lib_html extends lib_core{
         if(!$id){ $id = "form_".time(); }
         $this->form_id = $id;
         
-        $this->add_html("form_open", lib_html_tags::form_open($action, $id, $attributes, $options));
+        $this->add_html("form_open", Lib_html_tags::form_open($action, $id, $attributes, $options));
     }
     //--------------------------------------------------------------------------
     public function end_form() {
-        $this->add_html("form_close", lib_html_tags::form_close());
+        $this->add_html("form_close", Lib_html_tags::form_close());
     }
     //--------------------------------------------------------------------------
     public function fieldset_open($header = "", $options = []) {
         $options_arr = array_merge([
         ], $options);
         
-        $this->add_html("html", lib_html_tags::fieldset_open($header));
+        $this->add_html("html", Lib_html_tags::fieldset_open($header));
     }
     //--------------------------------------------------------------------------
     public function fieldset_close() {
-        $this->add_html("html", lib_html_tags::fieldset_close());
+        $this->add_html("html", Lib_html_tags::fieldset_close());
     }
     //--------------------------------------------------------------------------
     public function header($label, $type = 1, $attributes_arr = []) {
@@ -65,11 +65,11 @@ class lib_html extends lib_core{
             "container_fluid" => $this->container_fluid
         ], $attributes_arr);
         
-        $this->add_html("header", lib_html_tags::header($label, $type, $attributes));
+        $this->add_html("header", Lib_html_tags::header($label, $type, $attributes));
     }
     //--------------------------------------------------------------------------
     public function add_title($title, $info = false, $options = []) {
-        $this->add_html("html", lib_html_tags::title($title, $info, $options));
+        $this->add_html("html", Lib_html_tags::title($title, $info, $options));
     }
     //--------------------------------------------------------------------------
     public function iradio_multi($label, $id, $item_arr = [], $checked = false, $options = []) {
@@ -81,7 +81,7 @@ class lib_html extends lib_core{
         if($error){
             $label .= "<div class='form-error-label'>$error</div>";
         }
-        $this->add_html("html", lib_html_tags::iradio_multi($label, $id, $item_arr, $checked, $options_arr));
+        $this->add_html("html", Lib_html_tags::iradio_multi($label, $id, $item_arr, $checked, $options_arr));
     }
     //--------------------------------------------------------------------------
     public function iradio($label, $id, $checked = false, $options = []) {
@@ -93,7 +93,7 @@ class lib_html extends lib_core{
         if($error){
             $label .= "<div class='form-error-label'>$error</div>";
         }
-        $this->add_html("html", lib_html_tags::iradio($label, $id, $checked, $options_arr));
+        $this->add_html("html", Lib_html_tags::iradio($label, $id, $checked, $options_arr));
     }
     //--------------------------------------------------------------------------
     public function icheckbox($label, $id, $checked = false, $options = []) {
@@ -105,7 +105,7 @@ class lib_html extends lib_core{
         if($error){
             $label .= "<div class='form-error-label'>$error</div>";
         }
-        $this->add_html("html", lib_html_tags::icheckbox($label, $id, $checked, $options_arr));
+        $this->add_html("html", Lib_html_tags::icheckbox($label, $id, $checked, $options_arr));
     }
     //--------------------------------------------------------------------------
     public function itext($label, $id, $value = false, $options = []) {
@@ -117,7 +117,7 @@ class lib_html extends lib_core{
         if($error){
             $label .= "<div class='form-error-label'>$error</div>";
         }
-        $this->add_html("html", lib_html_tags::itext($label, $id, $value, $options_arr));
+        $this->add_html("html", Lib_html_tags::itext($label, $id, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
     public function itextarea($label, $id, $value = false, $options = []) {
@@ -129,7 +129,7 @@ class lib_html extends lib_core{
         if($error){
             $label .= "<div class='form-error-label'>$error</div>";
         }
-        $this->add_html("html", lib_html_tags::itextarea($label, $id, $value, $options_arr));
+        $this->add_html("html", Lib_html_tags::itextarea($label, $id, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
     public function idate($label, $id, $value = false, $options = []) {
@@ -140,7 +140,7 @@ class lib_html extends lib_core{
         if($error){
             $label .= "<div class='form-error-label'>$error</div>";
         }
-        $this->add_html("html", lib_html_tags::idate_picker($label, $id, $value, $options_arr));
+        $this->add_html("html", Lib_html_tags::idate_picker($label, $id, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
     public function dbinput($obj, $field, $options = []) {
@@ -200,7 +200,7 @@ class lib_html extends lib_core{
         $options_arr = array_merge([
         ], $options);
         
-        $this->add_html("html", lib_html_tags::value($label, $value, $options_arr));
+        $this->add_html("html", Lib_html_tags::value($label, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
     public function ihidden($id, $value = false, $options = []) {
@@ -214,14 +214,14 @@ class lib_html extends lib_core{
         $options_arr = array_merge([
         ], $options);
         
-        $this->add_html("html", lib_html_tags::ipassword($label, $id, $value, $options_arr));
+        $this->add_html("html", Lib_html_tags::ipassword($label, $id, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
     public function iselect($label, $id, $value_arr = [], $value = false, $options = []) {
         $options_arr = array_merge([
         ], $options);
         
-        $this->add_html("html", lib_html_tags::iselect($label, $id, $value_arr, $value, $options_arr));
+        $this->add_html("html", Lib_html_tags::iselect($label, $id, $value_arr, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
     public function add_menu_button($label, $onclick = "javascript:;", $options = []) {
@@ -378,7 +378,7 @@ class lib_html extends lib_core{
     //--------------------------------------------------------------------------
     public static function make() {
         $ci = &get_instance();
-        $ci->load->library("lib_database");
+        $ci->load->library("Lib_database");
         return $this->ci->db;
     }
     //--------------------------------------------------------------------------

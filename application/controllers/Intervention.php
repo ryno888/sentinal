@@ -6,7 +6,7 @@ class Intervention extends CI_Controller {
     //--------------------------------------------------------------------------
     public function __construct() {
         parent::__construct();
-        $active_id = lib_user::get_active_id();
+        $active_id = Lib_user::get_active_id();
         if(!$active_id){
             http_helper::go_home();
         }
@@ -14,14 +14,14 @@ class Intervention extends CI_Controller {
     //--------------------------------------------------------------------------
     public function vadd() {
         $data['person'] = $this->request_db("person");
-        $data['intervention'] = lib_db::load_db_default("intervention");
-        $this->load->library("lib_html");
-        $this->load->library("lib_list");
+        $data['intervention'] = Lib_db::load_db_default("intervention");
+        $this->load->library("Lib_html");
+        $this->load->library("Lib_list");
         $this->load_view('intervention/vadd', "system", $data);
     }
     //--------------------------------------------------------------------------
     public function xadd() {
-        $this->load->library("lib_html");
+        $this->load->library("Lib_html");
         $this->form_validation->set_rules('int_type', "Type", "required");
         $this->form_validation->set_rules('int_remark', "Remark", "required");
         if($this->form_validation->run() == false){
@@ -42,7 +42,7 @@ class Intervention extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function xedit() {
-        $this->load->library("lib_html");
+        $this->load->library("Lib_html");
         $this->form_validation->set_rules('int_type', "Type", "required");
         $this->form_validation->set_rules('int_remark', "Remark", "required");
         if($this->form_validation->run() == false){

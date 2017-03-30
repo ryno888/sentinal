@@ -15,7 +15,7 @@
  *
  * @author Ryno
  */
-class lib_navbar extends lib_core{
+class Lib_navbar extends Lib_core{
     private $html = "";
     private $li_right_arr = [];
     private $li_left_arr = [];

@@ -6,7 +6,7 @@ class Observation_item extends CI_Controller {
     //--------------------------------------------------------------------------
     public function __construct() {
         parent::__construct();
-        $active_id = lib_user::get_active_id();
+        $active_id = Lib_user::get_active_id();
         if(!$active_id){
             http_helper::go_home();
         }
@@ -17,7 +17,7 @@ class Observation_item extends CI_Controller {
         $obs_id = request("obv_ref_observation");
         $observation_item = $this->request_obj("observation_item");
         
-        $this->load->library("lib_html");
+        $this->load->library("Lib_html");
         $this->form_validation->set_rules('obv_date', "Date", "required");
         $this->form_validation->set_rules('obv_content', "Comment", "required");
         if($this->form_validation->run() == false){
@@ -37,7 +37,7 @@ class Observation_item extends CI_Controller {
     public function xedit() {
         $observation_item = $this->request_obj("observation_item", true);
         
-        $this->load->library("lib_html");
+        $this->load->library("Lib_html");
         $this->form_validation->set_rules('obv_date', "Date", "required");
         $this->form_validation->set_rules('obv_content', "Comment", "required");
         if($this->form_validation->run() == false){

@@ -8,7 +8,7 @@ class Index extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function xhome() {
-        $active_id = lib_user::get_active_id();
+        $active_id = Lib_user::get_active_id();
         if(!$active_id){
             http_helper::redirect("index.php/index/vlogin");
         }
@@ -16,7 +16,7 @@ class Index extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function vlogin() {
-        $active_id = lib_user::get_active_id();
+        $active_id = Lib_user::get_active_id();
         if($active_id){ http_helper::go_home(); }
         $this->set_meta_title("Login");
         $this->load_view('index/vlogin', "web");
@@ -36,7 +36,7 @@ class Index extends CI_Controller {
         //add the header here
         $per_usernamme = request('per_usernamme');
         $per_password = request('per_password');
-        $result = lib_user::login($per_usernamme, $per_password);
+        $result = Lib_user::login($per_usernamme, $per_password);
         echo $result ? http_helper::json(["code"=> 1]) : http_helper::json(["code"=> 2, "title" => "Username & Password incorrect", "message" => "The username and password combination you have used is incorrect. Please try again."]);
     }
     //--------------------------------------------------------------------------
@@ -48,7 +48,7 @@ class Index extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function xlogout() {
-        $session = lib_session::get_session();
+        $session = Lib_session::get_session();
         $session->sess_destroy();
         http_helper::go_home();
     }

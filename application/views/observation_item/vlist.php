@@ -8,7 +8,7 @@
 
     $obs_id = request("obs_id");
 
-    $list = new lib_list();
+    $list = new Lib_list();
     $list->add_title("Remarks", false, ["type" => 3]);
     $list->add_new_btn("Add new Remark", "system.browser.redirect('person/vmanage/per_id/$person->id/obs_id/$obs_id/p/vadd_obv');");
     $list->sql_key = "obv_id";

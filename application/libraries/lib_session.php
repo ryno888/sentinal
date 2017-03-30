@@ -11,7 +11,7 @@
  *
  * @author Ryno Laptop
  */
-class lib_session extends lib_core{
+class Lib_session extends Lib_core{
     private $session = false;
     //--------------------------------------------------------------------------
     public function __construct(){

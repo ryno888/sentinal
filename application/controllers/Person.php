@@ -6,7 +6,7 @@ class Person extends CI_Controller {
     //--------------------------------------------------------------------------
     public function __construct() {
         parent::__construct();
-        $active_id = lib_user::get_active_id();
+        $active_id = Lib_user::get_active_id();
         if(!$active_id){
             http_helper::go_home();
         }
@@ -15,26 +15,26 @@ class Person extends CI_Controller {
     public function vlist() {
         
         $data['search'] = $this->request("__search");
-        $this->load->library("lib_list");
+        $this->load->library("Lib_list");
         $this->load_view('person/vlist', "system", $data);
     }
     //--------------------------------------------------------------------------
     public function vadd() {
         
-        $data['result_arr'] = lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
-        $data['person'] = lib_db::load_db_default("person");
+        $data['result_arr'] = Lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
+        $data['person'] = Lib_db::load_db_default("person");
         
-        $this->load->library("lib_html");
+        $this->load->library("Lib_html");
         $this->load_view('person/vadd', "system", $data);
     }
     //--------------------------------------------------------------------------
     public function vedit() {
         
         $data['person'] = $this->request_db("person");
-        $data['result_arr'] = lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
+        $data['result_arr'] = Lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
         
-        $this->load->library("lib_html");
-        $this->load->library("lib_html_manage");
+        $this->load->library("Lib_html");
+        $this->load->library("Lib_html_manage");
         
         $data['html'] = $this->load->view('person/vedit', $data, true);
         $this->load_view('person/vmanage', "system", $data);
@@ -42,27 +42,27 @@ class Person extends CI_Controller {
     //--------------------------------------------------------------------------
     public function vmanage() {
         $data['person'] = $this->request_db("person");
-        $data['result_arr'] = lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
+        $data['result_arr'] = Lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
         $data["panel"] = $this->request("p");
         
-        $this->load->library("lib_html");
-        $this->load->library("lib_html_manage");
-        $this->load->library("lib_html_tab");
-        $this->load->library("lib_list");
+        $this->load->library("Lib_html");
+        $this->load->library("Lib_html_manage");
+        $this->load->library("Lib_html_tab");
+        $this->load->library("Lib_list");
         $this->load_view('person/vmanage', "system", $data);
     }
     //--------------------------------------------------------------------------
     public function vprofile() {
         
-        $data['person'] = lib_db::load_db("person", "per_id = ".lib_user::get_active_id());
-        $data['result_arr'] = lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
+        $data['person'] = Lib_db::load_db("person", "per_id = ".Lib_user::get_active_id());
+        $data['result_arr'] = Lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
         
-        $this->load->library("lib_html");
+        $this->load->library("Lib_html");
         $this->load_view('person/vprofile', "system", $data);
     }
     //--------------------------------------------------------------------------
     public function xadd() {
-        $this->load->library("lib_html");
+        $this->load->library("Lib_html");
         $this->form_validation->set_rules('per_firstname', "Firstname", "required");
         $this->form_validation->set_rules('per_lastname', "Surname", "required");
         $this->form_validation->set_rules('per_gender', "Gender", "required");
@@ -86,7 +86,7 @@ class Person extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function xedit() {
-        $this->load->library("lib_html");
+        $this->load->library("Lib_html");
         $person = $this->request_obj("person", true);
         
         
@@ -106,7 +106,7 @@ class Person extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function xprofile() {
-        $this->load->library("lib_html");
+        $this->load->library("Lib_html");
         $this->form_validation->set_rules('per_firstname', "Firstname", "required");
         $this->form_validation->set_rules('per_lastname', "Surname", "required");
         $this->form_validation->set_rules('per_password', "Password", "trim");

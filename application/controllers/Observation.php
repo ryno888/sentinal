@@ -6,7 +6,7 @@ class Observation extends CI_Controller {
     //--------------------------------------------------------------------------
     public function __construct() {
         parent::__construct();
-        $active_id = lib_user::get_active_id();
+        $active_id = Lib_user::get_active_id();
         if(!$active_id){
             http_helper::go_home();
         }
@@ -15,8 +15,8 @@ class Observation extends CI_Controller {
     public function vedit() {
         $data['person'] = $this->request_db("person");
         $data['observation'] = $this->request_db("observation");
-        $this->load->library("lib_html");
-        $this->load->library("lib_list");
+        $this->load->library("Lib_html");
+        $this->load->library("Lib_list");
         $this->load_view('observation/vedit', "system", $data);
     }
     //--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ class Observation extends CI_Controller {
         $person = $this->request_db("person");
         $observation = $this->request_obj("observation", true);
         
-        $this->load->library("lib_html");
+        $this->load->library("Lib_html");
         $this->form_validation->set_rules('obs_info_evening', "Info Evening", "required");
         $this->form_validation->set_rules('obs_report_discuss', "Report Discuss", "required");
         $this->form_validation->set_rules('obs_other_meetings', "Other Meetings", "required");
@@ -52,7 +52,7 @@ class Observation extends CI_Controller {
         $person = $this->request_db("person");
         $observation = $this->request_obj("observation");
         
-        $this->load->library("lib_html");
+        $this->load->library("Lib_html");
         $this->form_validation->set_rules('obs_term', "Term", "required");
         $this->form_validation->set_rules('obs_info_evening', "Info Evening", "required");
         $this->form_validation->set_rules('obs_report_discuss', "Report Discuss", "required");

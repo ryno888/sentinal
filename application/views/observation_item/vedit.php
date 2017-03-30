@@ -7,7 +7,7 @@
     
     $obs_id = request("obs_id");
     $observation_item = request_db("observation_item");
-    $html = new lib_html();
+    $html = new Lib_html();
     $html->container_fluid = true;
     $html->header("Observation Item", 3);
     $html->form("observation_item/xedit");

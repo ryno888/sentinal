@@ -7,7 +7,7 @@
     
     $observation = request_db("observation");
     
-    $html = new lib_html();
+    $html = new Lib_html();
     $html->container_fluid = true;
     $html->add_title("General Details", "Term ".$observation->get("obs_term"), ["type" => 3]);
     $html->form("observation/xedit");

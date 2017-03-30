@@ -4,7 +4,7 @@
  *
  * @author Ryno
  */
-class db_intervention extends lib_db{
+class db_intervention extends Lib_db{
     
     public function __construct() {
         $this->set_key("int_id");

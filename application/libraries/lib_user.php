@@ -11,11 +11,11 @@
  *
  * @author Ryno Laptop
  */
-class lib_user {
+class Lib_user {
     
     //--------------------------------------------------------------------------
     public static function get_active_user($detail = "person"){
-        $session = lib_session::get_session();
+        $session = Lib_session::get_session();
         $return = false;
         if($session->userdata('logged_in')){
             if($detail){
@@ -43,7 +43,7 @@ class lib_user {
             'id'  => false,
             'person'  => false,
             'logged_in' => false,
-            'datetime' => lib_date::strtodatetime(),
+            'datetime' => Lib_date::strtodatetime(),
         ], $data_arr);
         $CI_instance = &get_instance();
         $CI_instance->session->set_userdata($user_data_arr);
@@ -69,10 +69,10 @@ class lib_user {
     public static function authenticate($username, $password) {
         $CI_instance = &get_instance();
         $CI_instance->load->library('encrypt');
-        $CI_instance->load->library('lib_string');
+        $CI_instance->load->library('Lib_string');
         
-        $person = lib_database::query("SELECT * FROM person WHERE per_username = '$username'", 1);
-        if($person && lib_string::decrypt($person->per_password) == $password){
+        $person = Lib_database::query("SELECT * FROM person WHERE per_username = '$username'", 1);
+        if($person && Lib_string::decrypt($person->per_password) == $password){
             return $person;
         }
         

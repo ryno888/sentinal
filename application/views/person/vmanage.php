@@ -6,7 +6,7 @@
  */
 
 
-    $html_manage = new lib_html_manage();
+    $html_manage = new Lib_html_manage();
     $html_manage->container_fluid = true;
     $html_manage->add_title("Manage", $person->format_name());
     $html_manage->add_item("Back to List", "person/vlist", ["icon" => "fa-chevron-left"]);

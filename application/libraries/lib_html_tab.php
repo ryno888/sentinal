@@ -15,7 +15,7 @@
  *
  * @author Ryno
  */
-class lib_html_tab extends lib_core{
+class Lib_html_tab extends Lib_core{
     public $container_fluid = false;
     private $menu_html = [];
     private $body_html = [];
@@ -23,7 +23,7 @@ class lib_html_tab extends lib_core{
     //--------------------------------------------------------------------------
     public function __construct() {
         parent::__construct();
-        $this->ci->load->library("lib_html_tags");
+        $this->ci->load->library("Lib_html_tags");
     }
     //--------------------------------------------------------------------------
     public function add_item($id, $label, $html, $options = []) {
@@ -63,7 +63,7 @@ class lib_html_tab extends lib_core{
         $this->add_item($options_arr["id"], $label, $html, $options);
     }
     //--------------------------------------------------------------------------
-    public function display($lib_html = false) {
+    public function display($Lib_html = false) {
         $container = $this->container_fluid ? "container-fluid" : "container";
         $elements = implode("", $this->menu_html);
         $body = implode("", $this->body_html);

@@ -4,7 +4,7 @@
  *
  * @author Ryno
  */
-class lib_db_forge extends lib_core{
+class Lib_db_forge extends Lib_core{
     //put your code here
     private $table = false;
     private $key = false;
@@ -23,7 +23,7 @@ class lib_db_forge extends lib_core{
         
         if(!$options_arr["table"]) { error_log("table not supplied"); } 
         $this->table = $options_arr["table"];
-        $this->db_obj = lib_db::load_db_default($options_arr["table"]);
+        $this->db_obj = Lib_db::load_db_default($options_arr["table"]);
         $this->key = $this->db_obj->get_key();
         $this->fields_arr = $this->db_obj->get_fields_arr();
         
@@ -33,7 +33,7 @@ class lib_db_forge extends lib_core{
         $this->dbforge->create_table($this->table);
         
         foreach ($this->post_queries as $query) {
-            lib_database::query($query);
+            Lib_database::query($query);
         }
     }
     //--------------------------------------------------------------------------

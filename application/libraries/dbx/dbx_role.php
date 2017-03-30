@@ -4,7 +4,7 @@
  *
  * @author Ryno
  */
-class dbx_role extends lib_db{
+class dbx_role extends Lib_db{
     
     public function __construct() {
         $this->set_key("rol_id");

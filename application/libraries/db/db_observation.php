@@ -4,7 +4,7 @@
  *
  * @author Ryno
  */
-class db_observation extends lib_db{
+class db_observation extends Lib_db{
     
     public function __construct() {
         $this->set_key("obs_id");
@@ -102,7 +102,7 @@ class db_observation extends lib_db{
     //----------------------------------------------------------------------------------------
     public function get_available_terms($per_id){
         $term_item_arr = $this->obs_term;
-        $existing_terms = lib_database::selectlist("SELECT obs_id, obs_term FROM observation WHERE obs_ref_person = $per_id", "obs_id", "obs_term");
+        $existing_terms = Lib_database::selectlist("SELECT obs_id, obs_term FROM observation WHERE obs_ref_person = $per_id", "obs_id", "obs_term");
         
         foreach ($existing_terms as $obs_id => $obs_term) {
             if(array_key_exists($obs_term, $term_item_arr)){

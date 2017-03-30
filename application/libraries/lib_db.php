@@ -4,7 +4,7 @@
  *
  * @author Ryno
  */
-class lib_db{
+class Lib_db{
     //put your code here
     private $table = false;
     private $key = false;
@@ -79,13 +79,13 @@ class lib_db{
                     $options_arr = array_merge([
                         "format" => CI_DATETIME
                     ], $options);
-                    $return = lib_date::strtodatetime($this->obj->{$field_name}, $options_arr["format"]);
+                    $return = Lib_date::strtodatetime($this->obj->{$field_name}, $options_arr["format"]);
                     break;
                 case DB_DATE:
                     $options_arr = array_merge([
                         "format" => CI_DATE
                     ], $options);
-                    $return = lib_date::strtodatetime($this->obj->{$field_name}, $options_arr["format"]);
+                    $return = Lib_date::strtodatetime($this->obj->{$field_name}, $options_arr["format"]);
                     break;
                 default: $return = $this->obj->{$field_name}; break;
             }
@@ -104,9 +104,9 @@ class lib_db{
         $this->set_new();
         
         if(is_numeric($sql_where)){
-            $this->obj = lib_database::query("SELECT * FROM $this->table WHERE $this->key = $sql_where", 1);
+            $this->obj = Lib_database::query("SELECT * FROM $this->table WHERE $this->key = $sql_where", 1);
         }else{
-            $this->obj = lib_database::query("SELECT * FROM $this->table WHERE $sql_where", 1);
+            $this->obj = Lib_database::query("SELECT * FROM $this->table WHERE $sql_where", 1);
         }
         
         $this->id = $this->obj->{$this->key};
@@ -130,18 +130,18 @@ class lib_db{
     }
     //--------------------------------------------------------------------------
     public function insert() {
-        $database = new lib_database();
+        $database = new Lib_database();
         $this->id = $this->obj->{$this->key} = $database->insert($this->table, $this->obj);
     }
     //--------------------------------------------------------------------------
     public function update() {
-        $database = new lib_database();
+        $database = new Lib_database();
         $this->on_update($this->obj);
         $database->update($this->table, $this->key, $this->clean_obj());
     }
     //--------------------------------------------------------------------------
     public function delete() {
-        $database = new lib_database();
+        $database = new Lib_database();
         $this->on_delete($this->obj);
         $database->delete($this->table, $this->key, $this->get($this->key));
     }
@@ -153,8 +153,8 @@ class lib_db{
                 unset($clean_object->{$key});
             }else{
                 switch ($this->get_field_type($key)) {
-                    case DB_DATETIME: $clean_object->{$key} = lib_date::strtodatetime($clean_object->{$key}); break;
-                    case DB_DATE: $clean_object->{$key} = lib_date::strtodatetime($clean_object->{$key}, CI_DATE); break;
+                    case DB_DATETIME: $clean_object->{$key} = Lib_date::strtodatetime($clean_object->{$key}); break;
+                    case DB_DATE: $clean_object->{$key} = Lib_date::strtodatetime($clean_object->{$key}, CI_DATE); break;
                 }
             }
         }
@@ -171,7 +171,7 @@ class lib_db{
     public static function load_db($table, $sql){
         $class = "db_{$table}";
         $ci = & get_instance();
-        $ci->load->library("lib_db");
+        $ci->load->library("Lib_db");
         $ci->load->library("db/$class");
         
         $db = new $class;
@@ -185,7 +185,7 @@ class lib_db{
     public static function load_db_default($table){
         $class = "db_{$table}";
         $ci = & get_instance();
-        $ci->load->library("lib_db");
+        $ci->load->library("Lib_db");
         $ci->load->library("db/$class");
         
         $db = new $class;
@@ -195,19 +195,19 @@ class lib_db{
     }
     //--------------------------------------------------------------------------
     public static function get_table_key($table){
-        $class = lib_db::load_db_default($table);
+        $class = Lib_db::load_db_default($table);
         
         return $class->get_key();
     }
     //--------------------------------------------------------------------------
     public static function get_enum_arr($table, $field){
-        $class = lib_db::load_db_default($table);
+        $class = Lib_db::load_db_default($table);
         
         return $class->{$field};
     }
     //--------------------------------------------------------------------------
     public static function get_enum_value($table, $field, $value = false){
-        $class = lib_db::load_db_default($table);
+        $class = Lib_db::load_db_default($table);
         
         return isset($class->{$field}[$value]) ? $class->{$field}[$value] : false;
     }

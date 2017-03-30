@@ -4,7 +4,7 @@
  *
  * @author Ryno
  */
-class dbx_person extends lib_db{
+class dbx_person extends Lib_db{
     
     public function __construct() {
         $this->set_key("per_id");
@@ -38,7 +38,7 @@ class dbx_person extends lib_db{
         parent::on_update($obj);
         
         if(property_exists($obj, "per_password") && !$this->is_empty("per_password")){
-            $obj->per_password = lib_string::encrypt($obj->per_password);
+            $obj->per_password = Lib_string::encrypt($obj->per_password);
         }
         
         $obj->per_name = "$obj->per_lastname, $obj->per_firstname";

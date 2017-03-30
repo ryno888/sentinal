@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    $html = new lib_html();
+    $html = new Lib_html();
     $html->header("Edit Profile");
     $html->form("person/xprofile");
         $html->add_menu_submitbutton("Save Changes");

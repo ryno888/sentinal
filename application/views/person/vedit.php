@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    $html = new lib_html();
+    $html = new Lib_html();
     $html->container_fluid = true;
     $html->header("General Details", 3);
     $html->form("person/xedit");
@@ -17,7 +17,7 @@
                     $html->dbinput($person, "per_lastname", ["required" => true]);
                     $html->dbinput($person, "per_gender", ["required" => true]);
                     $html->dbinput($person, "per_grade", ["required" => true]);
-                    $html->dbinput($person, "per_birthday", ["format" => lib_date::$DATE_FORMAT_12, "required" => true]);
+                    $html->dbinput($person, "per_birthday", ["format" => Lib_date::$DATE_FORMAT_12, "required" => true]);
                     $html->dbinput($person, "per_year_in_class", ["required" => true, "format" => "Y"]);
                 $html->fieldset_close();
             $html->end_column();

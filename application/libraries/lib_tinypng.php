@@ -7,7 +7,7 @@
  */
 
 /**
- * Description of lib_tinypng
+ * Description of Lib_tinypng
  *
  * @author Ryno Laptop
  */
@@ -18,7 +18,7 @@ require_once(DIR_THIRD_PARTY."/tinify-php-master/lib/Tinify/Source.php");
 require_once(DIR_THIRD_PARTY."/tinify-php-master/lib/Tinify/Client.php");
 require_once(DIR_THIRD_PARTY."/tinify-php-master/lib/Tinify.php");
 
-class lib_tinypng {
+class Lib_tinypng {
     private $source = false;
     private $destination = false;
     private $thumbnail_method = "fit"; // fit / cover / scale
@@ -135,12 +135,12 @@ class lib_tinypng {
     //--------------------------------------------------------------------------
     public function show_usage() {
         view('
-        $lib_tinypng = lib_core::load("lib_tinypng");
-        $lib_tinypng->set_source(DIR_FILES."Eon.png");
-        $lib_tinypng->set_destination(DIR_FILES."Eon2.png");
-        $lib_tinypng->run();
-        $lib_tinypng->set_thumbnail_method("cover");
-        $lib_tinypng->to_thumbnail();');
+        $Lib_tinypng = Lib_core::load("Lib_tinypng");
+        $Lib_tinypng->set_source(DIR_FILES."Eon.png");
+        $Lib_tinypng->set_destination(DIR_FILES."Eon2.png");
+        $Lib_tinypng->run();
+        $Lib_tinypng->set_thumbnail_method("cover");
+        $Lib_tinypng->to_thumbnail();');
     }
     //--------------------------------------------------------------------------
 }

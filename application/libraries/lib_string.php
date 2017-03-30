@@ -6,7 +6,7 @@ require_once BASEPATH."../application/third_party/random_compat-2.0.4/lib/random
  * and open the template in the editor.
  */
 
-class lib_string{
+class Lib_string{
     
     //--------------------------------------------------------------------------
     public static function encrypt($string){

@@ -19,8 +19,8 @@ class make {
     //--------------------------------------------------------------------------
     public static function database() {
         $ci = &get_instance();
-        $ci->load->library("lib_database");
-        return $ci->lib_database;
+        $ci->load->library("Lib_database");
+        return $ci->Lib_database;
     }
     //--------------------------------------------------------------------------
 }
