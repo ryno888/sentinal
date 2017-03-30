@@ -11,7 +11,7 @@
  *
  * @author Ryno Laptop
  */
-class mod_pdf {
+class Mod_pdf {
     
     private $ci;
     private $person;
