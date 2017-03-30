@@ -893,7 +893,7 @@ if ( ! function_exists('function_usable'))
 
         function console_db_create($table) {
             $ci = &get_instance();
-            $ci->load->library("Lib_db_forge", ["table" => $table]);
+            $ci->load->library("database/Lib_db_forge", ["table" => $table]);
         }
 
     }
