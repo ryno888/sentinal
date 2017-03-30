@@ -30,6 +30,12 @@ class lib_tinypng {
         \Tinify\setKey(CR_TINYPNG_KEY);
     }
     //--------------------------------------------------------------------------
+    /**
+     * Scale: Scales the image down proportionally. You must provide either a target width or a target height, but not both. The scaled image will have exactly the provided width or height.
+     * Fit: Scales the image down proportionally so that it fits within the given dimensions. You must provide both a width and a height. The scaled image will not exceed either of these dimensions.
+     * Cover: Scales the image proportionally and crops it if necessary so that the result has exactly the given dimensions. You must provide both a width and a height. Which parts of the image are cropped away is determined automatically. An intelligent algorithm determines the most important areas and leaves these intact.
+     * @param type $thumbnail_method
+     */
     function set_thumbnail_method($thumbnail_method) {
         $this->thumbnail_method = $thumbnail_method;
     }
