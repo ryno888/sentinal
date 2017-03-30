@@ -76,6 +76,8 @@ class Person extends CI_Controller {
         
         $person = $this->request_obj("person");
         $person->insert();
+        $person->add_role("STUDENT");
+        
         return Http_helper::response("Changes successfully saved", [
             "code" => 3,
             "action" => [

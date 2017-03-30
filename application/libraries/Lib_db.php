@@ -109,7 +109,9 @@ class Lib_db{
             $this->obj = Lib_database::query("SELECT * FROM $this->table WHERE $sql_where", 1);
         }
         
-        $this->id = $this->obj->{$this->key};
+        if($this->obj){
+            $this->id = $this->obj->{$this->key};
+        }
         
         return $this->obj;
     }

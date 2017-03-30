@@ -4,7 +4,7 @@
  *
  * @author Ryno
  */
-class dbx_role extends Lib_db{
+class Dbx_role extends Lib_db{
     
     public function __construct() {
         $this->set_key("rol_id");
@@ -16,6 +16,10 @@ class dbx_role extends Lib_db{
             "rol_code"          => ["name" => "code"    , "default" => ""       , "type" => DB_VARCHAR],
             "rol_level"         => ["name" => "id"      , "default" => "null"   , "type" => DB_INT],
         ]);
+    }
+    //----------------------------------------------------------------------------
+    public static function get_role($code){
+        return Lib_db::load_db("role", "rol_code = '$code'");
     }
     //----------------------------------------------------------------------------
 }

@@ -171,3 +171,6 @@ CREATE TABLE IF NOT EXISTS `role` (
 
 INSERT INTO `role` (`rol_name`, `rol_code`, `rol_level`) VALUES ('Administrator', 'ADMIN', 0);
 INSERT INTO `person` (`per_type`, `per_gender`, `per_firstname`, `per_lastname`, `per_cemis_nr`, `per_name`, `per_email`, `per_telnr`, `per_cellnr`, `per_username`, `per_password`, `per_online`, `per_date_created`, `per_birthday`, `per_year_in_class`, `per_grade`, `per_previous_grade`, `per_grade_repeated`, `per_year_in_phase`, `per_prev_school`) VALUES (0, 1, 'Ryno', 'van Zyl', '15464', 'van Zyl, Ryno', 'ryno888@gmail.com', '', '', 'admin', 'lJKFKZVnvFS1wHZMU+0QVi7VAZg0DaHRl/gwU02low3Op2Pa1Tero1CXH+rFe0kQVIzfJ38ArGenOvxNm/vNeQ==', 0, NULL, NULL, NULL, 0, 0, 0, '', '');
+
+INSERT INTO `role` (`rol_name`, `rol_code`, `rol_level`) VALUES ('Teacher', 'TEACHER', 1);
+INSERT INTO `role` (`rol_name`, `rol_code`, `rol_level`) VALUES ('Student', 'STUDENT', 10);

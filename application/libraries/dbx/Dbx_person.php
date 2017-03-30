@@ -4,7 +4,7 @@
  *
  * @author Ryno
  */
-class dbx_person extends Lib_db{
+class Dbx_person extends Lib_db{
     
     public function __construct() {
         $this->set_key("per_id");
@@ -46,6 +46,15 @@ class dbx_person extends Lib_db{
     //----------------------------------------------------------------------------
     public function has_role($obj, $code) {
         
+    }
+    //----------------------------------------------------------------------------
+    public function add_role($code) {
+        $role = Dbx_role::get_role($code);
+        $person_role = Lib_db::load_db_default("person_role");
+        $person_role->obj->pel_ref_person = $this->id;
+        $person_role->obj->pel_ref_role = $role->id;
+        $person_role->insert();
+        return $person_role;
     }
     //----------------------------------------------------------------------------
     public function format_name() {

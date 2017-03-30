@@ -70,6 +70,8 @@ $autoload['libraries'] = array(
     "form_validation",
     
     "dbx/dbx_person",
+    "dbx/dbx_person_role",
+    "dbx/dbx_role",
 );
 
 /*
@@ -101,7 +103,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('make', 'http', 'error_helper', "url");
+$autoload['helper'] = array('make', 'http', 'Error_helper', "url");
 
 /*
 | -------------------------------------------------------------------

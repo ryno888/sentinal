@@ -10,7 +10,11 @@
     $list->add_new_btn("Add new Student", "system.browser.redirect('person/vadd');");
     $list->sql_key = "per_id";
     $list->sql_select = "per_id, per_firstname, per_lastname, per_email, per_username";
-    $list->sql_from = "person";
+    $list->sql_from = "person 
+        LEFT JOIN person_role ON (pel_ref_person = per_id)
+        LEFT JOIN role ON (pel_ref_role = rol_id)
+    ";
+    $list->sql_where = "rol_code IN ('STUDENT')";
     $list->sql_order_by = "per_firstname ASC";
     $list->searchfield_value = "CONCAT(per_firstname, per_lastname, per_email, per_username)";
     
