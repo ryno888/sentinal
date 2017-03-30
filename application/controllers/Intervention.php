@@ -8,7 +8,7 @@ class Intervention extends CI_Controller {
         parent::__construct();
         $active_id = Lib_user::get_active_id();
         if(!$active_id){
-            http_helper::go_home();
+            Http_helper::go_home();
         }
     }
     //--------------------------------------------------------------------------
@@ -25,14 +25,14 @@ class Intervention extends CI_Controller {
         $this->form_validation->set_rules('int_type', "Type", "required");
         $this->form_validation->set_rules('int_remark', "Remark", "required");
         if($this->form_validation->run() == false){
-            return http_helper::error(1, validation_errors());
+            return Http_helper::error(1, validation_errors());
         }
         
         $person = $this->request_db("person");
         $intervention = $this->request_obj("intervention");
         $intervention->insert();
         
-        return http_helper::response("Changes successfully saved", [
+        return Http_helper::response("Changes successfully saved", [
             "code" => 3,
             "action" => [
                 "type" => "redirect",
@@ -46,13 +46,13 @@ class Intervention extends CI_Controller {
         $this->form_validation->set_rules('int_type', "Type", "required");
         $this->form_validation->set_rules('int_remark', "Remark", "required");
         if($this->form_validation->run() == false){
-            return http_helper::error(1, validation_errors());
+            return Http_helper::error(1, validation_errors());
         }
         
         $intervention = $this->request_obj("intervention", true);
         $intervention->update();
         
-        return http_helper::response("Changes successfully saved", [
+        return Http_helper::response("Changes successfully saved", [
             "code" => 3,
         ]);
     }

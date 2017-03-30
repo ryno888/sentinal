@@ -15,7 +15,7 @@
  *
  * @author Ryno
  */
-class error_helper {
+class Error_helper {
     //--------------------------------------------------------------------------
     public static function check_errors() {
         $ci = &get_instance();

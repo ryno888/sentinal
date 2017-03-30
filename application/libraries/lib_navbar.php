@@ -32,7 +32,7 @@ class Lib_navbar extends Lib_core{
         if(strpos($href, "index.php/") === false){
             $href = "index.php/$href";
         }
-        return $href !== false ? "href='".http_helper::build_url($href)."'" : false;
+        return $href !== false ? "href='".Http_helper::build_url($href)."'" : false;
     }
     //--------------------------------------------------------------------------
     public function add_navitem($label, $href = "#", $options = []) {

@@ -8,7 +8,7 @@ class Observation_item extends CI_Controller {
         parent::__construct();
         $active_id = Lib_user::get_active_id();
         if(!$active_id){
-            http_helper::go_home();
+            Http_helper::go_home();
         }
     }
     //--------------------------------------------------------------------------
@@ -21,11 +21,11 @@ class Observation_item extends CI_Controller {
         $this->form_validation->set_rules('obv_date', "Date", "required");
         $this->form_validation->set_rules('obv_content', "Comment", "required");
         if($this->form_validation->run() == false){
-            return http_helper::error(1, validation_errors());
+            return Http_helper::error(1, validation_errors());
         }
         $observation_item->insert();
         
-        return http_helper::response("Changes successfully saved", [
+        return Http_helper::response("Changes successfully saved", [
             "code" => 3,
             "action" => [
                 "type" => "redirect",
@@ -41,11 +41,11 @@ class Observation_item extends CI_Controller {
         $this->form_validation->set_rules('obv_date', "Date", "required");
         $this->form_validation->set_rules('obv_content', "Comment", "required");
         if($this->form_validation->run() == false){
-            return http_helper::error(1, validation_errors());
+            return Http_helper::error(1, validation_errors());
         }
         $observation_item->update();
         
-        return http_helper::response("Changes successfully saved", [
+        return Http_helper::response("Changes successfully saved", [
             "code" => 3,
         ]);
     }

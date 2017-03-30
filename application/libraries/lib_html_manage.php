@@ -38,7 +38,7 @@ class Lib_html_manage extends Lib_core{
         if (is_file(APPPATH . 'views/' . $view . ".php")) {
             $this->view = $CI_Controller->load->view($view, $data, true);
         } else {
-            http_helper::go_404();
+            Http_helper::go_404();
         }
     }
     //--------------------------------------------------------------------------

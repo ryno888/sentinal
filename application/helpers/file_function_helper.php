@@ -15,7 +15,7 @@
  *
  * @author Ryno
  */
-class file_function_helper {
+class File_function_helper {
     //--------------------------------------------------------------------------
     public static function mkdir($dir) {
 		if (!is_dir($dir)) {

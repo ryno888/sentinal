@@ -8,7 +8,7 @@ class Person extends CI_Controller {
         parent::__construct();
         $active_id = Lib_user::get_active_id();
         if(!$active_id){
-            http_helper::go_home();
+            Http_helper::go_home();
         }
     }
     //--------------------------------------------------------------------------
@@ -71,12 +71,12 @@ class Person extends CI_Controller {
         $this->form_validation->set_rules('per_year_in_class', "Year in class", "required");
         $this->form_validation->set_rules('per_previous_grade', "Previous Grade", "required");
         if($this->form_validation->run() == false){
-            return http_helper::error(1, validation_errors());
+            return Http_helper::error(1, validation_errors());
         }
         
         $person = $this->request_obj("person");
         $person->insert();
-        return http_helper::response("Changes successfully saved", [
+        return Http_helper::response("Changes successfully saved", [
             "code" => 3,
             "action" => [
                 "type" => "redirect",
@@ -98,11 +98,11 @@ class Person extends CI_Controller {
         $this->form_validation->set_rule_db($person, 'per_previous_grade');
         $this->form_validation->set_rule_db($person, 'per_year_in_phase');
         if($this->form_validation->run() == false){
-            return http_helper::error(1, validation_errors());
+            return Http_helper::error(1, validation_errors());
         }
         
         $person->update();
-        return http_helper::response("Changes successfully saved");
+        return Http_helper::response("Changes successfully saved");
     }
     //--------------------------------------------------------------------------
     public function xprofile() {
@@ -112,17 +112,17 @@ class Person extends CI_Controller {
         $this->form_validation->set_rules('per_password', "Password", "trim");
         $this->form_validation->set_rules('per_password_confirm', 'Confirm Password', 'trim|matches[per_password]');
         if($this->form_validation->run() == false){
-            return http_helper::error(1, validation_errors());
+            return Http_helper::error(1, validation_errors());
         }
         
         $person = $this->request_obj("person", true);
         $person->update();
-        return http_helper::response("Changes successfully saved");
+        return Http_helper::response("Changes successfully saved");
     }
     //--------------------------------------------------------------------------
     public function xdelete() {
         console($this->request("id"));
-        return http_helper::error(1, ["test"]);
+        return Http_helper::error(1, ["test"]);
     }
     //--------------------------------------------------------------------------
     public function xstream_observation_sheet() {

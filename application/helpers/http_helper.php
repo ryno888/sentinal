@@ -15,7 +15,7 @@
  *
  * @author Ryno
  */
-class http_helper {
+class Http_helper {
     //--------------------------------------------------------------------------
     public function __construct() {
     }

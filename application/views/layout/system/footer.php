@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-    echo error_helper::check_errors();
+    echo Error_helper::check_errors();
     $base_url = CI_BASE_URL;
     
 ?>

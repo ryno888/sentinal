@@ -1,3 +1,3 @@
 <?php
-    error_helper::view($error);
+    Error_helper::view($error);
 ?>
