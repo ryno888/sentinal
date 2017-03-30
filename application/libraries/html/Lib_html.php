@@ -32,7 +32,7 @@ class Lib_html extends Lib_core{
     //--------------------------------------------------------------------------
     public function __construct() {
         parent::__construct();
-        $this->ci->load->library("Lib_html_tags");
+        $this->ci->load->library("html/Lib_html_tags");
     }
     //--------------------------------------------------------------------------
     public function form($action, $id = false, $attributes_arr = [], $options = []) {

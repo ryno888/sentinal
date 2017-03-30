@@ -20,7 +20,7 @@ class Mod_pdf {
     
     public function __construct() {
         $this->ci = &get_instance();
-        $this->ci->load->library("Lib_pdf");
+        $this->ci->load->library("addons/Lib_pdf");
         
         $this->pdf = new Lib_pdf([
             "enable_header" => false,   

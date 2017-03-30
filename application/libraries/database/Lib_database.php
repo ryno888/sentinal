@@ -108,7 +108,8 @@ class Lib_database extends Lib_core{
     }
     //--------------------------------------------------------------------------
     public static function selectsingle($sql){
-        return Lib_database::query($sql, 1);
+        $result = Lib_database::query($sql, 1);
+        return $result ? reset($result) : false;
     }
     //--------------------------------------------------------------------------
     public static function selectlist($sql, $field1, $field2){

@@ -1,6 +1,6 @@
 <?php
 //    console('No direct script access allowed');
-    $this->load->library("Lib_html");
+    $this->load->library("html/Lib_html");
 
     $attributes = array("name" => "comment-form");
     

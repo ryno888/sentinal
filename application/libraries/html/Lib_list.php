@@ -205,7 +205,9 @@ class Lib_list extends Lib_core{
         
         $this->db->limit($this->sql_limit, $this->sql_offset);
         $this->item_arr = $this->db->get()->result();
-        $this->sql_total_items = $this->db->count_all_results($this->sql_from);
+        
+        $sql_where = $this->sql_where ? " WHERE $this->sql_where " : "";
+        $this->sql_total_items = Lib_database::selectsingle("SELECT COUNT(*) FROM $this->sql_from $sql_where");
         
         $this->sql = $this->db->last_query();
     }
@@ -342,7 +344,7 @@ class Lib_list extends Lib_core{
             "currentPage" => $this->current_page_index, 
             "urlPattern" => "$this->current_url/page/(:num){$query}"
         );
-        $this->ci->load->library("Lib_paginator", $params);
+        $this->ci->load->library("html/Lib_paginator", $params);
         $Lib_paginator = new Lib_paginator($params);
         $Lib_paginator->setMaxPagesToShow($this->pagination_max_pages_to_show);
         return $Lib_paginator;

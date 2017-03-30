@@ -60,15 +60,23 @@ $autoload['packages'] = array();
 */
 $autoload['libraries'] = array(
     "Lib_core", 
-    "Lib_db", 
-    "Lib_string", 
-    "Lib_database", 
-    "Lib_user", 
-    "Lib_date", 
-    "Lib_session",
-    "Lib_html_tags",
+    
+    //database
+    "database/Lib_db", 
+    "database/Lib_database", 
+    
+    //api
+    "api/Lib_string", 
+    "api/Lib_date", 
+    "api/Lib_session",
+    "api/Lib_user",
+    
+    //html
+    "html/Lib_html_tags",
     "form_validation",
     
+    
+    //db
     "dbx/dbx_person",
     "dbx/dbx_person_role",
     "dbx/dbx_role",
