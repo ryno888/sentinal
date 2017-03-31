@@ -188,8 +188,6 @@ class Lib_html_calendar extends Lib_core{
                 <style>
 
                     body {
-                        margin-bottom: 40px;
-                        margin-top: 40px;
                         text-align: center;
                         font-size: 14px;
                         font-family: 'Roboto', sans-serif;
@@ -198,6 +196,7 @@ class Lib_html_calendar extends Lib_core{
                     #wrap {
                         width: 1100px;
                         margin: 0 auto;
+                        padding-top: 30px;
                         }
 
                     #external-events {
