@@ -18,10 +18,31 @@
  * @author Ryno
  */
 class Lib_html_calendar extends Lib_core{
+    
+    private $event_arr = [];
+    
     //--------------------------------------------------------------------------
     public function __construct() {
         parent::__construct();
         $this->ci->load->library("html/Lib_html_tags");
+    }
+    //--------------------------------------------------------------------------
+    public function add_event($title, $date, $options = []) {
+        $options_arr = array_merge([
+            "id" => false,
+            "all_day_event" => false,
+            "class" => false,
+        ], $options);
+//        id: 999,
+//        title: 'Repeating Event',
+//        start: new Date(y, m, d-3, 16, 0),
+//        allDay: false,
+//        className: 'info'
+        $this->event_arr[] = [
+            "id" => $options_arr["id"],
+            "title" => $title,
+            "y" => Lib_date::strtodate($date, "Y"),
+        ];
     }
     //--------------------------------------------------------------------------
     public function display() {
@@ -79,6 +100,7 @@ class Lib_html_calendar extends Lib_core{
                         editable: true,
                         firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
                         selectable: true,
+                        isEventDraggable: false,
                         defaultView: 'month',
 
                         axisFormat: 'h:mm',
@@ -109,30 +131,6 @@ class Lib_html_calendar extends Lib_core{
                                 );
                             }
                             calendar.fullCalendar('unselect');
-                        },
-                        droppable: true, // this allows things to be dropped onto the calendar !!!
-                        drop: function(date, allDay) { // this function is called when something is dropped
-
-                            // retrieve the dropped element's stored Event Object
-                            var originalEventObject = $(this).data('eventObject');
-
-                            // we need to copy it, so that multiple events don't have a reference to the same object
-                            var copiedEventObject = $.extend({}, originalEventObject);
-
-                            // assign it the date that was reported
-                            copiedEventObject.start = date;
-                            copiedEventObject.allDay = allDay;
-
-                            // render the event on the calendar
-                            // the last `true` argument determines if the event 'sticks' (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-                            // is the 'remove after drop' checkbox checked?
-                            if ($('#drop-remove').is(':checked')) {
-                                // if so, remove the element from the 'Draggable Events' list
-                                $(this).remove();
-                            }
-
                         },
 
                         events: [
