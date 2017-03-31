@@ -37,13 +37,15 @@ class Lib_navbar extends Lib_core{
     //--------------------------------------------------------------------------
     public function add_navitem($label, $href = "#", $options = []) {
         $options_arr = array_merge([
-            "align" => "left"
+            "align" => "left",
+            "icon" => false,
         ], $options);
         
         $attributes = $this->format_options($options);
         $formatted_href = $this->format_href($href);
+        $icon = $options_arr["icon"] ? "<i class='fa {$options_arr["icon"]}' aria-hidden='true'></i> " : "";
         
-        $this->add_li("<li><a class='{$attributes['css']}' $formatted_href>$label</a></li>", $options_arr['align']);
+        $this->add_li("<li><a class='{$attributes['css']}' $formatted_href>{$icon}{$label}</a></li>", $options_arr['align']);
     }
     //--------------------------------------------------------------------------
     public function add_navitem_dropdown($label, $item_arr = [], $options = []) {

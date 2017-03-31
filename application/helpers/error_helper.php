@@ -30,7 +30,7 @@ class Error_helper {
                 }
             }
             
-            return "
+            return CI_SHOW_ERRORS ? "
                 <style>
                     .deleteAllWrapper{ margin-bottom: -10px; padding: 10px; cursor: pointer; text-decoration: none;}
                     .screen{ position: relative; display:none;}
@@ -82,7 +82,7 @@ class Error_helper {
                         });
                     });
                  </script>
-            ";
+            " : "";
         }
         return false;
     }
