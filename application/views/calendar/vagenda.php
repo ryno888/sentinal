@@ -7,8 +7,10 @@
     
 
 $client = new Google_Client([
+    'application_name' => CI_NAME,
     'client_id' => '531432974188-m04j7udtnli16fe8fu53qq9j0c698r21.apps.googleusercontent.com',
     'client_secret' => 'C4IaT5pQQmnMypo7oNEwosBF',
+    'developer_key' => 'AIzaSyDxehi-L5eBqwzEH74Z30kRuwLoqeXX9QE',
 ]);
 
 $client->setHttpClient(new \GuzzleHttp\Client(array(
