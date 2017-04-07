@@ -8,9 +8,9 @@ class Calendar extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function vagenda() {
-        $this->load->library("addons/Lib_google");
+//        $this->load->library("addons/Lib_google");
         $this->load_view('calendar/vagenda', "system");
-        $this->run();
+//        $this->run();
     }
     //--------------------------------------------------------------------------
     public function run() {
