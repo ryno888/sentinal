@@ -8,6 +8,7 @@ $base_url = CI_BASE_URL;
     <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>assets/bootstrap/fonts/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>assets/css/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>assets/css/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>assets/css/system.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>assets/css/style.css">
     

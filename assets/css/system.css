@@ -222,9 +222,9 @@ error-wrapper.div.container{ margin-top:20px; }
     color: #c10d57;
 }
 
-.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
-    color: #ffffff;
-    background-color: #c13881;
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse:hover .navbar-link:hover {
+    color: #ff31b4;
+    /*background-color: #c13881;*/
 }
 
 .navbar-inverse .navbar-link {

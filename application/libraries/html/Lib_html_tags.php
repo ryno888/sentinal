@@ -354,7 +354,7 @@ class Lib_html_tags extends Lib_core{
         return self::wrap_form_group($label.$html_options['span'], $id, form_multiselect('', $value_arr, $value, $data_arr));
     }
     //--------------------------------------------------------------------------
-    public static function idate_picker($label = false, $id = false, $value = false, $options = []){
+    public static function idate_picker($id, $label = false , $value = false, $options = []){
         $options_arr = array_merge([
             "autoclose" => true,
             "format" => CI_DATE,
@@ -390,6 +390,39 @@ class Lib_html_tags extends Lib_core{
                 });
             </script>
             <div id='$id'>$input</div>
+        ";
+    }
+    //--------------------------------------------------------------------------
+    public static function idatetime_picker($id, $label = false , $value = false, $options = []){
+        $options_arr = array_merge([
+            "autoclose" => true,
+            "format" => CI_DATETIME,
+            "@readonly" => true,
+            "append" => '<i class="fa fa-calendar" aria-hidden="true"></i>'
+        ], $options);
+        
+        $format = php_dateformat_to_js_dateformat($options_arr["format"]);
+        $input = Lib_html_tags::itext($label, $id, $value, $options_arr);
+        
+        return "
+            <script>
+                $(document).ready(function(){
+                    $('.form_datetime').datetimepicker({
+                        weekStart: 1,
+                        todayBtn:  1,
+                        autoclose: 1,
+                        todayHighlight: 1,
+                        startView: 2,
+                        forceParse: 0,
+                        showMeridian: 1
+                    });
+                });
+            </script>
+            
+            <div class='input-group date form_datetime col-md-12' data-date='' data-date-format='$format' data-link-field='$id' data-link-format='dd MM yyyy - HH:ii p'>
+                $input
+            </div>
+            <input type='hidden' id='$id' value='' /><br/>
         ";
     }
     //--------------------------------------------------------------------------

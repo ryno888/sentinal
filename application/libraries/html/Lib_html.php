@@ -140,7 +140,18 @@ class Lib_html extends Lib_core{
         if($error){
             $label .= "<div class='form-error-label'>$error</div>";
         }
-        $this->add_html("html", Lib_html_tags::idate_picker($label, $id, $value, $options_arr));
+        $this->add_html("html", Lib_html_tags::idate_picker($id, $label, $value, $options_arr));
+    }
+    //--------------------------------------------------------------------------
+    public function idatetime($label, $id, $value = false, $options = []) {
+        $options_arr = array_merge([
+            "enable_set_value" => false,
+        ], $options);
+        $error = form_error($id);
+        if($error){
+            $label .= "<div class='form-error-label'>$error</div>";
+        }
+        $this->add_html("html", Lib_html_tags::idatetime_picker($id, $label, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
     public function dbinput($obj, $field, $options = []) {
@@ -366,8 +377,11 @@ class Lib_html extends Lib_core{
         ";
     }
     //--------------------------------------------------------------------------
-    public function display() {
+    public function display($return = false) {
         $this->build_menu_html();
+        if ($return) {
+            return $this->container_wrapper($this->html);;
+        }
         echo $this->container_wrapper($this->html);
     }
     //--------------------------------------------------------------------------
