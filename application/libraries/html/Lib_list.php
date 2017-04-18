@@ -63,7 +63,6 @@ class Lib_list extends Lib_core{
     public function __construct(){
         parent::__construct();
         $this->ci->load->database();
-        $this->ci->load->library("Lib_database");
         
         $this->current_page_index = request("page", 1);
         

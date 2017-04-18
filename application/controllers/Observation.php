@@ -15,8 +15,6 @@ class Observation extends CI_Controller {
     public function vedit() {
         $data['person'] = $this->request_db("person");
         $data['observation'] = $this->request_db("observation");
-        $this->load->library("html/Lib_html");
-        $this->load->library("html/Lib_list");
         $this->load_view('observation/vedit', "system", $data);
     }
     //--------------------------------------------------------------------------
@@ -24,7 +22,6 @@ class Observation extends CI_Controller {
         $person = $this->request_db("person");
         $observation = $this->request_obj("observation", true);
         
-        $this->load->library("html/Lib_html");
         $this->form_validation->set_rules('obs_info_evening', "Info Evening", "required");
         $this->form_validation->set_rules('obs_report_discuss', "Report Discuss", "required");
         $this->form_validation->set_rules('obs_other_meetings', "Other Meetings", "required");
@@ -52,7 +49,6 @@ class Observation extends CI_Controller {
         $person = $this->request_db("person");
         $observation = $this->request_obj("observation");
         
-        $this->load->library("html/Lib_html");
         $this->form_validation->set_rules('obs_term', "Term", "required");
         $this->form_validation->set_rules('obs_info_evening', "Info Evening", "required");
         $this->form_validation->set_rules('obs_report_discuss', "Report Discuss", "required");

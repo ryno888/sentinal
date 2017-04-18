@@ -15,7 +15,6 @@ class Person extends CI_Controller {
     public function vlist() {
         
         $data['search'] = $this->request("__search");
-        $this->load->library("html/Lib_list");
         $this->load_view('person/vlist', "system", $data);
     }
     //--------------------------------------------------------------------------
@@ -24,7 +23,6 @@ class Person extends CI_Controller {
         $data['result_arr'] = Lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
         $data['person'] = Lib_db::load_db_default("person");
         
-        $this->load->library("html/Lib_html");
         $this->load_view('person/vadd', "system", $data);
     }
     //--------------------------------------------------------------------------
@@ -33,8 +31,6 @@ class Person extends CI_Controller {
         $data['person'] = $this->request_db("person");
         $data['result_arr'] = Lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
         
-        $this->load->library("html/Lib_html");
-        $this->load->library("html/Lib_html_manage");
         
         $data['html'] = $this->load->view('person/vedit', $data, true);
         $this->load_view('person/vmanage', "system", $data);
@@ -45,10 +41,6 @@ class Person extends CI_Controller {
         $data['result_arr'] = Lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
         $data["panel"] = $this->request("p");
         
-        $this->load->library("html/Lib_html");
-        $this->load->library("html/Lib_html_manage");
-        $this->load->library("html/Lib_html_tab");
-        $this->load->library("html/Lib_list");
         $this->load_view('person/vmanage', "system", $data);
     }
     //--------------------------------------------------------------------------
@@ -57,12 +49,10 @@ class Person extends CI_Controller {
         $data['person'] = Lib_db::load_db("person", "per_id = ".Lib_user::get_active_id());
         $data['result_arr'] = Lib_database::selectlist("SELECT per_id, per_name FROM person", "per_id", "per_name");
         
-        $this->load->library("html/Lib_html");
         $this->load_view('person/vprofile', "system", $data);
     }
     //--------------------------------------------------------------------------
     public function xadd() {
-        $this->load->library("html/Lib_html");
         $this->form_validation->set_rules('per_firstname', "Firstname", "required");
         $this->form_validation->set_rules('per_lastname', "Surname", "required");
         $this->form_validation->set_rules('per_gender', "Gender", "required");
@@ -88,7 +78,6 @@ class Person extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function xedit() {
-        $this->load->library("html/Lib_html");
         $person = $this->request_obj("person", true);
         
         
@@ -108,7 +97,6 @@ class Person extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function xprofile() {
-        $this->load->library("html/Lib_html");
         $this->form_validation->set_rules('per_firstname', "Firstname", "required");
         $this->form_validation->set_rules('per_lastname', "Surname", "required");
         $this->form_validation->set_rules('per_password', "Password", "trim");

@@ -151,7 +151,7 @@ class Lib_html extends Lib_core{
         if($error){
             $label .= "<div class='form-error-label'>$error</div>";
         }
-        $this->add_html("html", Lib_html_tags::idatetime_picker($id, $label, $value, $options_arr));
+        $this->add_html("html", Lib_html_tags::idatetime($id, $label, $value, $options_arr));
     }
     //--------------------------------------------------------------------------
     public function dbinput($obj, $field, $options = []) {

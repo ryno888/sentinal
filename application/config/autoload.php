@@ -61,10 +61,6 @@ $autoload['packages'] = array();
 $autoload['libraries'] = array(
     "Lib_core", 
     
-    //database
-    "database/Lib_db", 
-    "database/Lib_database", 
-    
     //api
     "api/Lib_string", 
     "api/Lib_date", 

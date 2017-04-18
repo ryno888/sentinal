@@ -21,6 +21,9 @@ class Http_helper {
     }
     //--------------------------------------------------------------------------
     public static function build_url($path = false) {
+        if(strpos($path, "index.php") === false){
+            return base_url("index.php/$path");
+        }
         return base_url($path);
     }
     //--------------------------------------------------------------------------
@@ -69,6 +72,18 @@ class Http_helper {
         ];
         header('Content-Type: application/json');
         echo json_encode($data_arr);
+    }
+    //-----------------------------------------------------------------------
+    public static function get_url_query_string($unset_keys = []) {
+        $ci = & get_instance();
+        $query_parts = $ci->uri->uri_to_assoc();
+        foreach ($unset_keys as $key => $value) {
+            if(isset($query_parts[$value])){
+                unset($query_parts[$value]);
+            }
+        }
+        
+        return $ci->uri->assoc_to_uri($query_parts);
     }
     //--------------------------------------------------------------------------
 }

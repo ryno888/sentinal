@@ -4,6 +4,20 @@
  *
  * @author Ryno
  */
+
+//db
+require_once(DIR_APPLICATION.'libraries/database/Lib_db.php');
+require_once(DIR_APPLICATION.'libraries/database/Lib_database.php');
+
+//html
+require_once(DIR_APPLICATION.'libraries/html/Lib_html.php');
+require_once(DIR_APPLICATION.'libraries/html/Lib_list.php');
+require_once(DIR_APPLICATION.'libraries/html/Lib_html_manage.php');
+require_once(DIR_APPLICATION.'libraries/html/Lib_modal.php');
+require_once(DIR_APPLICATION.'libraries/html/Lib_html_tab.php');
+require_once(DIR_APPLICATION.'libraries/html/Lib_navbar.php');
+require_once(DIR_APPLICATION.'libraries/html/Lib_html_calendar.php');
+
 class Lib_core {
     public $ci = false;
     //--------------------------------------------------------------------------

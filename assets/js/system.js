@@ -10,6 +10,14 @@
 
 
 var system = {
+    data: {
+        formatDate: function(dateVal, format){
+            if(format === undefined){
+                format = "yyyy-mm-dd";
+            }
+            return new Date(dateVal).toDateString(format);
+        }
+    },
     ajax: {
         requestFunction: function(url, func, options) {
             var options_obj = $.extend({

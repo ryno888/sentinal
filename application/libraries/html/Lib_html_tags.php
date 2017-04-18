@@ -393,7 +393,7 @@ class Lib_html_tags extends Lib_core{
         ";
     }
     //--------------------------------------------------------------------------
-    public static function idatetime_picker($id, $label = false , $value = false, $options = []){
+    public static function idatetime($id, $label = false , $value = false, $options = []){
         $options_arr = array_merge([
             "autoclose" => true,
             "format" => CI_DATETIME,

@@ -80,4 +80,39 @@ class Lib_date{
         return Lib_date::strtodate($date, $dateformat);
     }
     //-----------------------------------------------------------------------
+    public static function get_start_of_week($date = "NOW", $dateformat = CI_DATE, $week_start = "sunday") {
+        $custom_date = strtotime( date('d-m-Y', strtotime($date)) ); 
+        return date($dateformat, strtotime("this week last $week_start", $custom_date));
+    }
+    //-----------------------------------------------------------------------
+    public static function get_end_of_week($date = "NOW", $dateformat = CI_DATE, $week_end = "saturday") {
+        $custom_date = strtotime( date('d-m-Y', strtotime($date)) ); 
+        return date($dateformat, strtotime("this week next $week_end", $custom_date));
+    }
+    //-----------------------------------------------------------------------
+    public static function get_end_of_month($date = "NOW", $dateformat = CI_DATE) {
+        $_date = new DateTime($date);
+        $_date->modify('last day of this month');
+        return $_date->format($dateformat);
+    }
+    //--------------------------------------------------------------------------------
+    /**
+     * Takes a nova datetime stamp, and substitutes the year in the timestamp with the new year
+     * @param type $date
+     * @param type $new_year
+     * @return boolean
+     */
+    public static function get_datetime_range_arr( $start_date, $end_date, $step = '+ 1 hour', $format = "Y-m-d G:i:s" ) {
+        $dates = array();
+        $current = Lib_date::strtodatetime($start_date);
+        $last = Lib_date::strtodatetime($end_date);
+
+        while( $current <= $last ) {
+            $dates[] = Lib_date::strtodatetime($current, $format);
+            $current = Lib_date::strtodatetime("$current $step");
+        }
+
+        return $dates;
+    }
+    //-----------------------------------------------------------------------
 }

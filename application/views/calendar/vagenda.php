@@ -1,130 +1,19 @@
 <?php
 //    console('No direct script access allowed');
 //    $this->load->library("html/Lib_html_calendar");
-//
-//    $html_calendar = new Lib_html_calendar();
-//    $html_calendar->display();
+    
+//    $this->load->library("html/Lib_html_calendar", NULL, 'my_calendar');
+
+    // Calendar class is now accessed using:
+
+    $html_calendar = new Lib_html_calendar();
+    $html_calendar->set_selected_date();
+    $html_calendar->add_event(Lib_date::strtodate(), "test", []);
+    $html_calendar->add_event(Lib_date::strtodate(), "test2", []);
+    $html_calendar->display();
 ?>
-<style>
-    body {
-  font-family: Tahoma;
-}
 
-header {
-  text-align: center;
-}
-
-#calendar {
-  width: 100%;
-}
-
-#calendar a {
-  color: #8e352e;
-  text-decoration: none;
-}
-
-#calendar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-
-#calendar li {
-  display: block;
-  float: left;
-  width: 14.342%;
-  padding: 5px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  margin-right: -1px;
-  margin-bottom: -1px;
-}
-
-#calendar ul.weekdays {
-  height: 40px;
-  background: #c10d57;
-}
-
-#calendar ul.weekdays li {
-  text-align: center;
-  text-transform: uppercase;
-  line-height: 20px;
-  border: none !important;
-  padding: 10px 6px;
-  color: #fff;
-  font-size: 13px;
-}
-
-#calendar .days li {
-  height: 180px;
-}
-
-#calendar .days li:hover {
-  background: #d3d3d3;
-}
-
-#calendar .date {
-    text-align: center;
-    margin-bottom: 5px;
-    padding: 5px;
-    background: #333;
-    color: #fff;
-    width: 25px;
-    border-radius: 100%;
-    float: right;
-}
-
-#calendar .event {
-  clear: both;
-  display: block;
-  font-size: 13px;
-  border-radius: 4px;
-  padding: 5px;
-  margin-top: 40px;
-  margin-bottom: 5px;
-  line-height: 14px;
-  background: #e4f2f2;
-  border: 1px solid #b5dbdc;
-  color: #009aaf;
-  text-decoration: none;
-}
-
-#calendar .event-desc {
-  color: #666;
-  margin: 3px 0 7px 0;
-  text-decoration: none;
-}
-
-#calendar .other-month {
-  background: #f5f5f5;
-  color: #666;
-}
-
-/* ============================
-                Mobile Responsiveness
-   ============================*/
-@media (max-width: 768px) {
-  #calendar .weekdays, #calendar .other-month {
-    display: none;
-  }
-
-  #calendar li {
-    height: auto !important;
-    border: 1px solid #ededed;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: -1px;
-  }
-
-  #calendar .date {
-    float: none;
-  }
-}
-
-</style>
-
-<div class="container-fluid">
+<!--<div class="container-fluid">
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
@@ -148,7 +37,7 @@ header {
                         <li>Saturday</li>
                     </ul>
 
-                    <!-- Days from previous month -->
+                     Days from previous month 
 
                     <ul class="days">
                         <li class="day other-month">
@@ -175,7 +64,7 @@ header {
                             <div class="date">31</div>                      
                         </li>
 
-                        <!-- Days in current month -->
+                         Days in current month 
 
                         <li class="day">
                             <div class="date">1</div>                       
@@ -193,7 +82,7 @@ header {
                         </li>
                     </ul>
 
-                    <!-- Row #2 -->
+                     Row #2 
 
                     <ul class="days">
                         <li class="day">
@@ -227,7 +116,7 @@ header {
                         </li>
                     </ul>
 
-                    <!-- Row #3 -->
+                     Row #3 
 
                     <ul class="days">
                         <li class="day">
@@ -260,7 +149,7 @@ header {
                         </li>
                     </ul>
 
-                    <!-- Row #4 -->
+                     Row #4 
 
                     <ul class="days">
                         <li class="day">
@@ -294,7 +183,7 @@ header {
                         </li>
                     </ul>
 
-                    <!-- Row #5 -->
+                     Row #5 
 
                     <ul class="days">
                         <li class="day">
@@ -328,14 +217,14 @@ header {
                         </li>
                     </ul>
 
-                    <!-- Row #6 -->
+                     Row #6 
 
                     <ul class="days">
                         <li class="day">
                             <div class="date">31</div>                      
                         </li>
                         <li class="day other-month">
-                            <div class="date">1</div> <!-- Next Month -->                       
+                            <div class="date">1</div>  Next Month                        
                         </li>
                         <li class="day other-month">
                             <div class="date">2</div>                       
@@ -354,16 +243,15 @@ header {
                         </li>
                     </ul>
 
-                </div><!-- /. calendar -->
-            </div><!-- /. wrap -->
+                </div> /. calendar 
+            </div> /. wrap 
 
 
         </div>
         <div class="col-md-1"></div>
     </div>
-</div>
+</div>-->
 <?php 
-    $this->load->library(["html/Lib_html", "html/Lib_modal"]);
     $lib_modal = new Lib_modal();
     $lib_modal->set_id("modalAddEvent");
     $lib_modal->add_column("half");
@@ -382,10 +270,11 @@ header {
 <script>
 $(document).ready(function(){
     
-    $('.day').click(function(){
-        
+    $('body').on("dblclick",".day", function(e){
+        e.preventDefault();
         $('#modalAddEvent').modal('show');
     })
     
 });
+
 </script>

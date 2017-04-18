@@ -15,13 +15,10 @@ class Intervention extends CI_Controller {
     public function vadd() {
         $data['person'] = $this->request_db("person");
         $data['intervention'] = Lib_db::load_db_default("intervention");
-        $this->load->library("html/Lib_html");
-        $this->load->library("html/Lib_list");
         $this->load_view('intervention/vadd', "system", $data);
     }
     //--------------------------------------------------------------------------
     public function xadd() {
-        $this->load->library("html/Lib_html");
         $this->form_validation->set_rules('int_type', "Type", "required");
         $this->form_validation->set_rules('int_remark', "Remark", "required");
         if($this->form_validation->run() == false){
@@ -42,7 +39,6 @@ class Intervention extends CI_Controller {
     }
     //--------------------------------------------------------------------------
     public function xedit() {
-        $this->load->library("html/Lib_html");
         $this->form_validation->set_rules('int_type', "Type", "required");
         $this->form_validation->set_rules('int_remark', "Remark", "required");
         if($this->form_validation->run() == false){

@@ -17,7 +17,6 @@ class Observation_item extends CI_Controller {
         $obs_id = request("obv_ref_observation");
         $observation_item = $this->request_obj("observation_item");
         
-        $this->load->library("html/Lib_html");
         $this->form_validation->set_rules('obv_date', "Date", "required");
         $this->form_validation->set_rules('obv_content', "Comment", "required");
         if($this->form_validation->run() == false){
@@ -37,7 +36,6 @@ class Observation_item extends CI_Controller {
     public function xedit() {
         $observation_item = $this->request_obj("observation_item", true);
         
-        $this->load->library("html/Lib_html");
         $this->form_validation->set_rules('obv_date', "Date", "required");
         $this->form_validation->set_rules('obv_content', "Comment", "required");
         if($this->form_validation->run() == false){

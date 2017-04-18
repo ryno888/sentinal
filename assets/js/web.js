@@ -19,6 +19,23 @@ $(document).ready(function(){
     bodyOb.on("click", ".loginSubmit", function(){
         loginSubmit($(this).closest("form"));
     });
+    //--------------------------------------------------------------------------
+    bodyOb.on("click", "#btn-signup", function(){
+        var form = $(this).closest("form");
+        $.ajax({
+            type: 'POST',
+            data: form.serialize(),
+            url: ci_base_url+"index.php/index/xregister",
+            cache: false,
+            success: function(response){
+                if(response.code == 1){
+                    document.location = ci_base_url+"index.php/person/vlist";
+                }else{
+                    messageModal(response.title, response.message);
+                }
+            }
+        });
+    });
 });
 
 function loginSubmit(form){

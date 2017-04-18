@@ -25,13 +25,18 @@ class Error_helper {
         if(count($result_arr) > 1){
             foreach ($result_arr as $file) {
                 if(strpos($file, "index") === false){
-                    $url = CI_BASE_URL."index.php/index/vview_error/file/$file";
+                    $url = CI_BASE_URL."index.php/system/vview_error/file/$file";
                     $file_html .= "<small><a title='Delete Error' class='deleteError cursor-pointer' file='$file'><i class='padding-right-10 fa fa-times' aria-hidden='true'> </i></a><a href='$url' target='_blank'>$file</a></small>";
                 }
             }
             
             return "
                 <style>
+                    .wrapper-error-div{ position: fixed; bottom: 50px; right: 0; background-color: #ffeded; width: 350px;}
+                    .screen{ position: relative; display:none;}
+                    .form-error-label{ color: red; font-size: 11px; margin-bottom: -10px; }
+                    .validation-error{     font-size: 12px; margin: 0 0 5px; }
+                    .blockquote-error { padding: 10px 20px; margin: 0 0 20px; font-size: 17.5px; border-left: 5px solid #c70007; }
                     .deleteAllWrapper{ margin-bottom: -10px; padding: 10px; cursor: pointer; text-decoration: none;}
                     .screen{ position: relative; display:none;}
                 </style>
@@ -61,7 +66,7 @@ class Error_helper {
                             $.ajax({
                                 type: 'POST',
                                 data: 'file='+file,
-                                url: ci_base_url+'index.php/index/xclear_error',
+                                url: ci_base_url+'index.php/system/xclear_error',
                                 cache: false,
                                 success: function(response){
                                     $('.errorPopup').html(response);
@@ -73,7 +78,7 @@ class Error_helper {
                             $.ajax({
                                 type: 'POST',
                                 data: 'file=all',
-                                url: ci_base_url+'index.php/index/xclear_error',
+                                url: ci_base_url+'index.php/system/xclear_error',
                                 cache: false,
                                 success: function(response){
                                     $('.errorPopup').html(response);
