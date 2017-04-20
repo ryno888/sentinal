@@ -11,4 +11,9 @@ class Calendar extends CI_Controller {
         $this->load_view('calendar/vagenda', "system");
     }
     //--------------------------------------------------------------------------
+    public function xget_event() {
+        
+        Http_helper::json(["code"=> 1, "date" => Lib_date::strtodate()]);
+    }
+    //--------------------------------------------------------------------------
 }

@@ -353,7 +353,7 @@ class Lib_html extends Lib_core{
         $container = $this->container_fluid ? "container-fluid" : "container";
         $script_ready = strlen(trim($html['script_ready'])) > 1 ? "
             <script>
-                $(document).ready(fucntion(){
+                $(document).ready(function(){
                     {$html['script_ready']}
                 });
             </script>

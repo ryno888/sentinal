@@ -19,20 +19,21 @@
  */
 class Lib_html_calendar extends Lib_core{
     
-    private $month_days_arr = [], 
-            $week_html_arr = [], 
-            $event_arr = [],
-            $first_day = false, 
-            $last_day = false, 
-            $days_start = false, 
-            $days_end = false,
-            
-            $selected_date = false,
-            $current_date = false,
-            $current_day = false,
-            $current_month = false,
-            $current_month_display = false,
-            $current_year = false;
+    private $month_days_arr = []; 
+    private $week_html_arr = []; 
+    private $event_arr = [];
+    private $first_day = false; 
+    private $last_day = false; 
+    private $days_start = false; 
+    private $days_end = false;
+
+    private $selected_date = false;
+    private $current_date = false;
+    private $current_day = false;
+    private $current_month = false;
+    private $current_month_display = false;
+    private $current_year = false;
+    private $new_event_modal = [];
     
     //--------------------------------------------------------------------------
     public function __construct($date = "NOW") {
@@ -45,13 +46,17 @@ class Lib_html_calendar extends Lib_core{
         $this->set_month();
     }
     //--------------------------------------------------------------------------
+    public function add_modal($html = false) {
+        $this->new_event_modal[] = $html;
+    }
+    //--------------------------------------------------------------------------
     public function set_selected_date($date = "NOW") {
         $this->selected_date = Lib_date::strtodate($date);
     }
     //--------------------------------------------------------------------------
-    public function add_event($date, $title, $options = []) {
+    public function add_event($id, $date, $title, $options = []) {
         $options_arr = array_merge([
-            "id" => false,
+            "id" => $id,
             "all_day_event" => false,
             "start" => false,
             "end" => false,
@@ -94,10 +99,10 @@ class Lib_html_calendar extends Lib_core{
             $event_html = false;
             if(array_key_exists($value["date"], $this->event_arr)){
                 foreach ($this->event_arr[$value["date"]] as $event) {
-                    $event_html .= "<a onclick='$(\"#modalAddEvent\").modal(\"show\")'>{$event["title"]}</a><br>";
+                    $event_html .= "<a class='eventItem' data-id='{$event["id"]}' title='{$event["title"]}'>".Lib_string::limit_string_by_length($event["title"], 17)."</a><br>";
                 }
             }
-            $event_html = $event_html ? "<div class='event'><div class='event-desc'>$event_html</div></div>" : "";
+            $event_html = $event_html ? "<div class='event nano enlarge'><div class='event-desc nano-content'>$event_html</div></div>" : "";
             $html .= "<li class='day $other_month $selected'><div class='date'>".Lib_date::strtodate($value["date"], "d")."</div>$event_html</li>";
             
             if($counter == 7){
@@ -194,8 +199,13 @@ class Lib_html_calendar extends Lib_core{
                     <div class='col-md-1'></div>
                 </div>
             </div>
+            
+            ".  implode(" ", $this->new_event_modal)."
+
             <script>
                 $(document).ready(function(){
+                    $('.nano').nanoScroller();
+
                     $('.go-to-month').click(function(){
                         system.ajax.requestFunction('system/xget_calendar', function(response){
                             $('#calendar-wrap').replaceWith(response);

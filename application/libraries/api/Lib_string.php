@@ -20,6 +20,56 @@ class Lib_string{
         $ci->load->library('encrypt');
         return $ci->encrypt->decode($string);
     }
+    //--------------------------------------------------------------------------------
+    /**
+     * function returns the amount of words specified in a String
+     * @param type $string
+     * @param type $word_count
+     * @return type
+     */
+    public static function limit_string_word_count($string, $word_count = 5){
+        $word_arr = explode(' ', $string);
+        $word_slice = array_slice($word_arr, 0, $word_count);
+        if(count($word_arr) > $word_count){
+            return implode(' ', $word_slice)."...";
+        }
+        return implode(' ', $word_slice); 
+    }
+    //--------------------------------------------------------------------------------
+    /**
+     * function appends a number suffix via thi applicable number passed in parms
+     * @param int $number
+     * @return string value with suffixed nummber
+     */
+    public static function append_number_suffix($number) {
+        $suffix = array('th','st','nd','rd','th','th','th','th','th','th');
+        if (!$number){
+            return false;
+        }else if((($number % 100) >= 11) && (($number%100) <= 13)){
+            return $number. 'th';
+        }else{
+            return $number. $suffix[$number % 10];
+        }
+    }
+    //--------------------------------------------------------------------------------
+    /**
+     * limits a string via the string length and not the word count. 
+     * This function does however return full words with an elipses if the string length exceeds the specified parm amount
+     * @param type $string
+     * @param type $length
+     * @return type
+     */
+    public static function limit_string_by_length($string, $length = 25, $return_default = "") {
+        
+        if(!$string || $string == '' || $string == 'null'){
+            return $return_default;
+        }
+        if(strlen($string) < $length){
+            return $string;
+        }
+        $return = substr($string, 0, $length);
+        return $return."...";
+    }
     //--------------------------------------------------------------------------
     public static function get_random_bytes($length = 32){
         try {

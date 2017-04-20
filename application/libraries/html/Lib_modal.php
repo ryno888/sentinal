@@ -19,10 +19,12 @@ class Lib_modal extends Lib_html{
     
     private $html = "";
     private $id = false;
+    private $title = false;
     private $heading = false;
     //--------------------------------------------------------------------------
-    public function __construct() {
+    public function __construct($title) {
         parent::__construct();
+        $this->title = $title;
         $this->container_fluid = true;
         $this->id = "model_".time();
     }
@@ -49,14 +51,14 @@ class Lib_modal extends Lib_html{
     //--------------------------------------------------------------------------
     public function display($return = false) {
         $inner_html = parent::display(true);
-        echo "
+        $html = "
             <div class='modal fade' id='$this->id' name='$this->id' tabindex='-1' role='dialog' aria-labelledby='$this->id' aria-hidden='true'>
                 <div class='modal-dialog'>
                     <div class='modal-content'>
 
                         <div class='modal-header'>
                             <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                            <h4 class='modal-title' id='modalConfirmTitle'>Confirm Delete</h4>
+                            <h4 class='modal-title' id='modalConfirmTitle'>$this->title</h4>
                         </div>
 
                         <div class='modal-body' id='modalConfirmBody'>
@@ -71,6 +73,12 @@ class Lib_modal extends Lib_html{
                 </div>
             </div>
         ";
+        
+        if($return){
+            return $html;
+        }
+        
+        echo $html;
     }
     //--------------------------------------------------------------------------
 }
