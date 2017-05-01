@@ -16,7 +16,17 @@ var system = {
                 format = "yyyy-mm-dd";
             }
             return new Date(dateVal).toDateString(format);
-        }
+        },
+        momentDateFormat:{
+            DATETIME:"YYYY-MM-DD HH:mm:ss", //2017-05-24 12:12:12
+            DATE:"YYYY-MM-DD", //2017-05-24
+            FORMAT_1:"YYYY-MM-DD", //2017-05-24
+            FORMAT_2:"YYYY-MM-DD LT", //2017-05-24 5:25 PM
+            FORMAT_3:"DD MMMM YYYY LT", //17 May 2017 6:56 PM
+            FORMAT_4:"Do MMMM YYYY - LT", //18th May 2017 - 7:30 PM
+            FORMAT_5:"LT", //7:30 PM
+            FORMAT_6:"MMMM YYYY", //August 2017
+        },
     },
     ajax: {
         requestFunction: function(url, func, options) {

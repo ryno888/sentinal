@@ -151,8 +151,8 @@ class CI_Controller {
 	}
 	// --------------------------------------------------------------------
 
-	public function request_db($table = false) {
-        return request_db($table);
+	public function request_db($table, $key = false) {
+        return request_db($table, $key);
 	}
     // --------------------------------------------------------------------
 }

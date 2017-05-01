@@ -11,7 +11,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Dumping structure for table loc_sentinal.address
-DROP TABLE IF EXISTS `address`;
 CREATE TABLE IF NOT EXISTS `address` (
   `add_id` int(11) DEFAULT NULL,
   `add_ref_person` int(11) DEFAULT NULL,
@@ -27,8 +26,22 @@ CREATE TABLE IF NOT EXISTS `address` (
 -- Data exporting was unselected.
 
 
+-- Dumping structure for table loc_sentinal.calendar
+CREATE TABLE IF NOT EXISTS `calendar` (
+	`cal_id` INT(11) NOT NULL AUTO_INCREMENT,
+	`cal_name` VARCHAR(256) NULL DEFAULT '',
+	`cal_description` TEXT NULL,
+	`cal_starttime` DATETIME NULL DEFAULT NULL,
+	`cal_endtime` DATETIME NULL DEFAULT NULL,
+	`cal_options` TEXT NULL,
+	`cal_all_day_event` TINYINT(4) NULL DEFAULT '0',
+	PRIMARY KEY (`cal_id`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+
+
 -- Dumping structure for table loc_sentinal.file
-DROP TABLE IF EXISTS `file`;
 CREATE TABLE IF NOT EXISTS `file` (
   `fil_id` int(11) NOT NULL AUTO_INCREMENT,
   `fil_data` blob,
@@ -40,16 +53,13 @@ CREATE TABLE IF NOT EXISTS `file` (
 
 -- Data exporting was unselected.
 
-
 -- Dumping structure for table loc_sentinal.person
-DROP TABLE IF EXISTS `person`;
 CREATE TABLE IF NOT EXISTS `person` (
   `per_id` int(11) NOT NULL AUTO_INCREMENT,
   `per_type` tinyint(4) NOT NULL DEFAULT '0',
   `per_gender` tinyint(4) NOT NULL DEFAULT '0',
   `per_firstname` varchar(256) NOT NULL DEFAULT '',
   `per_lastname` varchar(256) NOT NULL DEFAULT '',
-  `per_cemis_nr` varchar(256) NOT NULL DEFAULT '',
   `per_name` varchar(256) NOT NULL DEFAULT '',
   `per_email` varchar(256) NOT NULL DEFAULT '',
   `per_telnr` varchar(256) NOT NULL DEFAULT '',
@@ -58,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `person` (
   `per_password` varchar(256) NOT NULL DEFAULT '',
   `per_online` tinyint(4) NOT NULL DEFAULT '0',
   `per_date_created` datetime DEFAULT NULL,
-  `per_birthday` date DEFAULT NULL,
+  `per_birthday` datetime DEFAULT NULL,
   PRIMARY KEY (`per_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -66,7 +76,6 @@ CREATE TABLE IF NOT EXISTS `person` (
 
 
 -- Dumping structure for table loc_sentinal.person_role
-DROP TABLE IF EXISTS `person_role`;
 CREATE TABLE IF NOT EXISTS `person_role` (
   `pel_id` int(11) NOT NULL AUTO_INCREMENT,
   `pel_ref_person` int(11) DEFAULT NULL,
@@ -82,15 +91,16 @@ CREATE TABLE IF NOT EXISTS `person_role` (
 
 
 -- Dumping structure for table loc_sentinal.role
-DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
   `rol_id` int(11) NOT NULL AUTO_INCREMENT,
+  `rol_name` varchar(256) DEFAULT '',
   `rol_code` varchar(256) NOT NULL DEFAULT '',
   `rol_level` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`rol_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

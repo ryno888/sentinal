@@ -241,6 +241,7 @@ error-wrapper.div.container{ margin-top:20px; }
 #calendar-wrap header {
   text-align: center;
 }
+#calendar-wrap .add-event-icon { margin-bottom: 5px; padding: 7px 0px 0px 0px; color: #c10d57; cursor: pointer; }
 
 #calendar {
   width: 100%;

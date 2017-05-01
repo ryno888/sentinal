@@ -1033,9 +1033,13 @@ if ( ! function_exists('function_usable'))
 
     if (!function_exists('request_db')) {
 
-        function request_db($table) {
+        function request_db($table, $key = false, $options = []) {
+            $options_arr = array_merge([
+                "prefix" => "",
+                "suffix" => "",
+            ], $options);
             $obj = Lib_db::load_db_default($table);
-            $id = request($obj->get_key());
+            $id = request($key ? "{$options_arr["prefix"]}{$key}{$options_arr["suffix"]}" : "{$options_arr["prefix"]}{$obj->get_key()}{$options_arr["suffix"]}");
             $obj->get_fromdb($id);
             
             return $obj;
@@ -1046,10 +1050,14 @@ if ( ! function_exists('function_usable'))
 
     if (!function_exists('request_obj')) {
 
-        function request_obj($tabel = false, $key = false) {
+        function request_obj($tabel = false, $key = false, $options = []) {
+            $options_arr = array_merge([
+                "prefix" => "",
+                "suffix" => "",
+            ], $options);
             $obj = Lib_db::load_db_default($tabel);
             foreach ($obj->get_fields_arr() as $field => $field_data_arr) {
-                $value = request($field);
+                $value = request("{$options_arr["prefix"]}{$field}{$options_arr["suffix"]}");
                 $obj->obj->{$field} = $value ? $value : $obj->get_field_default($field);
             }
 

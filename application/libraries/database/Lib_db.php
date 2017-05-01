@@ -12,6 +12,7 @@ class Lib_db{
     
     public $id = false;
     public $obj = false;
+    public $obj_arr = [];
     private $new = false;
 
     //--------------------------------------------------------------------------
@@ -100,18 +101,33 @@ class Lib_db{
         return $this->fields_arr[$field_name]["type"];
     }
     //--------------------------------------------------------------------------
-    public function get_fromdb($sql_where) {
+    public function get_fromdb($sql_where, $options = []) {
+        $options_arr = array_merge([
+            "multiple" => false,
+            "customsql" => false,
+        ], $options);
+        
         $this->set_new();
+        $id_select = $options_arr["multiple"] ? "$this->key AS id, " : "";
+        $where = $sql_where !== false ? "WHERE $sql_where" : "";
+        $customsql = $options_arr["customsql"] ? "$this->table $sql_where" : "$this->table  $where";
         
         if(is_numeric($sql_where)){
-            $this->obj = Lib_database::query("SELECT * FROM $this->table WHERE $this->key = $sql_where", 1);
+            $obj = Lib_database::query("SELECT * FROM $this->table WHERE $this->key = $sql_where", 1);
+        }else if($sql_where){
+            $obj = Lib_database::query("SELECT $id_select $this->table.* FROM $customsql", $options_arr["multiple"] ? false : 1);
         }else{
-            $this->obj = Lib_database::query("SELECT * FROM $this->table WHERE $sql_where", 1);
+            $obj = Lib_database::query("SELECT $id_select $this->table.* FROM $customsql", $options_arr["multiple"] ? false : 1);
         }
         
-        if($this->obj){
+        if(!$options_arr["multiple"] && $obj){
+            $this->obj = $obj;
             $this->id = $this->obj->{$this->key};
+        }else{
+            $this->obj_arr = $obj;
         }
+        
+        
         
         return $this->obj;
     }
@@ -170,16 +186,14 @@ class Lib_db{
     //--------------------------------------------------------------------------
     //static
     //--------------------------------------------------------------------------
-    public static function load_db($table, $sql){
+    public static function load_db($table, $sql, $options = []){
         $class = "db_{$table}";
         $ci = & get_instance();
         $ci->load->library("Lib_db");
         $ci->load->library("db/$class");
         
         $db = new $class;
-        if($sql){
-            $db->get_fromdb($sql);
-        }
+        $db->get_fromdb($sql, $options);
         
         return $db;
     }

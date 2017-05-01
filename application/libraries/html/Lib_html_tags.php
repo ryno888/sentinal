@@ -96,17 +96,25 @@ class Lib_html_tags extends Lib_core{
         $data_arr = array_merge([
             'name'          => $id,
             'id'            => $id,
-            'value'         => $label,
+            'value'         => $id,
             'checked'       => $checked,
             'style'         => '',
             'class'         => '',
         ], $options_arr['attr_arr']);
         
+        $js = '';
+        if($options_arr['onclick']){
+            $js = [
+                'onClick' => $options_arr['onclick']
+            ];
+        }
+        
+        
         $html_options = Lib_html_tags::get_html_options($options);
         $data_arr['class'] = "{$data_arr['class']} {$html_options['css']}";
         $data_arr['style'] = "{$data_arr['style']} {$html_options['style']}";
         
-        return self::wrap_form_group($label.$html_options['span'], $id, form_checkbox($data_arr), $options_arr);
+        return self::wrap_form_group($label.$html_options['span'], $id, form_checkbox($data_arr, '', false, $js), $options_arr);
     }
     //--------------------------------------------------------------------------
     public static function iradio($label, $id, $checked = false, $options = []) {
@@ -356,73 +364,94 @@ class Lib_html_tags extends Lib_core{
     //--------------------------------------------------------------------------
     public static function idate_picker($id, $label = false , $value = false, $options = []){
         $options_arr = array_merge([
-            "autoclose" => true,
-            "format" => CI_DATE,
-            "show_today_btn" => true,
+            "autoclose" => 1,
+            "format" => "system.data.momentDateFormat.DATE",
+            "@readonly" => true,
         ], $options);
         
-        $format = php_dateformat_to_js_dateformat($options_arr["format"]);
-        $input = Lib_html_tags::itext($label, $id, $value, $options_arr);
-        
-        $today_btn = $options_arr["show_today_btn"] ? "todayBtn: 'linked'," : false;
-        $today_btn_highlight = $options_arr["show_today_btn"] ? "todayHighlight: true," : false;
-                
-        switch ($format) {
-            case "mm": 
-                $minViewMode = "minViewMode: 1,";
-                break;
-            case "yyyy": 
-                $minViewMode = "minViewMode: 2,"; 
-                break;
-            default: $minViewMode = false; break;
-        }
-        
-        return "
-            <script>
-                $(document).ready(function(){
-                    $('#$id input').datepicker({
-                        autoclose: {$options_arr["autoclose"]},
-                        format: '$format',
-                        $today_btn
-                        $today_btn_highlight
-                        $minViewMode
-                    });
-                });
-            </script>
-            <div id='$id'>$input</div>
-        ";
+        return Lib_html_tags::idatetime($id, $label, $value, $options_arr);
     }
+//    //--------------------------------------------------------------------------
+//    public static function idate_picker($id, $label = false , $value = false, $options = []){
+//        $options_arr = array_merge([
+//            "autoclose" => true,
+//            "format" => CI_DATE,
+//            "show_today_btn" => true,
+//        ], $options);
+//        
+//        $format = php_dateformat_to_js_dateformat($options_arr["format"]);
+//        $input = Lib_html_tags::itext($label, $id, $value, $options_arr);
+//        
+//        $today_btn = $options_arr["show_today_btn"] ? "todayBtn: 'linked'," : false;
+//        $today_btn_highlight = $options_arr["show_today_btn"] ? "todayHighlight: true," : false;
+//                
+//        switch ($format) {
+//            case "mm": 
+//                $minViewMode = "minViewMode: 1,";
+//                break;
+//            case "yyyy": 
+//                $minViewMode = "minViewMode: 2,"; 
+//                break;
+//            default: $minViewMode = false; break;
+//        }
+//        
+//        return "
+//            <script>
+//                $(document).ready(function(){
+//                    $('#$id input').datepicker({
+//                        autoclose: {$options_arr["autoclose"]},
+//                        format: '$format',
+//                        $today_btn
+//                        $today_btn_highlight
+//                        $minViewMode
+//                    });
+//                });
+//            </script>
+//            <div id='$id'>$input</div>
+//        ";
+//    }
     //--------------------------------------------------------------------------
+    /**
+     * 
+     * @param type $id
+     * @param type $label
+     * @param type $value
+     * @param type $options[format] = System date time format
+     * @param type $options[start_view] = 
+     *      0 or 'hour' for the hour view
+     *      1 or 'day' for the day view
+     *      2 or 'month' for month view (the default)
+     *      3 or 'year' for the 12-month overview
+     *      4 or 'decade' for the 10-year overview. Useful for date-of-birth datetimepickers.
+     * @return type
+     */
     public static function idatetime($id, $label = false , $value = false, $options = []){
         $options_arr = array_merge([
-            "autoclose" => true,
-            "format" => CI_DATETIME,
+            "autoclose" => 1,
+            "format" => "system.data.momentDateFormat.FORMAT_3",
             "@readonly" => true,
-            "append" => '<i class="fa fa-calendar" aria-hidden="true"></i>'
+            "icon" => 'fa-calendar',
         ], $options);
         
-        $format = php_dateformat_to_js_dateformat($options_arr["format"]);
-        $input = Lib_html_tags::itext($label, $id, $value, $options_arr);
         
+        
+        $input = Lib_html_tags::itext($label, $id, false, $options_arr + ["append" => "<i class='fa {$options_arr['icon']}' aria-hidden='true'></i>"]);
+        
+//        format: 'LT'
         return "
-            <script>
-                $(document).ready(function(){
-                    $('.form_datetime').datetimepicker({
-                        weekStart: 1,
-                        todayBtn:  1,
-                        autoclose: 1,
-                        todayHighlight: 1,
-                        startView: 2,
-                        forceParse: 0,
-                        showMeridian: 1
-                    });
-                });
-            </script>
-            
-            <div class='input-group date form_datetime col-md-12' data-date='' data-date-format='$format' data-link-field='$id' data-link-format='dd MM yyyy - HH:ii p'>
-                $input
-            </div>
-            <input type='hidden' id='$id' value='' /><br/>
+                    <div class='form-group'>
+                        <div class='input-group date' id='$id'>
+                            $input
+                        </div>
+                    </div>
+                    <script type='text/javascript'>
+                        $(function () {
+                            $('#$id').datetimepicker({
+                                format: {$options_arr['format']},
+                                defaultDate: '$value'
+                            });
+                        });
+                    </script>
         ";
     }
     //--------------------------------------------------------------------------
@@ -498,7 +527,7 @@ class Lib_html_tags extends Lib_core{
             "prepend" => false,
             "append" => false,
             "hidden" => false,
-            "parent_id" => false,
+            "parent_id" => "{$id}_input_wrapper",
         ], $options);
         
         if($label !== false){

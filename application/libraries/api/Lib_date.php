@@ -55,6 +55,10 @@ class Lib_date{
      * output date format: 24 March 2012
      */
     public static $DATE_FORMAT_12 = "d F Y"; 
+    /**
+     * output date format: 27 April 2017 - 10:25 am
+     */
+    public static $DATE_FORMAT_13 = "d F Y - g:i a"; 
     
     //--------------------------------------------------------------------------------
  	// functions

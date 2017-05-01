@@ -246,11 +246,12 @@ class Lib_html extends Lib_core{
                 case "cancel": $options_arr["btn"] = "btn-danger"; break;
                 default: $options_arr["btn"] = "btn-primary"; break;
             }
-            
         }
         
+        $html_options = Lib_html_tags::get_html_options($options);
+        
         $icon = $options_arr["icon"] ? '<i class="fa '.$options_arr["icon"].'" aria-hidden="true"></i> ' : '';
-        $this->menu_html[] = '<button onclick="'.$onclick.'" class="btn '.$options_arr["btn"].' margin-right-5" type="button">'.$icon.$label.'</button>';
+        $this->menu_html[] = '<button onclick="'.$onclick.'" style="'.$html_options['style'].'" class="btn '.$options_arr["btn"].' '.$html_options['css'].' margin-right-5" type="button" '.$html_options['attr'].' >'.$icon.$label.'</button>';
     }
     //--------------------------------------------------------------------------
     public function add_menu_submitbutton($label, $onclick = false, $options = []) {

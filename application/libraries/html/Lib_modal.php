@@ -21,12 +21,14 @@ class Lib_modal extends Lib_html{
     private $id = false;
     private $title = false;
     private $heading = false;
+    public $cancel_btn_label = "Cancel";
+    public $ok_btn_label = "Ok";
     //--------------------------------------------------------------------------
-    public function __construct($title) {
+    public function __construct($title, $id = false) {
         parent::__construct();
         $this->title = $title;
         $this->container_fluid = true;
-        $this->id = "model_".time();
+        $this->id = $id ? $id: "model_".time();
     }
     //--------------------------------------------------------------------------
     public function header($label, $type = 1, $attributes_arr = []) {
@@ -58,16 +60,14 @@ class Lib_modal extends Lib_html{
 
                         <div class='modal-header'>
                             <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                            <h4 class='modal-title' id='modalConfirmTitle'>$this->title</h4>
+                            <h4 class='modal-title' id='{$this->id}_Title'>$this->title</h4>
                         </div>
 
-                        <div class='modal-body' id='modalConfirmBody'>
+                        <div class='modal-body' id='{$this->id}_Body'>
                             $inner_html
                         </div>
 
                         <div class='modal-footer'>
-                            <button type='button' class='btn btn-danger' id='modalConfirmCancelBtn' data-dismiss='modal'>Cancel</button>
-                            <a class='btn btn-success' id='modalConfirmOkBtn'>Ok</a>
                         </div>
                     </div>
                 </div>

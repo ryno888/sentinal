@@ -68,7 +68,7 @@ class Lib_html_calendar extends Lib_core{
 //        start: new Date(y, m, d-3, 16, 0),
 //        allDay: false,
 //        className: 'info'
-        $this->event_arr[$date][] = [
+        $this->event_arr[Lib_date::strtodate($date)][] = [
             "id" => $options_arr["id"],
             "title" => $title,
             "start" => "new Date($date)",
@@ -89,6 +89,115 @@ class Lib_html_calendar extends Lib_core{
         }
     }
     //--------------------------------------------------------------------------
+    public function add_event_modal($options = [], $modal = false) {
+        
+        if($modal){
+            $this->add_modal($modal);
+        }else{
+            $options_arr = array_merge([
+                "id" => "modalAddEvent",
+                "header" => "Add Event",
+            ], $options);
+            
+            $lib_modal = new Lib_modal($options_arr["header"]);
+            $lib_modal->form("calendar/xadd_event", "form_{$options_arr["id"]}");
+            $lib_modal->add_menu_submitbutton("Save Changes");
+            $lib_modal->add_menu_button("Cancel", "javascript:;", ["@data-dismiss" => "modal"]);
+            $lib_modal->set_id($options_arr["id"]);
+            $lib_modal->add_column("half");
+                $lib_modal->itext("Event Name", "add_cal_name", false, ["required" => true]);
+                $lib_modal->icheckbox("All day event", "add_event_all_day", false, ["onclick" => "
+                    if($('#add_event_all_day').is(':checked')){
+                        $('.add_cal_starttime_wrapper').addClass('hidden');
+                        $('.add_cal_endtime_wrapper').addClass('hidden');
+                        $('#add_all_day_date_input_wrapper').removeClass('hidden');
+                    }else{
+                        $('.add_cal_starttime_wrapper').removeClass('hidden');
+                        $('.add_cal_endtime_wrapper').removeClass('hidden');
+                        $('#add_all_day_date_input_wrapper').addClass('hidden');
+                    }
+                "]);
+//                $lib_modal->idate("Date", "add_all_day_date", false, ["hidden" => true, "required" => true]);
+                $lib_modal->idatetime("Start Time", "add_cal_starttime", Lib_date::strtodatetime("NOW"), ["start_view" => 1, "required" => true]);
+                $lib_modal->idatetime("End Time", "add_cal_endtime", Lib_date::strtodatetime("+ 1 hour"), ["start_view" => 1, "required" => true]);
+            $lib_modal->end_column();
+            $lib_modal->add_column("half");
+                $lib_modal->itextarea("Details", "add_cal_description");
+            $lib_modal->end_column();
+            $lib_modal->add_script("
+                $('body').on('dblclick','.day', function(e){
+                    e.preventDefault();
+                    $('#{$options_arr["id"]}').modal('show');
+                });
+            ");
+            $lib_modal->end_form();
+            $this->add_modal($lib_modal->display(true));
+        }
+    }
+    //--------------------------------------------------------------------------
+    public function edit_event_modal($options = [], $modal = false) {
+        
+        if($modal){
+            $this->add_modal($modal);
+        }else{
+            $options_arr = array_merge([
+                "id" => "modalEditEvent",
+                "header" => "Edit Event",
+                "form_action" => false,
+            ], $options);
+
+            $lib_modal_edit = new Lib_modal($options_arr["header"]);
+            $lib_modal_edit->set_id($options_arr["id"]);
+            $lib_modal_edit->ok_btn_label = "Save";
+            
+            $lib_modal_edit->form($options_arr["form_action"], "form_{$options_arr["id"]}");
+            $lib_modal_edit->add_menu_submitbutton("Save Changes");
+            $lib_modal_edit->add_menu_button("Cancel", "javascript:;", ["@data-dismiss" => "modal"]);
+            $lib_modal_edit->add_column("half");
+                $lib_modal_edit->ihidden("event_id", false);
+                $lib_modal_edit->itext("Event Name", "event_title");
+                $lib_modal_edit->icheckbox("All day event", "event_all_day", false, ["onclick" => "
+                    if($('#event_all_day').is(':checked')){
+                        $('.start_time_wrapper').addClass('hidden');
+                        $('.end_time_wrapper').addClass('hidden');
+                        $('#all_day_date_input_wrapper').removeClass('hidden');
+                    }else{
+                        $('.start_time_wrapper').removeClass('hidden');
+                        $('.end_time_wrapper').removeClass('hidden');
+                        $('#all_day_date_input_wrapper').addClass('hidden');
+                    }
+                "]);
+//                $lib_modal_edit->idate("Date", "all_day_date", false, ["hidden" => true]);
+                $lib_modal_edit->idatetime("Start Time", "start_time", false, ["start_view" => 0]);
+                $lib_modal_edit->idatetime("End Time", "end_time", false, ["start_view" => 0]);
+            $lib_modal_edit->end_column();
+            $lib_modal_edit->add_column("half");
+                $lib_modal_edit->itextarea("Details", "details");
+            $lib_modal_edit->end_column();
+            $lib_modal_edit->add_script("
+                $('body').on('click','.eventItem', function(e){
+                    e.preventDefault();
+                    var self = $(this);
+                    system.ajax.requestFunction('calendar/xget_event', function(response){
+                        if(response.code == 1){
+                            $('#{$options_arr["id"]}').modal('show');
+                            $('#{$options_arr["id"]} #event_id').val(response.event_id);
+                            $('#{$options_arr["id"]} #event_title').val(response.event_title);
+                            $('#{$options_arr["id"]} #all_day_date').val(response.all_day_date);
+                            $('#{$options_arr["id"]} #start_time').val(response.start_time);
+                            $('#{$options_arr["id"]} #end_time').val(response.end_time);
+                            $('#{$options_arr["id"]} #details').val(response.details);
+                        }
+                    }, {data:{event_id:self.attr('data-id')}});
+
+                });
+            ");
+            $lib_modal_edit->end_form();
+            $this->add_modal($lib_modal_edit->display(true));
+        }
+        
+    }
+    //--------------------------------------------------------------------------
     public function render() {
         $counter = 0;
         $html = "";
@@ -102,8 +211,8 @@ class Lib_html_calendar extends Lib_core{
                     $event_html .= "<a class='eventItem' data-id='{$event["id"]}' title='{$event["title"]}'>".Lib_string::limit_string_by_length($event["title"], 17)."</a><br>";
                 }
             }
-            $event_html = $event_html ? "<div class='event nano enlarge'><div class='event-desc nano-content'>$event_html</div></div>" : "";
-            $html .= "<li class='day $other_month $selected'><div class='date'>".Lib_date::strtodate($value["date"], "d")."</div>$event_html</li>";
+            $event_html = $event_html ? "<div class='event nano'><div class='event-desc nano-content'>$event_html</div></div>" : "";
+            $html .= "<li class='day $other_month $selected'><i class='fa fa-plus pull-right add-event-icon' aria-hidden='true' data-date='{$value["date"]}'></i><div class='date pull-left'>".Lib_date::strtodate($value["date"], "d")."</div>$event_html</li>";
             
             if($counter == 7){
                 $this->week_html_arr[] = "
@@ -212,14 +321,10 @@ class Lib_html_calendar extends Lib_core{
                         }, {data:'date='+$(this).attr('month')});
                     });
                     
-                    $('#goToDate').datepicker({
-                        todayBtn: 'linked',
-                    }).on('changeDate', function(ev){
-                        var d = system.data.formatDate(ev.date);
-                        system.ajax.requestFunction('system/xget_calendar', function(response){
-                            $('#calendar-wrap').replaceWith(response);
-                        }, {data:{date:d,selected_date:d}});
-                        $('#goToDate').datepicker('hide');
+                    
+                    $('.add-event-icon').click(function(e){
+                        e.preventDefault();
+                        $('#modalAddEvent').modal('show');
                     });
                 });
                 
@@ -243,6 +348,87 @@ class Lib_html_calendar extends Lib_core{
                 
             </script>
         ";
+//        $result = "
+//            <div id='calendar-wrap' class='container-fluid'>
+//                <div class='row'>
+//                    <div class='col-md-1'></div>
+//                    <div class='col-md-10'>
+//                        <div id='calendar-wrap'>
+//                            <header>
+//                                <h3>
+//                                    <i class='fa fa-arrow-circle-o-left fl padding-right-30 go-to-month cursor-pointer' month='$previous_month' aria-hidden='true'></i>
+//                                        <a href='#' class='btn small calendar-header' id='goToDate' data-date-format='yyyy-mm-dd' data-date='$this->current_date'>$current_month_display</a>
+//                                    <i class='fa fa-arrow-circle-o-right fr padding-left-30 go-to-month cursor-pointer' month='$next_month' aria-hidden='true'></i>
+//                                </h3>
+//
+//                            </header>
+//                            <div id='calendar'>
+//                                <ul class='weekdays'>
+//                                    <li>Sunday</li>
+//                                    <li>Monday</li>
+//                                    <li>Tuesday</li>
+//                                    <li>Wednesday</li>
+//                                    <li>Thursday</li>
+//                                    <li>Friday</li>
+//                                    <li>Saturday</li>
+//                                </ul>
+//                                ".implode(" ", $this->week_html_arr)."
+//
+//                            </div>
+//                        </div>
+//                    </div>
+//                    <div class='col-md-1'></div>
+//                </div>
+//            </div>
+//            
+//            ".  implode(" ", $this->new_event_modal)."
+//
+//            <script>
+//                $(document).ready(function(){
+//                    $('.nano').nanoScroller();
+//
+//                    $('.go-to-month').click(function(){
+//                        system.ajax.requestFunction('system/xget_calendar', function(response){
+//                            $('#calendar-wrap').replaceWith(response);
+//                        }, {data:'date='+$(this).attr('month')});
+//                    });
+//                    
+//                    $('#goToDate').datepicker({
+//                        todayBtn: 'linked',
+//                    }).on('changeDate', function(ev){
+//                        var d = system.data.formatDate(ev.date);
+//                        system.ajax.requestFunction('system/xget_calendar', function(response){
+//                            $('#calendar-wrap').replaceWith(response);
+//                        }, {data:{date:d,selected_date:d}});
+//                        $('#goToDate').datepicker('hide');
+//                    });
+//                    
+//                    $('.add-event-icon').click(function(e){
+//                        e.preventDefault();
+//                        $('#modalAddEvent').modal('show');
+//                    });
+//                });
+//                
+//                $.fn.disableSelection = function() {
+//
+//                return this.attr('unselectable', 'on')
+//                  .css({
+//                    '-moz-user-select': '-moz-none',
+//                    '-moz-user-select': 'none',
+//                    '-o-user-select': 'none',
+//                    '-khtml-user-select': 'none',
+//                    '-webkit-user-select': 'none',
+//                    '-ms-user-select': 'none',
+//                    'user-select': 'none'
+//                  })
+//                  .bind('selectstart', false);
+//              };
+//
+//              // an example
+//              $('#calendar').disableSelection();
+//                
+//            </script>
+//        ";
         
         if($return){
             return $result;
